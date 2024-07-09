@@ -16,7 +16,7 @@ import ResponseInput from '../components/ResponseInput.vue'
         title="Sexual"
         description="Playing with genitals, anuses, orgasms, etc."
       />
-      <ResponseInput id="domestic" title="Domestic" description="Cohabitating; sharing a home." />
+      <ResponseInput id="domestic" title="Domestic" description="Cohabitating, sharing a home." />
     </div>
   </main>
 </template>
