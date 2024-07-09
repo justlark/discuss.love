@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from "vue";
 
-const model = defineModel()
+const model = defineModel();
 
 const props = defineProps<{
-  id: string
-  label: string
-}>()
+  id: string;
+  label: string;
+}>();
 
-const inputId = computed(() => `name-input-${props.id}`)
+const inputId = computed(() => `name-input-${props.id}`);
 </script>
 
 <template>

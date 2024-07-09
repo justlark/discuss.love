@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { newRandomID } from '@/utils/id'
-import NameInput from '../components/NameInput.vue'
+import { newRandomID } from "@/utils/id";
+import NameInput from "../components/NameInput.vue";
 
 const newClientId = () => {
-  return newRandomID(8)
-}
+  return newRandomID(8);
+};
 </script>
 
 <template>

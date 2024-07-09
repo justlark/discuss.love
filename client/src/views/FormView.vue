@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ResponseInput from '../components/ResponseInput.vue'
+import ResponseInput from "../components/ResponseInput.vue";
 </script>
 
 <template>

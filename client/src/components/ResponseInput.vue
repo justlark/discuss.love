@@ -1,14 +1,14 @@
 <script setup lang="ts">
-type ResponseScale = 'yes' | 'no' | 'later'
+type ResponseScale = "yes" | "no" | "later";
 
-const scale = defineModel<ResponseScale>('scale')
-const notes = defineModel('notes')
+const scale = defineModel<ResponseScale>("scale");
+const notes = defineModel("notes");
 
 const props = defineProps<{
-  id: string
-  title: string
-  description: string
-}>()
+  id: string;
+  title: string;
+  description: string;
+}>();
 </script>
 
 <template>
