@@ -1,5 +1,6 @@
-import { AutoRouter, StatusError } from "itty-router";
+import { AutoRouter } from "itty-router";
 import { startSession } from "./kv";
+import { StartRequestBody } from "./api";
 
 const router = AutoRouter();
 

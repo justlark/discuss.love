@@ -5,8 +5,8 @@ import NameInput from "../components/NameInput.vue";
 <template>
   <main>
     <h1>Start a new discussion</h1>
-    <NameInput id="me" label="Your name" />
-    <NameInput id="you" label="Their name" />
+    <NameInput id="sender" label="Your name" />
+    <NameInput id="recipient" label="Their name" />
     <button>Start</button>
   </main>
 </template>
