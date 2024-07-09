@@ -1,8 +1,7 @@
-import { base16 } from "rfc4648";
 import { SharingCode, Players } from "./api";
 
-// No ambiguous characters: 0, o, l, 1, s, 5, 2, z,
-const sharingCodePool = "abcdefghijkmnpqrtuvwxy346789";
+// No ambiguous characters: 0, o, l, 1
+const sharingCodePool = "abcdefghijkmnpqrstuvwxyz23456789";
 const sharingCodeLength = 6;
 
 const newSharingCode = (): string => {
