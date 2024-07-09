@@ -9,6 +9,7 @@ const newClientId = () => {
 
 <template>
   <main>
+    <h1>Start a new discussion</h1>
     <NameInput :id="newClientId()" label="Your name" />
     <NameInput :id="newClientId()" label="Their name" />
     <button>Start</button>
