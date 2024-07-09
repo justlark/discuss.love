@@ -1,3 +1,4 @@
+import 'concrete.css'
 import './assets/main.css'
 
 import { createApp } from 'vue'
