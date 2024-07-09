@@ -13,6 +13,11 @@ const router = createRouter({
       path: '/new',
       name: 'new',
       component: () => import('../views/NewView.vue')
+    },
+    {
+      path: '/form',
+      name: 'form',
+      component: () => import('../views/FormView.vue')
     }
   ]
 })

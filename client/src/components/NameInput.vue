@@ -14,7 +14,7 @@ const inputId = computed(() => `name-input-${props.id}`)
 <template>
   <div class="name-input">
     <label :for="inputId">{{ props.label }}</label>
-    <input :id="inputId" v-model="model" />
+    <input type="text" :id="inputId" v-model="model" />
   </div>
 </template>
 
