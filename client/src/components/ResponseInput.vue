@@ -1,5 +1,5 @@
 <script setup lang="ts">
-type ResponseScale = 'yes' | 'no' | 'later' | 'unsure'
+type ResponseScale = 'yes' | 'no' | 'later'
 
 const scale = defineModel<ResponseScale>('scale')
 const notes = defineModel('notes')
@@ -29,11 +29,6 @@ const props = defineProps<{
       <div class="scale-input">
         <input type="radio" :id="`response-later-${props.id}`" v-model="scale" value="later" />
         <label :for="`response-later-${props.id}`">Not right now, but maybe later</label>
-      </div>
-
-      <div class="scale-input">
-        <input type="radio" :id="`response-unsure-${props.id}`" v-model="scale" value="unsure" />
-        <label :for="`response-unsure-${props.id}`">I'm not sure</label>
       </div>
     </fieldset>
     <p>Give some more detail</p>
