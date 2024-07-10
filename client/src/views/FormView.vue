@@ -155,16 +155,14 @@ onBeforeMount(async () => {
         </p>
       </div>
       <hr />
-      <div class="form">
-        <ResponseInput
-          :id="question.id"
-          :title="question.title"
-          :description="question.description"
-          v-for="question in questions"
-          :key="question.id"
-          ref="responseInputs"
-        />
-      </div>
+      <ResponseInput
+        :id="question.id"
+        :title="question.title"
+        :description="question.description"
+        v-for="question in questions"
+        :key="question.id"
+        ref="responseInputs"
+      />
       <button @click="submitForm">Submit</button>
     </div>
     <div v-else-if="sessionStatus?.state == 'nonexistent'">

@@ -19,7 +19,7 @@ defineExpose({
 </script>
 
 <template>
-  <div>
+  <section>
     <h2>{{ props.title }}</h2>
     <p>{{ props.description }}</p>
     <fieldset class="response-scale">
@@ -40,10 +40,14 @@ defineExpose({
     </fieldset>
     <p>Give some more detail</p>
     <textarea v-model="notes" />
-  </div>
+  </section>
 </template>
 
 <style scoped>
+section {
+  padding: 0;
+}
+
 .response-scale {
   display: flex;
   flex-direction: column;

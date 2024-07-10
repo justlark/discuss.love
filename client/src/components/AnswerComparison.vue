@@ -21,7 +21,7 @@ const description = ref(questionDef.value.description);
 </script>
 
 <template>
-  <div>
+  <section>
     <h2>{{ title }}</h2>
     <p>{{ description }}</p>
     <div class="answer-pair" v-if="props.senderAnswer && props.recipientAnswer">
@@ -40,7 +40,7 @@ const description = ref(questionDef.value.description);
       <i>Someone answered "No" to this question.</i>
     </div>
     <hr />
-  </div>
+  </section>
 </template>
 
 <style scoped>
