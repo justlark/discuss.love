@@ -35,7 +35,7 @@ export type AttributedAnswer = { playerName: string } & QuestionAnswer;
 
 export type AnswerPair = WithQuestionId<ByPlayer<AttributedAnswer>>;
 
-export type FormAnswer = WithQuestionId<ByPlayer<QuestionAnswer>>;
+export type FormAnswer = WithQuestionId<ByPlayer<QuestionAnswer | undefined>>;
 
 export type FormAnswers = Array<FormAnswer>;
 

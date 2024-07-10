@@ -25,19 +25,23 @@ const answerPairs = computed(() => {
   } = sessionInfo.value;
 
   return formAnswers.value.map(({ id, sender, recipient }) => {
-    return {
-      id,
-      sender: {
-        playerName: senderName,
-        answer: sender.answer,
-        notes: sender.notes,
-      },
-      recipient: {
-        playerName: recipientName,
-        answer: recipient.answer,
-        notes: recipient.notes,
-      },
-    };
+    if (!sender || !recipient) {
+      return { id };
+    } else {
+      return {
+        id,
+        sender: {
+          playerName: senderName,
+          answer: sender.answer,
+          notes: sender.notes,
+        },
+        recipient: {
+          playerName: recipientName,
+          answer: recipient.answer,
+          notes: recipient.notes,
+        },
+      };
+    }
   });
 });
 

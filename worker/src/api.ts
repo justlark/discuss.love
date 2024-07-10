@@ -18,7 +18,7 @@ export type QuestionAnswer = Readonly<{
 
 export type FormSubmission = ReadonlyArray<WithQuestionId<QuestionAnswer>>;
 
-export type FormAnswer = WithQuestionId<ByPlayer<QuestionAnswer>>;
+export type FormAnswer = WithQuestionId<ByPlayer<QuestionAnswer | undefined>>;
 
 export type FormAnswers = Array<FormAnswer>;
 

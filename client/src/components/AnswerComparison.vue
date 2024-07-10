@@ -6,8 +6,8 @@ import { questionMap } from "@/questions";
 
 const props = defineProps<{
   id: string;
-  senderAnswer: AttributedAnswer;
-  recipientAnswer: AttributedAnswer;
+  senderAnswer?: AttributedAnswer;
+  recipientAnswer?: AttributedAnswer;
 }>();
 
 const questionDef = computed(() => questionMap.get(props.id));
@@ -24,7 +24,7 @@ const description = ref(questionDef.value.description);
   <div>
     <h2>{{ title }}</h2>
     <p>{{ description }}</p>
-    <div class="answer-pair">
+    <div class="answer-pair" v-if="props.senderAnswer && props.recipientAnswer">
       <QuestionAnswer
         :playerName="props.senderAnswer.playerName"
         :questionAnswer="props.senderAnswer.answer"
@@ -36,6 +36,9 @@ const description = ref(questionDef.value.description);
         :notes="props.recipientAnswer.notes"
       />
     </div>
+    <div class="answer-pair" v-else>
+      <i>Someone answered "No" to this question.</i>
+    </div>
     <hr />
   </div>
 </template>
@@ -44,5 +47,7 @@ const description = ref(questionDef.value.description);
 .answer-pair {
   display: flex;
   justify-content: space-around;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 </style>

@@ -85,6 +85,8 @@ const coalesceAnswers = (sender: FormSubmission, recipient: FormSubmission): For
 
     if (senderAnswer.answer !== "no" && recipientAnswer.answer !== "no") {
       answers.push({ id, sender: senderAnswer, recipient: recipientAnswer });
+    } else {
+      answers.push({ id, sender: undefined, recipient: undefined });
     }
   }
 
@@ -97,8 +99,6 @@ export const getAnswers = async (
 ): Promise<FormAnswers | undefined> => {
   const senderSubmission = await kv.get(submissionKey(code, "sender"));
   const recipientSubmission = await kv.get(submissionKey(code, "recipient"));
-  console.log(senderSubmission);
-  console.log(recipientSubmission);
 
   if (senderSubmission === null || recipientSubmission === null) {
     return undefined;
