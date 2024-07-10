@@ -5,7 +5,7 @@ import { RouterLink } from "vue-router";
 <template>
   <main>
     <h1 class="site-title">The Relationship Smorgasbord</h1>
-    <RouterLink to="/start" class="start-button">Start the discussion!</RouterLink>
+    <RouterLink to="/start" class="start-button nav-link">Start the discussion!</RouterLink>
     <p class="warning">🚧 This site is under construction 🚧</p>
     <p>
       The relationship smorgasbord is a tool for negotiating relationships. Each of you will pick
@@ -38,8 +38,6 @@ import { RouterLink } from "vue-router";
 .start-button {
   display: block;
   text-align: center;
-  font-size: 16pt;
-  font-weight: bold;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }

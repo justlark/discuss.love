@@ -1,11 +1,11 @@
-nav {
-  display: flex;
-  gap: 1rem;
-}
-
 body {
   min-width: 200px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 30px;
+}
+
+.nav-link {
+  font-size: 16pt;
+  font-weight: bold;
 }

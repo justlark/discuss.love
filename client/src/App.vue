@@ -5,8 +5,11 @@ import { RouterLink, RouterView } from "vue-router";
 <template>
   <header>
     <div class="wrapper">
-      <nav>
-        <RouterLink to="/" class="site-title">discuss.love</RouterLink>
+      <nav class="top-nav">
+        <div class="pages">
+          <RouterLink to="/" class="nav-link">discuss.love</RouterLink>
+        </div>
+        <a href="https://github.com/justlark/smorgasbord" class="nav-link">GitHub</a>
       </nav>
     </div>
   </header>
@@ -15,8 +18,13 @@ import { RouterLink, RouterView } from "vue-router";
 </template>
 
 <style scoped>
-.site-title {
-  font-size: 16pt;
-  font-weight: bold;
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pages {
+  display: flex;
+  gap: 1rem;
 }
 </style>
