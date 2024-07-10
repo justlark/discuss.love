@@ -1,22 +1,26 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import ResponseInput from "../components/ResponseInput.vue";
+import rawQuestions from "../assets/questions.json";
+
+interface Question {
+  id: string;
+  title: string;
+  description: string;
+}
+
+const questions = ref<Array<Question>>(rawQuestions);
 </script>
 
 <template>
   <main>
     <h1>What are you looking for?</h1>
-    <div class="form">
+    <div class="form" v-for="question in questions" :key="question.id">
       <ResponseInput
-        id="friendship"
-        title="Friendship"
-        description="Companionship, playfulness, shared activities and interests."
+        :id="question.id"
+        :title="question.title"
+        :description="question.description"
       />
-      <ResponseInput
-        id="sexual"
-        title="Sexual"
-        description="Playing with genitals, anuses, orgasms, etc."
-      />
-      <ResponseInput id="domestic" title="Domestic" description="Cohabitating, sharing a home." />
     </div>
   </main>
 </template>
