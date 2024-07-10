@@ -1,17 +1,25 @@
 import { AutoRouter, IRequestStrict, status } from "itty-router";
-import { startSession, submitForm } from "./kv";
-import { Form, Player, SharingCode, StartRequestBody } from "./api";
+import { startSession, getSessionInfo, submitForm } from "./kv";
+import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
 
 const router = AutoRouter();
 
 type SessionPostRequest = IRequestStrict;
 
 router.post("/sessions", async (request: SessionPostRequest, env: Env) => {
-  const { players } = await request.json<StartRequestBody>();
+  const info = await request.json<SessionInfo>();
 
-  const sharingCode = await startSession(env.KV, players);
+  const sharingCode = await startSession(env.KV, info);
 
   return { code: sharingCode };
+});
+
+type SessionGetRequest = {
+  code: SharingCode;
+} & IRequestStrict;
+
+router.get("/sessions/:code", async (request: SessionGetRequest, env: Env) => {
+  return await getSessionInfo(env.KV, request.code);
 });
 
 type SubmissionPutRequest = {
@@ -20,7 +28,7 @@ type SubmissionPutRequest = {
 } & IRequestStrict;
 
 router.put("/submissions/:code/:player", async (request: SubmissionPutRequest, env: Env) => {
-  const form = await request.json<Form>();
+  const form = await request.json<FormSubmission>();
 
   await submitForm(env.KV, request.code, request.player, form);
 
