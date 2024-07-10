@@ -20,9 +20,9 @@ const router = createRouter({
       component: () => import("../views/FormView.vue"),
     },
     {
-      path: "/answers",
-      name: "answers",
-      component: () => import("../views/AnswersView.vue"),
+      path: "/compare",
+      name: "compare",
+      component: () => import("../views/CompareView.vue"),
     },
   ],
 });

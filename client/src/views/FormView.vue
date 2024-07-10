@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
 import type { QuestionDefinition } from "@/types";
 import rawQuestions from "@/assets/questions.json";
