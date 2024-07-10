@@ -3,7 +3,7 @@ import { getAnswers, startSession, getSessionInfo, submitForm } from "./kv";
 import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
 
 // Support localhost for local development.
-const corsAllowedOrigins = ["https://api.discuss.love", "http://localhost:5173"];
+const corsAllowedOrigins = ["https://discuss.love", "http://localhost:5173"];
 
 const getCorsHeaders = (req: Request): Record<string, string> => {
   const reqOrigin = req.headers.get("Origin");
