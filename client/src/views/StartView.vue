@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { API_URL } from "@/api";
 import NameInput from "@/components/NameInput.vue";
 
@@ -25,6 +25,28 @@ const startSession = async () => {
 
   sharingCode.value = code;
 };
+
+const sharingLink = computed(() => {
+  return `${window.location.origin}/join?code=${sharingCode.value}`;
+});
+
+const isCopied = ref(false);
+
+const copyLink = () => {
+  navigator.clipboard.writeText(sharingLink.value);
+
+  isCopied.value = true;
+
+  setTimeout(() => {
+    isCopied.value = false;
+  }, 2000);
+};
+
+const resetForm = () => {
+  senderName.value = "";
+  recipientName.value = "";
+  sharingCode.value = "";
+};
 </script>
 
 <template>
@@ -33,10 +55,26 @@ const startSession = async () => {
     <NameInput id="sender" label="Your name" v-model="senderName" />
     <NameInput id="recipient" label="Their name" v-model="recipientName" />
     <button @click="startSession">Start</button>
-    <p v-if="sharingCode">
-      <strong>Your sharing code</strong>: <code>{{ sharingCode }}</code>
-    </p>
+    <div v-if="sharingCode">
+      <p>Send the other person this link:</p>
+      <span class="copy-button">
+        <button @click="copyLink">Copy Link</button>
+        <span class="copy-confirmation" v-if="isCopied">Copied!</span>
+      </span>
+      <button @click="resetForm">Reset</button>
+    </div>
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.copy-button {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.copy-confirmation {
+  font-size: 13pt;
+  filter: brightness(80%);
+}
+</style>
