@@ -12,7 +12,7 @@ const props = defineProps<{
   <div class="question-answer">
     <strong>{{ props.playerName }}</strong
     >: {{ humanReadableAnswer(props.questionAnswer) }}
-    <p v-if="props.notes">{{ props.notes }}</p>
+    <blockquote v-if="props.notes">{{ props.notes }}</blockquote>
   </div>
 </template>
 
