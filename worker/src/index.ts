@@ -1,17 +1,37 @@
-import { AutoRouter, IRequestStrict, status } from "itty-router";
+import { AutoRouter, IRequestStrict, json, status } from "itty-router";
 import { getAnswers, startSession, getSessionInfo, submitForm } from "./kv";
 import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
+
+// Support localhost for local development.
+const corsAllowedOrigins = ["https://api.discuss.love", "http://localhost:5173"];
+
+const getCorsHeaders = (req: Request): Record<string, string> => {
+  const reqOrigin = req.headers.get("Origin");
+
+  if (reqOrigin !== null && corsAllowedOrigins.includes(reqOrigin)) {
+    return {
+      "Access-Control-Allow-Origin": reqOrigin,
+      "Access-Control-Allow-Headers": "Content-Type",
+    };
+  }
+
+  return {};
+};
 
 const router = AutoRouter();
 
 type SessionPostRequest = IRequestStrict;
+
+router.options("*", (request: IRequestStrict) => {
+  return status(200, { headers: { ...getCorsHeaders(request) } });
+});
 
 router.post("/sessions", async (request: SessionPostRequest, env: Env) => {
   const info = await request.json<SessionInfo>();
 
   const sharingCode = await startSession(env.KV, info);
 
-  return { code: sharingCode };
+  return json({ code: sharingCode }, { status: 201, headers: { ...getCorsHeaders(request) } });
 });
 
 type SessionGetRequest = {
@@ -19,7 +39,10 @@ type SessionGetRequest = {
 } & IRequestStrict;
 
 router.get("/sessions/:code", async (request: SessionGetRequest, env: Env) => {
-  return await getSessionInfo(env.KV, request.code);
+  return json(await getSessionInfo(env.KV, request.code), {
+    status: 200,
+    headers: { ...getCorsHeaders(request) },
+  });
 });
 
 type SubmissionPutRequest = {
@@ -40,7 +63,10 @@ type SubmissionGetRequest = {
 } & IRequestStrict;
 
 router.get("/submissions/:code", async (request: SubmissionGetRequest, env: Env) => {
-  return await getAnswers(env.KV, request.code);
+  return json(await getAnswers(env.KV, request.code), {
+    status: 200,
+    headers: { ...getCorsHeaders(request) },
+  });
 });
 
 export default router satisfies ExportedHandler<Env>;

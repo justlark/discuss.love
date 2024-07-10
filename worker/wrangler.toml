@@ -1,8 +1,12 @@
 #:schema node_modules/wrangler/config-schema.json
-name = "worker"
+name = "smorgasbord"
 main = "src/index.ts"
 compatibility_date = "2024-07-01"
 compatibility_flags = ["nodejs_compat"]
+
+[route]
+pattern = "api.discuss.love"
+custom_domain = true
 
 [[kv_namespaces]]
 binding = "KV"
