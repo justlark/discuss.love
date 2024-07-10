@@ -1,5 +1,7 @@
 # The Relationship Smorgasbord
 
+🚧 **This project is a work in progress.** 🚧
+
 ## Copyright
 
 Copyright © 2024 Lark Aster
