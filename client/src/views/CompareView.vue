@@ -7,7 +7,10 @@ import { API_URL } from "@/api";
 const sharingCode = ref(localStorage.getItem("code"));
 
 const responseStatus = ref<
-  { state: "error"; error: string } | { state: "waiting" } | { state: "success" }
+  | { state: "error"; error: string }
+  | { state: "waiting" }
+  | { state: "expired" }
+  | { state: "success" }
 >();
 
 const sessionInfo = ref<SessionInfo>();
@@ -47,6 +50,13 @@ onBeforeMount(async () => {
     sessionResponse.json(),
     submissionResponse.json(),
   ]);
+
+  if (sessionResponse.status === 404) {
+    responseStatus.value = {
+      state: "expired",
+    };
+    return;
+  }
 
   if (sessionResponse.status !== 200) {
     responseStatus.value = {
@@ -99,6 +109,9 @@ onBeforeMount(async () => {
         One of you hasn't submitted their answers yet! Wait until everyone is done and then reload
         this page.
       </p>
+    </div>
+    <div v-else-if="responseStatus?.state == 'expired'">
+      <p>This session has expired; you can no longer see each others' answers.</p>
     </div>
     <div v-else-if="responseStatus?.state == 'error'">
       <p>Error: {{ responseStatus.error }}</p>
