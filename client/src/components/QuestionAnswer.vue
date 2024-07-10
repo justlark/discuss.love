@@ -16,4 +16,8 @@ const props = defineProps<{
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+blockquote {
+  margin-bottom: 0;
+}
+</style>
