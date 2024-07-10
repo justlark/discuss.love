@@ -3,6 +3,7 @@ import { computed, onBeforeMount, ref } from "vue";
 import type { FormAnswers, SessionInfo } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
 import { API_URL } from "@/api";
+import { questions } from "@/questions";
 
 const sharingCode = ref(localStorage.getItem("code"));
 

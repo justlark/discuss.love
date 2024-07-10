@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
-import type { QuestionDefinition, SessionInfo } from "@/types";
-import rawQuestions from "@/assets/questions.json";
+import type { SessionInfo } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
+import { questions } from "@/questions";
 import { API_URL } from "@/api";
-
-const questions = ref<Array<QuestionDefinition>>(rawQuestions);
 
 const route = useRoute();
 const router = useRouter();
@@ -27,8 +25,8 @@ const responseInputs = ref<Array<InstanceType<typeof ResponseInput>>>([]);
 const submitForm = () => {
   const responses = responseInputs.value.map((element) => ({
     id: element.id,
-    answer: element.answer,
-    notes: element.notes,
+    answer: element.answer ?? "no",
+    notes: element.notes ?? "",
   }));
 
   fetch(`${API_URL}/submissions/${currentSharingCode.value}/${player.value}`, {

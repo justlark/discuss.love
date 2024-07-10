@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import rawQuestions from "../assets/questions.json";
-import type { QuestionDefinition, AttributedAnswer } from "@/types";
+import type { AttributedAnswer } from "@/types";
 import QuestionAnswer from "@/components/QuestionAnswer.vue";
+import { questionMap } from "@/questions";
 
 const props = defineProps<{
   id: string;
@@ -10,13 +10,7 @@ const props = defineProps<{
   recipientAnswer: AttributedAnswer;
 }>();
 
-const questions: Array<QuestionDefinition> = rawQuestions;
-
-const questionMap = computed(
-  () => new Map(questions.map((q) => [q.id, { title: q.title, description: q.description }])),
-);
-
-const questionDef = computed(() => questionMap.value.get(props.id));
+const questionDef = computed(() => questionMap.get(props.id));
 
 if (questionDef.value === undefined) {
   throw new Error(`Question with id '${props.id}' not found.`);
