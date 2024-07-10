@@ -37,7 +37,7 @@ const description = ref(questionDef.value.description);
       />
     </div>
     <div class="answer-pair" v-else>
-      <i>Someone answered "No" to this question.</i>
+      <i>Someone said "No" to this.</i>
     </div>
     <hr />
   </section>
