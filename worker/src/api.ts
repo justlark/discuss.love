@@ -20,7 +20,7 @@ export type FormSubmission = ReadonlyArray<WithQuestionId<QuestionAnswer>>;
 
 export type FormAnswer = WithQuestionId<ByPlayer<QuestionAnswer>>;
 
-export type FormAnswers = ReadonlyArray<FormAnswer>;
+export type FormAnswers = Array<FormAnswer>;
 
 export type PlayerNames = ByPlayer<string>;
 

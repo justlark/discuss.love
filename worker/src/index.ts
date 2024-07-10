@@ -1,5 +1,5 @@
 import { AutoRouter, IRequestStrict, status } from "itty-router";
-import { startSession, getSessionInfo, submitForm } from "./kv";
+import { getAnswers, startSession, getSessionInfo, submitForm } from "./kv";
 import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
 
 const router = AutoRouter();
@@ -40,7 +40,7 @@ type SubmissionGetRequest = {
 } & IRequestStrict;
 
 router.get("/submissions/:code", async (request: SubmissionGetRequest, env: Env) => {
-  // TODO
+  return await getAnswers(env.KV, request.code);
 });
 
 export default router satisfies ExportedHandler<Env>;

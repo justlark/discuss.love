@@ -1,5 +1,12 @@
 import { StatusError } from "itty-router";
-import { SharingCode, PlayerNames, FormSubmission, Player, FormAnswers, SessionInfo } from "./api";
+import {
+  SharingCode,
+  FormSubmission,
+  Player,
+  FormAnswers,
+  SessionInfo,
+  QuestionAnswer,
+} from "./api";
 
 // No ambiguous characters: 0, o, l, 1
 const sharingCodePool = "abcdefghijkmnpqrstuvwxyz23456789";
@@ -58,17 +65,37 @@ export const submitForm = async (
     throw new StatusError(400, "Player must be either 'sender' or 'recipient'.");
   }
 
-  kv.put(submissionKey(code, player), JSON.stringify(form), { expirationTtl: submissionTtl });
+  await kv.put(submissionKey(code, player), JSON.stringify(form), { expirationTtl: submissionTtl });
 };
 
+const answersByQuestion = (submission: FormSubmission): Map<string, QuestionAnswer> =>
+  new Map(submission.map(({ id, answer, notes }) => [id, { answer, notes }]));
+
 const coalesceAnswers = (sender: FormSubmission, recipient: FormSubmission): FormAnswers => {
-  // TODO
-  return [];
+  const senderAnswers = answersByQuestion(sender);
+  const recipientAnswers = answersByQuestion(recipient);
+
+  const answers: FormAnswers = [];
+
+  for (const [id, senderAnswer] of senderAnswers) {
+    const recipientAnswer = recipientAnswers.get(id);
+    if (recipientAnswer === undefined) {
+      throw new StatusError(400, `Recipient did not submit an answer to question with ID '${id}'.`);
+    }
+
+    if (senderAnswer.answer !== "no" && recipientAnswer.answer !== "no") {
+      answers.push({ id, sender: senderAnswer, recipient: recipientAnswer });
+    }
+  }
+
+  return answers;
 };
 
 export const getAnswers = async (kv: KVNamespace, code: SharingCode): Promise<FormAnswers> => {
   const senderSubmission = await kv.get(submissionKey(code, "sender"));
   const recipientSubmission = await kv.get(submissionKey(code, "recipient"));
+  console.log(senderSubmission);
+  console.log(recipientSubmission);
 
   if (senderSubmission === null || recipientSubmission === null) {
     throw new StatusError(404, `Not all users have submitted their answers.`);
