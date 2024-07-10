@@ -44,15 +44,6 @@ const copyLink = () => {
     isCopied.value = false;
   }, 2000);
 };
-
-const resetForm = () => {
-  senderName.value = "";
-  recipientName.value = "";
-  sharingCode.value = "";
-
-  localStorage.removeItem("code");
-  localStorage.removeItem("player");
-};
 </script>
 
 <template>
@@ -67,7 +58,6 @@ const resetForm = () => {
         <button @click="copyLink">Copy Link</button>
         <span class="copy-confirmation" v-if="isCopied">Copied!</span>
       </span>
-      <button @click="resetForm">Reset</button>
     </div>
   </main>
 </template>
