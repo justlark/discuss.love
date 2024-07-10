@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
 import type { QuestionDefinition, SessionInfo } from "@/types";
 import rawQuestions from "@/assets/questions.json";
@@ -36,6 +36,25 @@ const submitForm = () => {
     },
     body: JSON.stringify(responses),
   });
+};
+
+const sharingLink = computed(() => {
+  // We build this URL instead of just using the `window.location.href` because
+  // it is possible for a user to rejoin a previous session with the session
+  // code query param omitted.
+  return `${window.location.origin}/join?code=${currentSharingCode.value}`;
+});
+
+const isCopied = ref(false);
+
+const copyLink = () => {
+  navigator.clipboard.writeText(sharingLink.value);
+
+  isCopied.value = true;
+
+  setTimeout(() => {
+    isCopied.value = false;
+  }, 2000);
 };
 
 onBeforeMount(async () => {
@@ -111,13 +130,29 @@ onBeforeMount(async () => {
   <main>
     <h1>What are you looking for?</h1>
     <div v-if="sessionStatus?.state == 'success'">
-      <p v-if="otherPlayerName">
-        <i
-          >You're answering these questions for <strong>{{ otherPlayerName }}</strong
-          >. Want to start over with a new person?
-          <RouterLink to="/start">Click here</RouterLink>.</i
-        >
-      </p>
+      <div v-if="player == 'sender'">
+        <p>
+          <i>
+            Send <strong>{{ otherPlayerName }}</strong> a link to this page so they can join the
+            discussion. Want to start over with a new person?
+            <RouterLink to="/start">Click here</RouterLink>.
+          </i>
+        </p>
+        <span class="copy-button">
+          <button @click="copyLink">Copy Link</button>
+          <span class="copy-confirmation" v-if="isCopied">Copied!</span>
+        </span>
+      </div>
+      <div v-else>
+        <p>
+          <i
+            >You're answering these questions for <strong>{{ otherPlayerName }}</strong
+            >. Want to start over with a new person?
+            <RouterLink to="/start">Click here</RouterLink>.</i
+          >
+        </p>
+      </div>
+      <hr />
       <div class="form">
         <ResponseInput
           :id="question.id"
@@ -142,4 +177,15 @@ onBeforeMount(async () => {
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.copy-button {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.copy-confirmation {
+  font-size: 13pt;
+  filter: brightness(80%);
+}
+</style>

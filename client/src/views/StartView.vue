@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { API_URL } from "@/api";
 import NameInput from "@/components/NameInput.vue";
+import { useRouter } from "vue-router";
 
 const senderName = ref<string>();
 const recipientName = ref<string>();
-const sharingCode = ref<string>();
+
+const router = useRouter();
 
 const startSession = async () => {
   const response = await fetch(`${API_URL}/sessions`, {
@@ -26,23 +28,7 @@ const startSession = async () => {
   localStorage.setItem("code", code);
   localStorage.setItem("player", "sender");
 
-  sharingCode.value = code;
-};
-
-const sharingLink = computed(() => {
-  return `${window.location.origin}/join?code=${sharingCode.value}`;
-});
-
-const isCopied = ref(false);
-
-const copyLink = () => {
-  navigator.clipboard.writeText(sharingLink.value);
-
-  isCopied.value = true;
-
-  setTimeout(() => {
-    isCopied.value = false;
-  }, 2000);
+  await router.push({ path: "/join", query: { code } });
 };
 </script>
 
@@ -52,25 +38,7 @@ const copyLink = () => {
     <NameInput id="sender" label="Your name" v-model="senderName" />
     <NameInput id="recipient" label="Their name" v-model="recipientName" />
     <button @click="startSession">Start</button>
-    <div v-if="sharingCode">
-      <p>Send the other person this link:</p>
-      <span class="copy-button">
-        <button @click="copyLink">Copy Link</button>
-        <span class="copy-confirmation" v-if="isCopied">Copied!</span>
-      </span>
-    </div>
   </main>
 </template>
 
-<style scoped>
-.copy-button {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.copy-confirmation {
-  font-size: 13pt;
-  filter: brightness(80%);
-}
-</style>
+<style scoped></style>
