@@ -24,29 +24,17 @@ defineExpose({
     <p>{{ props.description }}</p>
     <fieldset class="response-scale">
       <div class="scale-input">
-        <input
-          type="radio"
-          required
-          :id="`response-yes-${props.id}`"
-          v-model="answer"
-          value="yes"
-        />
+        <input type="radio" :id="`response-yes-${props.id}`" v-model="answer" value="yes" />
         <label :for="`response-yes-${props.id}`">{{ humanReadableAnswer("yes") }}</label>
       </div>
 
       <div class="scale-input">
-        <input type="radio" required :id="`response-no-${props.id}`" v-model="answer" value="no" />
+        <input type="radio" :id="`response-no-${props.id}`" v-model="answer" value="no" checked />
         <label :for="`response-no-${props.id}`">{{ humanReadableAnswer("no") }}</label>
       </div>
 
       <div class="scale-input">
-        <input
-          type="radio"
-          required
-          :id="`response-later-${props.id}`"
-          v-model="answer"
-          value="later"
-        />
+        <input type="radio" :id="`response-later-${props.id}`" v-model="answer" value="later" />
         <label :for="`response-later-${props.id}`">{{ humanReadableAnswer("later") }}</label>
       </div>
     </fieldset>
