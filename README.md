@@ -2,6 +2,39 @@
 
 🚧 **This project is a work in progress.** 🚧
 
+## Architecture
+
+The site is a Jamstack Vue.js app hosted on [Cloudflare
+Pages](https://developers.cloudflare.com/pages). The client app is in this repo
+under [`./client/`](./client).
+
+The backend is a [Cloudflare Worker](https://developers.cloudflare.com/workers/)
+which stores session state in [Cloudflare
+KV](https://developers.cloudflare.com/kv/). The worker is in this repo under
+[`./worker/`](./worker).
+
+The list of questions is defined [in a JSON
+document](./client/src/assets/questions.json) which is used to dynamically build
+the input form
+
+## Development
+
+To run the app locally, you'll need to spin up a local instance of the worker.
+It must be running on port `8787`.
+
+```shell
+cd ./worker/
+npx wrangler dev
+```
+
+Then you can start the local dev server.
+
+```shell
+cd ./client/
+npm install
+npm run dev
+```
+
 ## Copyright
 
 Copyright © 2024 Lark Aster
