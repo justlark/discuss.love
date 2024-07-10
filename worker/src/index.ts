@@ -12,6 +12,7 @@ const getCorsHeaders = (req: Request): Record<string, string> => {
     return {
       "Access-Control-Allow-Origin": reqOrigin,
       "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
     };
   }
 
@@ -55,7 +56,7 @@ router.put("/submissions/:code/:player", async (request: SubmissionPutRequest, e
 
   await submitForm(env.KV, request.code, request.player, form);
 
-  return status(201);
+  return status(201, { headers: { ...getCorsHeaders(request) } });
 });
 
 type SubmissionGetRequest = {
