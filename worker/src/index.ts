@@ -2,29 +2,12 @@ import { AutoRouter, IRequestStrict, error, json, status } from "itty-router";
 import { getAnswers, startSession, getSessionInfo, submitForm } from "./kv";
 import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
 
-// Support localhost for local development.
-const corsAllowedOrigins = ["https://discuss.love", "http://localhost:5173"];
-
-const getCorsHeaders = (req: Request): Record<string, string> => {
-  const reqOrigin = req.headers.get("Origin");
-
-  if (reqOrigin !== null && corsAllowedOrigins.includes(reqOrigin)) {
-    return {
-      "Access-Control-Allow-Origin": reqOrigin,
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
-    };
-  }
-
-  return {};
-};
-
 const router = AutoRouter();
 
 type SessionPostRequest = IRequestStrict;
 
-router.options("*", (request: IRequestStrict) => {
-  return status(200, { headers: { ...getCorsHeaders(request) } });
+router.options("*", () => {
+  return status(200);
 });
 
 router.post("/sessions", async (request: SessionPostRequest, env: Env) => {
@@ -32,7 +15,7 @@ router.post("/sessions", async (request: SessionPostRequest, env: Env) => {
 
   const sharingCode = await startSession(env.KV, info);
 
-  return json({ code: sharingCode }, { status: 201, headers: { ...getCorsHeaders(request) } });
+  return json({ code: sharingCode }, { status: 201 });
 });
 
 type SessionGetRequest = {
@@ -40,10 +23,7 @@ type SessionGetRequest = {
 } & IRequestStrict;
 
 router.get("/sessions/:code", async (request: SessionGetRequest, env: Env) => {
-  return json(await getSessionInfo(env.KV, request.code), {
-    status: 200,
-    headers: { ...getCorsHeaders(request) },
-  });
+  return await getSessionInfo(env.KV, request.code);
 });
 
 type SubmissionPutRequest = {
@@ -56,7 +36,7 @@ router.put("/submissions/:code/:player", async (request: SubmissionPutRequest, e
 
   await submitForm(env.KV, request.code, request.player, form);
 
-  return status(201, { headers: { ...getCorsHeaders(request) } });
+  return status(201);
 });
 
 type SubmissionGetRequest = {
@@ -70,10 +50,7 @@ router.get("/submissions/:code", async (request: SubmissionGetRequest, env: Env)
     return error(404, "Not all players have submitted their answers yet.");
   }
 
-  return json(answers, {
-    status: 200,
-    headers: { ...getCorsHeaders(request) },
-  });
+  return answers;
 });
 
 export default router satisfies ExportedHandler<Env>;
