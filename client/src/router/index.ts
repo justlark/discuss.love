@@ -10,8 +10,8 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/new",
-      name: "new",
+      path: "/start",
+      name: "start",
       component: () => import("../views/NewView.vue"),
     },
     {
@@ -21,7 +21,7 @@ const router = createRouter({
     },
     {
       path: "/answers",
-      name: "form",
+      name: "answers",
       component: () => import("../views/AnswersView.vue"),
     },
   ],
