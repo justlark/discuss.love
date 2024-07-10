@@ -3,12 +3,14 @@ import { computed, onBeforeMount, ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
 import type { QuestionDefinition, SessionInfo } from "@/types";
 import rawQuestions from "@/assets/questions.json";
-import { RouterLink, useRoute } from "vue-router";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import { API_URL } from "@/api";
 
 const questions = ref<Array<QuestionDefinition>>(rawQuestions);
 
 const route = useRoute();
+const router = useRouter();
+
 const currentSharingCode = ref<string>(route.query.code as string);
 
 // We assume the user is the recipient player by default. If they are the
@@ -36,6 +38,8 @@ const submitForm = () => {
     },
     body: JSON.stringify(responses),
   });
+
+  router.push({ path: "/compare" });
 };
 
 const sharingLink = computed(() => {
