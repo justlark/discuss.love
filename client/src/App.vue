@@ -9,7 +9,7 @@ import { RouterLink, RouterView } from "vue-router";
         <div class="pages">
           <RouterLink to="/" class="nav-link">discuss.love</RouterLink>
         </div>
-        <a href="https://github.com/justlark/smorgasbord" class="nav-link">GitHub</a>
+        <a href="https://github.com/justlark/smorgasbord" class="nav-link" target="_blank">GitHub</a>
       </nav>
     </div>
   </header>
