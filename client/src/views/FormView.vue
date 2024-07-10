@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import ResponseInput from "../components/ResponseInput.vue";
-import rawQuestions from "../assets/questions.json";
+import ResponseInput from "@/components/ResponseInput.vue";
+import type { QuestionDefinition } from "@/types";
+import rawQuestions from "@/assets/questions.json";
 
-interface Question {
-  id: string;
-  title: string;
-  description: string;
-}
-
-const questions = ref<Array<Question>>(rawQuestions);
+const questions = ref<Array<QuestionDefinition>>(rawQuestions);
 </script>
 
 <template>

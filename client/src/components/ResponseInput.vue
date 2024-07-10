@@ -1,7 +1,7 @@
 <script setup lang="ts">
-type ResponseScale = "yes" | "no" | "later";
+import { humanReadableAnswer, type AnswerType } from "@/types";
 
-const scale = defineModel<ResponseScale>("scale");
+const answer = defineModel<AnswerType>("answer");
 const notes = defineModel("notes");
 
 const props = defineProps<{
@@ -17,18 +17,18 @@ const props = defineProps<{
     <p>{{ props.description }}</p>
     <fieldset class="response-scale">
       <div class="scale-input">
-        <input type="radio" :id="`response-yes-${props.id}`" v-model="scale" value="yes" />
-        <label :for="`response-yes-${props.id}`">Yes</label>
+        <input type="radio" :id="`response-yes-${props.id}`" v-model="answer" value="yes" />
+        <label :for="`response-yes-${props.id}`">{{ humanReadableAnswer("yes") }}</label>
       </div>
 
       <div class="scale-input">
-        <input type="radio" :id="`response-no-${props.id}`" v-model="scale" value="no" />
-        <label :for="`response-no-${props.id}`">No</label>
+        <input type="radio" :id="`response-no-${props.id}`" v-model="answer" value="no" />
+        <label :for="`response-no-${props.id}`">{{ humanReadableAnswer("no") }}</label>
       </div>
 
       <div class="scale-input">
-        <input type="radio" :id="`response-later-${props.id}`" v-model="scale" value="later" />
-        <label :for="`response-later-${props.id}`">Not right now, but maybe later</label>
+        <input type="radio" :id="`response-later-${props.id}`" v-model="answer" value="later" />
+        <label :for="`response-later-${props.id}`">{{ humanReadableAnswer("later") }}</label>
       </div>
     </fieldset>
     <p>Give some more detail</p>
