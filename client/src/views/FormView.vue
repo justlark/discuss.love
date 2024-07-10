@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
-import type { QuestionDefinition } from "@/types";
+import type { QuestionDefinition, SessionInfo } from "@/types";
 import rawQuestions from "@/assets/questions.json";
-import { useRoute } from "vue-router";
+import { RouterLink, useRoute } from "vue-router";
 import { API_URL } from "@/api";
 
 const questions = ref<Array<QuestionDefinition>>(rawQuestions);
@@ -16,6 +16,8 @@ const storedPlayer = localStorage.getItem("player");
 if (storedPlayer) {
   player.value = storedPlayer;
 }
+
+const otherPlayerName = ref<string>();
 
 const responseInputs = ref<Array<InstanceType<typeof ResponseInput>>>([]);
 
@@ -34,12 +36,27 @@ const submitForm = () => {
     body: JSON.stringify(responses),
   });
 };
+
+onBeforeMount(async () => {
+  const response = await fetch(`${API_URL}/sessions/${sharingCode.value}`);
+  const sessionInfo: SessionInfo = await response.json();
+
+  otherPlayerName.value =
+    player.value === "sender" ? sessionInfo.players.recipient : sessionInfo.players.sender;
+});
 </script>
 
 <template>
   <main>
     <div v-if="sharingCode">
       <h1>What are you looking for?</h1>
+      <p v-if="otherPlayerName">
+        <i
+          >You're answering these questions for <strong>{{ otherPlayerName }}</strong
+          >. Want to start over with a new person?
+          <RouterLink to="/start">Click here</RouterLink>.</i
+        >
+      </p>
       <div class="form">
         <ResponseInput
           :id="question.id"
