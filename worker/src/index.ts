@@ -2,7 +2,17 @@ import { AutoRouter, IRequestStrict, error, json, status } from "itty-router";
 import { getAnswers, startSession, getSessionInfo, submitForm } from "./kv";
 import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
 
-const router = AutoRouter();
+const corsMiddleware = (response: Response) => {
+  response.headers.set("Access-Control-Allow-Origin", "https://discuss.love");
+  response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
+  response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+  return response;
+};
+
+const router = AutoRouter({
+  finally: [corsMiddleware],
+});
 
 type SessionPostRequest = IRequestStrict;
 
