@@ -1,3 +1,5 @@
+import QuestionAnswer from "./components/QuestionAnswer.vue";
+
 export interface QuestionDefinition {
   id: string;
   title: string;
@@ -22,8 +24,21 @@ export interface QuestionAnswer {
   notes: string;
 }
 
-export interface QuestionResponse {
-  id: string;
-  sender: QuestionAnswer;
-  recipient: QuestionAnswer;
-}
+export type WithQuestionId<T> = Readonly<{ id: string }> & T;
+
+export type ByPlayer<T> = {
+  sender: T;
+  recipient: T;
+};
+
+export type AttributedAnswer = { playerName: string } & QuestionAnswer;
+
+export type AnswerPair = WithQuestionId<ByPlayer<AttributedAnswer>>;
+
+export type FormAnswer = WithQuestionId<ByPlayer<QuestionAnswer>>;
+
+export type FormAnswers = Array<FormAnswer>;
+
+export type SessionInfo = {
+  players: ByPlayer<string>;
+};
