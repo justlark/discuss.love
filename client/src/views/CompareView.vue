@@ -6,6 +6,10 @@ import { API_URL } from "@/api";
 
 const sharingCode = ref(localStorage.getItem("code"));
 
+const responseStatus = ref<
+  { state: "error"; error: string } | { state: "waiting" } | { state: "success" }
+>();
+
 const sessionInfo = ref<SessionInfo>();
 const formAnswers = ref<FormAnswers>();
 
@@ -44,6 +48,35 @@ onBeforeMount(async () => {
     submissionResponse.json(),
   ]);
 
+  if (sessionResponse.status !== 200) {
+    responseStatus.value = {
+      state: "error",
+      error: sessionResponseBody.error ?? "Unknown error fetching session data. This may be a bug.",
+    };
+    return;
+  }
+
+  if (submissionResponse.status === 404) {
+    responseStatus.value = {
+      state: "waiting",
+    };
+    return;
+  }
+
+  if (submissionResponse.status !== 200) {
+    responseStatus.value = {
+      state: "error",
+      error:
+        submissionResponseBody.error ??
+        "Unknown error fetching submission data. This may be a bug.",
+    };
+    return;
+  }
+
+  responseStatus.value = {
+    state: "success",
+  };
+
   sessionInfo.value = sessionResponseBody;
   formAnswers.value = submissionResponseBody;
 });
@@ -52,13 +85,24 @@ onBeforeMount(async () => {
 <template>
   <div>
     <h1>Compare answers</h1>
-    <AnswerComparison
-      :id="pair.id"
-      :senderAnswer="pair.sender"
-      :recipientAnswer="pair.recipient"
-      v-for="pair in answerPairs"
-      :key="pair.id"
-    />
+    <div v-if="responseStatus?.state == 'success'">
+      <AnswerComparison
+        :id="pair.id"
+        :senderAnswer="pair.sender"
+        :recipientAnswer="pair.recipient"
+        v-for="pair in answerPairs"
+        :key="pair.id"
+      />
+    </div>
+    <div v-else-if="responseStatus?.state == 'waiting'">
+      <p>
+        One of you hasn't submitted their answers yet! Wait until everyone is done and then reload
+        this page.
+      </p>
+    </div>
+    <div v-else-if="responseStatus?.state == 'error'">
+      <p>Error: {{ responseStatus.error }}</p>
+    </div>
   </div>
 </template>
 

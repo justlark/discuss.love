@@ -1,4 +1,4 @@
-import { AutoRouter, IRequestStrict, json, status } from "itty-router";
+import { AutoRouter, IRequestStrict, error, json, status } from "itty-router";
 import { getAnswers, startSession, getSessionInfo, submitForm } from "./kv";
 import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
 
@@ -64,7 +64,13 @@ type SubmissionGetRequest = {
 } & IRequestStrict;
 
 router.get("/submissions/:code", async (request: SubmissionGetRequest, env: Env) => {
-  return json(await getAnswers(env.KV, request.code), {
+  const answers = await getAnswers(env.KV, request.code);
+
+  if (answers === undefined) {
+    return error(404, "Not all players have submitted their answers yet.");
+  }
+
+  return json(answers, {
     status: 200,
     headers: { ...getCorsHeaders(request) },
   });

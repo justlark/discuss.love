@@ -91,14 +91,17 @@ const coalesceAnswers = (sender: FormSubmission, recipient: FormSubmission): For
   return answers;
 };
 
-export const getAnswers = async (kv: KVNamespace, code: SharingCode): Promise<FormAnswers> => {
+export const getAnswers = async (
+  kv: KVNamespace,
+  code: SharingCode,
+): Promise<FormAnswers | undefined> => {
   const senderSubmission = await kv.get(submissionKey(code, "sender"));
   const recipientSubmission = await kv.get(submissionKey(code, "recipient"));
   console.log(senderSubmission);
   console.log(recipientSubmission);
 
   if (senderSubmission === null || recipientSubmission === null) {
-    throw new StatusError(404, `Not all users have submitted their answers.`);
+    return undefined;
   }
 
   return coalesceAnswers(JSON.parse(senderSubmission), JSON.parse(recipientSubmission));
