@@ -23,6 +23,9 @@ const startSession = async () => {
 
   const { code } = await response.json();
 
+  localStorage.setItem("code", code);
+  localStorage.setItem("player", "sender");
+
   sharingCode.value = code;
 };
 
@@ -46,6 +49,9 @@ const resetForm = () => {
   senderName.value = "";
   recipientName.value = "";
   sharingCode.value = "";
+
+  localStorage.removeItem("code");
+  localStorage.removeItem("player");
 };
 </script>
 

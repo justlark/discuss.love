@@ -15,8 +15,8 @@ const router = createRouter({
       component: () => import("../views/StartView.vue"),
     },
     {
-      path: "/form",
-      name: "form",
+      path: "/join",
+      name: "join",
       component: () => import("../views/FormView.vue"),
     },
     {
