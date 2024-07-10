@@ -10,8 +10,10 @@ const props = defineProps<{
 
 <template>
   <div class="question-answer">
-    <h3>{{ props.playerName }}</h3>
-    <p><strong>Answer</strong>: {{ humanReadableAnswer(props.questionAnswer) }}</p>
+    <p>
+      <strong>{{ props.playerName }}</strong
+      >: {{ humanReadableAnswer(props.questionAnswer) }}
+    </p>
     <p>{{ props.notes }}</p>
   </div>
 </template>

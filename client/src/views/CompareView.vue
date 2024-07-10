@@ -95,6 +95,7 @@ onBeforeMount(async () => {
 <template>
   <div>
     <h1>Compare answers</h1>
+    <hr />
     <div v-if="responseStatus?.state == 'success'">
       <AnswerComparison
         :id="pair.id"
