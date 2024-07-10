@@ -50,4 +50,8 @@ const description = ref(questionDef.value.description);
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
+
+.answer-pair > * {
+  max-width: 50%;
+}
 </style>

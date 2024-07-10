@@ -19,5 +19,6 @@ const props = defineProps<{
 <style scoped>
 blockquote {
   margin-bottom: 0;
+  text-align: justify;
 }
 </style>
