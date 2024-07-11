@@ -114,8 +114,8 @@ onBeforeMount(async () => {
     </div>
     <div v-else-if="responseStatus?.state == 'waiting'">
       <p>
-        One of you hasn't submitted their answers yet! Wait until everyone is done and then reload
-        this page.
+        The other person hasn't submitted their answers yet. Wait until they're done, and then
+        reload this page.
       </p>
     </div>
     <div v-else-if="responseStatus?.state == 'expired'">
