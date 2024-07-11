@@ -29,8 +29,9 @@ const startSession = async () => {
 
   const { code } = await response.json();
 
+  // When a user starts a session, the sharing code is stored in their local
+  // storage so we can differentiate the sender from the recipient.
   localStorage.setItem("code", code);
-  localStorage.setItem("player", "sender");
 
   await router.push({ path: "/join", query: { code } });
 };

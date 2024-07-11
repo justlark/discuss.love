@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
 import type { SessionInfo } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
@@ -9,11 +9,8 @@ import { API_URL } from "@/api";
 const route = useRoute();
 const router = useRouter();
 
-const currentSharingCode = ref<string>(route.query.code as string);
-
-// We assume the user is the recipient player by default. If they are the
-// sending player, they'll have that value set in their browser local storage.
-const player = ref<string>("recipient");
+const sharingCode = ref<string>(route.query.code as string);
+const player = ref<string>();
 
 const sessionStatus = ref<
   { state: "error"; error: string } | { state: "nonexistent" } | { state: "success" }
@@ -29,7 +26,7 @@ const submitForm = () => {
     notes: element.notes ?? "",
   }));
 
-  fetch(`${API_URL}/submissions/${currentSharingCode.value}/${player.value}`, {
+  fetch(`${API_URL}/submissions/${sharingCode.value}/${player.value}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -37,20 +34,13 @@ const submitForm = () => {
     body: JSON.stringify(responses),
   });
 
-  router.push({ path: "/compare", query: { code: currentSharingCode.value } });
+  router.push({ path: "/compare", query: { code: sharingCode.value } });
 };
-
-const sharingLink = computed(() => {
-  // We build this URL instead of just using the `window.location.href` because
-  // it is possible for a user to rejoin a previous session with the session
-  // code query param omitted.
-  return `${window.location.origin}/join?code=${currentSharingCode.value}`;
-});
 
 const isCopied = ref(false);
 
 const copyLink = () => {
-  navigator.clipboard.writeText(sharingLink.value);
+  navigator.clipboard.writeText(window.location.href);
 
   isCopied.value = true;
 
@@ -62,46 +52,11 @@ const copyLink = () => {
 onBeforeMount(async () => {
   const storedSharingCode = localStorage.getItem("code");
 
-  if (storedSharingCode && !currentSharingCode.value) {
-    // Allow the player to return to their previous session, even if they no
-    // longer have the link.
-    currentSharingCode.value = storedSharingCode;
-  }
+  // When a user starts a session, the sharing code is stored in their local
+  // storage so we can differentiate the sender from the recipient.
+  player.value = sharingCode.value === storedSharingCode ? "sender" : "recipient";
 
-  if (
-    storedSharingCode &&
-    currentSharingCode.value &&
-    currentSharingCode.value !== storedSharingCode
-  ) {
-    // The player is joining a new session from their previous one, as the
-    // recipient player. We need to clear their stored player status in case
-    // they were the sending player in their previous session.
-    //
-    // We know they're the recipient player in this case because if they were
-    // the sending player, the sharing code in the URL would match the sharing
-    // code in storage.
-    localStorage.removeItem("player");
-
-    // Store their sharing code so they can come back to this session in the
-    // future.
-    localStorage.setItem("code", currentSharingCode.value);
-  }
-
-  if (!storedSharingCode && currentSharingCode) {
-    // Store their sharing code so they can come back to this session in the
-    // future.
-    localStorage.setItem("code", currentSharingCode.value);
-  }
-
-  const storedPlayer = localStorage.getItem("player");
-
-  // If this player is the sending player, that value would have been set in
-  // storage when they started the session.
-  if (storedPlayer) {
-    player.value = storedPlayer;
-  }
-
-  const sessionResponse = await fetch(`${API_URL}/sessions/${currentSharingCode.value}`);
+  const sessionResponse = await fetch(`${API_URL}/sessions/${sharingCode.value}`);
 
   if (sessionResponse.status === 404) {
     sessionStatus.value = {
