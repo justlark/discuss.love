@@ -10,6 +10,10 @@ const recipientName = ref<string>();
 const router = useRouter();
 
 const startSession = async () => {
+  if (!senderName.value || !recipientName.value) {
+    return;
+  }
+
   const response = await fetch(`${API_URL}/sessions`, {
     method: "POST",
     headers: {
