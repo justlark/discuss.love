@@ -24,7 +24,7 @@ export interface QuestionAnswer {
   notes: string;
 }
 
-export type WithQuestionId<T> = Readonly<{ id: string }> & T;
+export type WithQuestionId<T> = { id: string } & T;
 
 export type ByPlayer<T> = {
   sender: T;

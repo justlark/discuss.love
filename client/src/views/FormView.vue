@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
-import type { SessionInfo } from "@/types";
+import type { QuestionAnswer, SessionInfo, WithQuestionId } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { questions } from "@/questions";
 import { API_URL } from "@/api";
@@ -19,12 +19,52 @@ const otherPlayerName = ref<string>();
 
 const responseInputs = ref<Array<InstanceType<typeof ResponseInput>>>([]);
 
-const submitForm = () => {
-  const responses = responseInputs.value.map((element) => ({
+type Response = WithQuestionId<QuestionAnswer>;
+type StoredResponses = { code: string; responses: Array<Response> };
+
+const collectResponses = (): Array<Response> => {
+  return responseInputs.value.map((element) => ({
     id: element.id,
     answer: element.answer ?? "no",
     notes: element.notes ?? "",
   }));
+};
+
+const storeResponses = () => {
+  localStorage.setItem(
+    "responses",
+    JSON.stringify({ code: sharingCode.value, responses: collectResponses() }),
+  );
+};
+
+const initialStoredResponses = ref<StoredResponses | undefined>();
+
+const storedResponses = computed((): Map<string, QuestionAnswer> | undefined => {
+  if (!initialStoredResponses.value) {
+    return undefined;
+  }
+
+  const { code: storedCode, responses } = initialStoredResponses.value;
+
+  if (storedCode !== sharingCode.value) {
+    return undefined;
+  }
+
+  return new Map(
+    responses.map((response) => [response.id, { answer: response.answer, notes: response.notes }]),
+  );
+});
+
+const getStoredResponse = (id: string): QuestionAnswer | undefined => {
+  if (!storedResponses.value) {
+    return undefined;
+  }
+
+  return storedResponses.value.get(id);
+};
+
+const submitForm = () => {
+  const responses = collectResponses();
 
   fetch(`${API_URL}/submissions/${sharingCode.value}/${player.value}`, {
     method: "PUT",
@@ -55,6 +95,13 @@ onBeforeMount(async () => {
   // When a user starts a session, the sharing code is stored in their local
   // storage so we can differentiate the sender from the recipient.
   player.value = sharingCode.value === storedSharingCode ? "sender" : "recipient";
+
+  // Load the initial responses from the browser local storage so the user can
+  // pick up where they left off.
+  const initialStoredResponsesString = localStorage.getItem("responses");
+  initialStoredResponses.value = initialStoredResponsesString
+    ? JSON.parse(initialStoredResponsesString)
+    : undefined;
 
   const sessionResponse = await fetch(`${API_URL}/sessions/${sharingCode.value}`);
 
@@ -114,9 +161,12 @@ onBeforeMount(async () => {
         :id="question.id"
         :title="question.title"
         :description="question.description"
+        :initialAnswer="getStoredResponse(question.id)?.answer"
+        :initialNotes="getStoredResponse(question.id)?.notes"
         v-for="question in questions"
         :key="question.id"
         ref="responseInputs"
+        @input="storeResponses"
       />
       <button @click="submitForm">Submit</button>
     </div>
