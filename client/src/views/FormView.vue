@@ -37,7 +37,7 @@ const submitForm = () => {
     body: JSON.stringify(responses),
   });
 
-  router.push({ path: "/compare" });
+  router.push({ path: "/compare", query: { code: currentSharingCode.value } });
 };
 
 const sharingLink = computed(() => {

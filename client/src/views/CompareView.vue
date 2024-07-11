@@ -3,9 +3,11 @@ import { computed, onBeforeMount, ref } from "vue";
 import type { FormAnswers, SessionInfo } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
 import { API_URL } from "@/api";
-import { questions } from "@/questions";
+import { useRoute } from "vue-router";
 
-const sharingCode = ref(localStorage.getItem("code"));
+const route = useRoute();
+
+const sharingCode = ref<string>(route.query.code as string);
 
 const responseStatus = ref<
   | { state: "error"; error: string }
