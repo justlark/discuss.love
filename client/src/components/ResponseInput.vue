@@ -72,8 +72,8 @@ const onNotesInput = () => emit("input");
         <label :for="`response-later-${props.id}`">{{ humanReadableAnswer("later") }}</label>
       </div>
     </fieldset>
-    <p>Give some more detail</p>
-    <textarea v-model="notes" @input="onNotesInput" />
+    <p :id="`notes-label-${props.id}`">Give some more detail</p>
+    <textarea v-model="notes" @input="onNotesInput" :aria-describedby="`notes-label-${props.id}`" />
   </section>
 </template>
 
