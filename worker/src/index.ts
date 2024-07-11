@@ -2,6 +2,11 @@ import { AutoRouter, IRequestStrict, error, json, status } from "itty-router";
 import { getAnswers, startSession, getSessionInfo, submitForm } from "./kv";
 import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
 
+// This should be plenty large enough for any reasonable-length form submission.
+// The intent is to prevent users from pasting the complete works of Shakespeare
+// into the text field.
+const FORM_SIZE_LIMIT = 1000 * 100; // 100 KB
+
 const corsMiddleware = (response: Response) => {
   response.headers.set("Access-Control-Allow-Origin", "https://discuss.love");
   response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
@@ -43,6 +48,11 @@ type SubmissionPutRequest = {
 
 router.put("/submissions/:code/:player", async (request: SubmissionPutRequest, env: Env) => {
   const form = await request.json<FormSubmission>();
+
+  // We limit the size of the form submission to prevent abuse.
+  if (JSON.stringify(form).length > FORM_SIZE_LIMIT) {
+    return error(413, "Form submission is too large.");
+  }
 
   await submitForm(env.KV, request.code, request.player, form);
 
