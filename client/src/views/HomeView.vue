@@ -8,9 +8,9 @@ import { RouterLink } from "vue-router";
     <RouterLink to="/start" class="start-button nav-link">Start a discussion</RouterLink>
     <p class="warning">🚧 This site is under construction 🚧</p>
     <p>
-      This is a tool for negotiating relationships. Each of you pick and choose what you want out of
-      your relationship from a menu of options, and once you're both done, you can compare answers
-      to see if you're on the same page or not.
+      This is a tool for negotiating relationships. Each of you will pick and choose what you want
+      out of your relationship from a menu of options, and once you're both done, you can compare
+      answers to see if you're on the same page or not.
     </p>
     <p>
       The purpose of this tool is to start a discussion, not to replace one! Once you compare
