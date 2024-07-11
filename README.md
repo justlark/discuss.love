@@ -4,7 +4,7 @@ This webapp is a tool for negotiating interpersonal relationships.
 
 ## Architecture
 
-The site is a Jamstack Vue.js app hosted on [Cloudflare
+The site is a Vue.js app hosted on [Cloudflare
 Pages](https://developers.cloudflare.com/pages). The client app is in this repo
 under [`./client/`](./client).
 
