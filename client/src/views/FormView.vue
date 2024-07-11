@@ -3,7 +3,7 @@ import { computed, onBeforeMount, ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
 import type { QuestionAnswer, SessionInfo, WithQuestionId } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
-import { questions } from "@/questions";
+import { randomizedQuestions } from "@/questions";
 import { API_URL } from "@/api";
 
 const route = useRoute();
@@ -163,7 +163,7 @@ onBeforeMount(async () => {
         :description="question.description"
         :initialAnswer="getStoredResponse(question.id)?.answer"
         :initialNotes="getStoredResponse(question.id)?.notes"
-        v-for="question in questions"
+        v-for="question in randomizedQuestions(sharingCode)"
         :key="question.id"
         ref="responseInputs"
         @input="storeResponses"
