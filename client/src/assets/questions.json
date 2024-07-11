@@ -6,12 +6,92 @@
   },
   {
     "id": "sex",
-    "title": "Sexual",
+    "title": "Sex",
     "description": "Playing with genitals, anuses, orgasms, etc."
+  },
+  {
+    "id": "cosleeping",
+    "title": "Co-sleeping",
+    "description": "Sleeping in the same bed, not necessarily sexual."
   },
   {
     "id": "domestic",
     "title": "Domestic",
-    "description": "Cohabitating, sharing a home."
+    "description": "Cohabitating, sharing a home, sharing domestic duties."
+  },
+  {
+    "id": "physical-touch",
+    "title": "Physical touch",
+    "description": "Casual touch, cuddling, hugs, pets, hand holding, massage, etc."
+  },
+  {
+    "id": "emotional-commitment",
+    "title": "Emotional commitment",
+    "description": "Expectation of long-term involvement, commitment to relationship maintenance, commitment to working through challenges."
+  },
+  {
+    "id": "coparenting",
+    "title": "Co-parenting",
+    "description": "Raising children together, sharing parenting responsibilities."
+  },
+  {
+    "id": "caretaking",
+    "title": "Caretaking",
+    "description": "Taking care of each other when sick, injured, recovering, etc."
+  },
+  {
+    "id": "emotional-intimacy",
+    "title": "Emotional intimacy",
+    "description": "Sharing vulnerable feelings, mutual emotional support."
+  },
+  {
+    "id": "social",
+    "title": "Social partners",
+    "description": "Attending social events together, meeting family and friends."
+  },
+  {
+    "id": "life-partner",
+    "title": "Life partners",
+    "description": "Sharing long-term goals."
+  },
+  {
+    "id": "labels",
+    "title": "Using partner labels",
+    "description": "Referring to each other as partners, boyfriend/girlfriend, etc."
+  },
+  {
+    "id": "verbal-love",
+    "title": "Expressing love verbally",
+    "description": "Saying \"I love you.\""
+  },
+  {
+    "id": "kissing",
+    "title": "Kissing",
+    "description": "Kissing on the lips, face, neck, etc."
+  },
+  {
+    "id": "financial",
+    "title": "Financial",
+    "description": "Sharing money, accounts, payment responsibilities, property."
+  },
+  {
+    "id": "power-dynamic",
+    "title": "Power dynamic",
+    "description": "Power exchange, dominance/submission."
+  },
+  {
+    "id": "sadomasochism",
+    "title": "Sadism and masochism",
+    "description": "Playing with physical pain."
+  },
+  {
+    "id": "collaboration",
+    "title": "Collaborative partners",
+    "description": "Working together on projects, art, organizing, etc."
+  },
+  {
+    "id": "contact",
+    "title": "Regular contact",
+    "description": "Texting, calling, or otherwise checking in daily or regularly."
   }
 ]
