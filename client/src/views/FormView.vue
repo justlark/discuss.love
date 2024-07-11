@@ -63,16 +63,33 @@ const getStoredResponse = (id: string): QuestionAnswer | undefined => {
   return storedResponses.value.get(id);
 };
 
-const submitForm = () => {
+const submissionStatus = ref<{ state: "error"; error: string } | { state: "success" }>();
+
+const submitForm = async () => {
   const responses = collectResponses();
 
-  fetch(`${API_URL}/submissions/${sharingCode.value}/${player.value}`, {
+  const response = await fetch(`${API_URL}/submissions/${sharingCode.value}/${player.value}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(responses),
   });
+
+  if (response.status !== 201) {
+    const responseBody = await response.json();
+
+    submissionStatus.value = {
+      state: "error",
+      error: responseBody.error ?? "Unknown error submitting your answers. This may be a bug.",
+    };
+
+    return;
+  }
+
+  submissionStatus.value = {
+    state: "success",
+  };
 
   router.push({ path: "/compare", query: { code: sharingCode.value } });
 };
@@ -168,6 +185,9 @@ onBeforeMount(async () => {
         ref="responseInputs"
         @input="storeResponses"
       />
+      <div v-if="submissionStatus?.state == 'error'">
+        <p class="error-message">Error: {{ submissionStatus.error }}</p>
+      </div>
       <button @click="submitForm">Submit</button>
     </div>
     <div v-else-if="sessionStatus?.state == 'nonexistent'">
@@ -177,7 +197,7 @@ onBeforeMount(async () => {
       </p>
     </div>
     <div v-else-if="sessionStatus?.state == 'error'">
-      <p>Error: {{ sessionStatus.error }}</p>
+      <p class="error-message">Error: {{ sessionStatus.error }}</p>
     </div>
   </main>
 </template>

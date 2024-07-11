@@ -84,8 +84,7 @@ onBeforeMount(async () => {
     responseStatus.value = {
       state: "error",
       error:
-        submissionResponseBody.error ??
-        "Unknown error fetching submission data. This may be a bug.",
+        submissionResponseBody.error ?? "Unknown error fetching your answers. This may be a bug.",
     };
     return;
   }
@@ -122,7 +121,7 @@ onBeforeMount(async () => {
       <p>This session has expired; you can no longer see each others' answers.</p>
     </div>
     <div v-else-if="responseStatus?.state == 'error'">
-      <p>Error: {{ responseStatus.error }}</p>
+      <p class="error-message">Error: {{ responseStatus.error }}</p>
     </div>
   </div>
 </template>

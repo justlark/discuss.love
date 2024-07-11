@@ -9,3 +9,8 @@ body {
   font-size: 16pt;
   font-weight: bold;
 }
+
+.error-message {
+  color: #ea868f;
+  font-weight: bold;
+}
