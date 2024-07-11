@@ -6,7 +6,6 @@ import { RouterLink } from "vue-router";
   <main>
     <h1 class="site-title">Negotiate your relationships</h1>
     <RouterLink to="/start" class="start-button nav-link">Start a discussion</RouterLink>
-    <p class="warning">🚧 This site is under construction 🚧</p>
     <p>
       This is a tool for negotiating relationships. Each of you will pick and choose what you want
       out of your relationship from a menu of options, and once you're both done, you can compare
@@ -22,28 +21,18 @@ import { RouterLink } from "vue-router";
       something just because you're worried the other person will say "No"!
     </p>
     <p>
-      This tool isn't just for romantic relationships! Use it with your friends, your platonic
-      partners, your play partners, or anyone else you want to build a healthier relationship with.
+      This tool isn't just for romantic relationships! Use it with your friends, platonic partners,
+      play partners, or anyone else you want to build a healthier relationship with.
     </p>
     <p>
       You'll often see this exercise referred to as the "relationship smorgasbord," referring to the
-      way you can pick and choose what you want from a buffet of options. The concept comes from the
-      <a
-        href="https://theanarchistlibrary.org/library/andie-nordgren-the-short-instructional-manifesto-for-relationship-anarchy"
-        target="_blank"
-        >relationship anarchy</a
-      >
-      community.
+      way you can pick and choose what you want from a buffet of options. The concept is often
+      associated with relationship anarchy.
     </p>
   </main>
 </template>
 
 <style scoped>
-.warning {
-  display: block;
-  text-align: center;
-}
-
 .site-title {
   display: block;
   text-align: center;

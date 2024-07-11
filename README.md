@@ -1,6 +1,6 @@
-# The Relationship Smorgasbord
+# discuss.love
 
-🚧 **This project is a work in progress.** 🚧
+This webapp is a tool for negotiating interpersonal relationships.
 
 ## Architecture
 
