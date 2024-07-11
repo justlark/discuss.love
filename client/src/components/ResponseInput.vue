@@ -73,7 +73,7 @@ const onNotesInput = () => emit("input");
       </div>
     </fieldset>
     <p :id="`notes-label-${props.id}`">Give some more detail</p>
-    <textarea v-model="notes" @input="onNotesInput" :aria-describedby="`notes-label-${props.id}`" />
+    <textarea v-model="notes" @input="onNotesInput" :aria-labelledby="`notes-label-${props.id}`" />
   </section>
 </template>
 
