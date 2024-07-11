@@ -49,9 +49,21 @@ const description = ref(questionDef.value.description);
   justify-content: space-around;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+  gap: 1rem;
 }
 
 .answer-pair > * {
-  max-width: 50%;
+  max-width: 60%;
+}
+
+@media (max-width: 768px) {
+  .answer-pair {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .answer-pair > * {
+    max-width: 100%;
+  }
 }
 </style>
