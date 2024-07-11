@@ -10,7 +10,7 @@ import {
 
 // No ambiguous characters: 0, o, l, 1
 const sharingCodePool = "abcdefghijkmnpqrstuvwxyz23456789";
-const sharingCodeLength = 6;
+const sharingCodeLength = 8;
 
 const newSharingCode = (): string => {
   let sharingCode = "";
