@@ -1,5 +1,5 @@
 import { AutoRouter, IRequestStrict, error, json, status } from "itty-router";
-import { getAnswers, startSession, getSessionInfo, submitForm } from "./kv";
+import { getAnswers, startSession, getSessionInfo, submitForm, deleteSubmission } from "./kv";
 import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
 
 // This should be plenty large enough for any reasonable-length form submission.
@@ -49,6 +49,12 @@ type SubmissionPutRequest = {
 router.put("/submissions/:code/:player", async (request: SubmissionPutRequest, env: Env) => {
   const form = await request.json<FormSubmission>();
 
+  const currentAnswers = await getAnswers(env.KV, request.code);
+
+  if (currentAnswers !== undefined) {
+    return error(409, "All players have already submitted their answers.");
+  }
+
   // We limit the size of the form submission to prevent abuse.
   if (JSON.stringify(form).length > FORM_SIZE_LIMIT) {
     return error(413, "Form submission is too large.");
@@ -57,6 +63,16 @@ router.put("/submissions/:code/:player", async (request: SubmissionPutRequest, e
   await submitForm(env.KV, request.code, request.player, form);
 
   return status(201);
+});
+
+type SubmissionDeleteRequest = {
+  code: SharingCode;
+} & IRequestStrict;
+
+router.delete("/submissions/:code", async (request: SubmissionDeleteRequest, env: Env) => {
+  await deleteSubmission(env.KV, request.code);
+
+  return status(204);
 });
 
 type SubmissionGetRequest = {

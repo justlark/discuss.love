@@ -68,6 +68,11 @@ export const submitForm = async (
   await kv.put(submissionKey(code, player), JSON.stringify(form), { expirationTtl: submissionTtl });
 };
 
+export const deleteSubmission = async (kv: KVNamespace, code: SharingCode): Promise<void> => {
+  await kv.delete(submissionKey(code, "sender"));
+  await kv.delete(submissionKey(code, "recipient"));
+};
+
 const answersByQuestion = (submission: FormSubmission): Map<string, QuestionAnswer> =>
   new Map(submission.map(({ id, answer, notes }) => [id, { answer, notes }]));
 

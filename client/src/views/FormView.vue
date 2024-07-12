@@ -4,8 +4,8 @@ import ResponseInput from "@/components/ResponseInput.vue";
 import type { QuestionAnswer, SessionInfo, WithQuestionId } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
-import { API_URL } from "@/api";
 import CopyButton from "@/components/CopyButton.vue";
+import { API_URL } from "@/api";
 
 const route = useRoute();
 const router = useRouter();
@@ -14,7 +14,10 @@ const sharingCode = ref<string>(route.query.code as string);
 const player = ref<string>();
 
 const sessionStatus = ref<
-  { state: "error"; error: string } | { state: "nonexistent" } | { state: "success" }
+  | { state: "error"; error: string }
+  | { state: "session-nonexistent" }
+  | { state: "already-submitted" }
+  | { state: "success" }
 >();
 const otherPlayerName = ref<string>();
 
@@ -95,6 +98,15 @@ const submitForm = async () => {
   router.push({ path: "/compare", query: { code: sharingCode.value } });
 };
 
+const resetForm = async () => {
+  await fetch(`${API_URL}/submissions/${sharingCode.value}`, {
+    method: "DELETE",
+  });
+  sessionStatus.value = {
+    state: "success",
+  };
+};
+
 const pageLink = ref(window.location.href);
 
 onBeforeMount(async () => {
@@ -112,10 +124,11 @@ onBeforeMount(async () => {
     : undefined;
 
   const sessionResponse = await fetch(`${API_URL}/sessions/${sharingCode.value}`);
+  const submissionResponse = await fetch(`${API_URL}/submissions/${sharingCode.value}`);
 
   if (sessionResponse.status === 404) {
     sessionStatus.value = {
-      state: "nonexistent",
+      state: "session-nonexistent",
     };
   } else if (sessionResponse.status !== 200) {
     const { error } = await sessionResponse.json();
@@ -126,15 +139,29 @@ onBeforeMount(async () => {
     };
 
     return;
-  } else {
-    const sessionInfo: SessionInfo = await sessionResponse.json();
+  } else if (submissionResponse.status === 200) {
+    sessionStatus.value = {
+      state: "already-submitted",
+    };
+  } else if (submissionResponse.status !== 404) {
+    const { error } = await submissionResponse.json();
 
+    sessionStatus.value = {
+      state: "error",
+      error: error ?? "Unknown error fetching submission data. This may be a bug.",
+    };
+
+    return;
+  } else {
     sessionStatus.value = {
       state: "success",
     };
-    otherPlayerName.value =
-      player.value === "sender" ? sessionInfo.players.recipient : sessionInfo.players.sender;
   }
+
+  const sessionInfo: SessionInfo = await sessionResponse.json();
+
+  otherPlayerName.value =
+    player.value === "sender" ? sessionInfo.players.recipient : sessionInfo.players.sender;
 });
 </script>
 
@@ -178,11 +205,19 @@ onBeforeMount(async () => {
       </div>
       <button @click="submitForm">Submit</button>
     </div>
-    <div v-else-if="sessionStatus?.state == 'nonexistent'">
+    <div v-else-if="sessionStatus?.state == 'session-nonexistent'">
       <p>
         The link you followed to get here is invalid or has expired. To start a new discussion,
         <RouterLink to="/start">click here</RouterLink>.
       </p>
+    </div>
+    <div v-else-if="sessionStatus?.state == 'already-submitted'">
+      <p>
+        Everyone has already submitted their responses for this discussion. You can edit and
+        resubmit your answers, but you'll have to wait for the other person to resubmit theirs as
+        well. Your previous answers will be pre-filled in.
+      </p>
+      <button @click="resetForm">Start Over</button>
     </div>
     <div v-else-if="sessionStatus?.state == 'error'">
       <p class="error-message">Error: {{ sessionStatus.error }}</p>
