@@ -213,9 +213,9 @@ onBeforeMount(async () => {
     </div>
     <div v-else-if="sessionStatus?.state == 'already-submitted'">
       <p>
-        Everyone has already submitted their responses for this discussion. You can edit and
-        resubmit your answers, but you'll have to wait for the other person to resubmit theirs as
-        well. Your previous answers will be pre-filled in.
+        Everyone has already submitted their answers for this discussion. You can edit and resubmit
+        your answers, but you'll have to wait for the other person to resubmit theirs as well. Your
+        previous answers will be pre-filled in.
       </p>
       <button @click="resetForm">Start Over</button>
     </div>
