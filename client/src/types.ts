@@ -20,7 +20,7 @@ export const humanReadableAnswer = (answer: AnswerType): string => {
 };
 
 export interface QuestionAnswer {
-  answer: AnswerType;
+  answer?: AnswerType;
   notes: string;
 }
 

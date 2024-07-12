@@ -12,7 +12,7 @@ export type AnswerType = "yes" | "no" | "later";
 export type WithQuestionId<T> = Readonly<{ id: string }> & T;
 
 export type QuestionAnswer = Readonly<{
-  answer: AnswerType;
+  answer?: AnswerType;
   notes: string;
 }>;
 

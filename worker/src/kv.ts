@@ -83,10 +83,20 @@ const coalesceAnswers = (sender: FormSubmission, recipient: FormSubmission): For
       throw new StatusError(400, `Recipient did not submit an answer to question with ID '${id}'.`);
     }
 
-    if (senderAnswer.answer !== "no" && recipientAnswer.answer !== "no") {
-      answers.push({ id, sender: senderAnswer, recipient: recipientAnswer });
-    } else {
+    if (!senderAnswer.answer || !recipientAnswer.answer) {
+      // Someone didn't answer this question.
       answers.push({ id, sender: undefined, recipient: undefined });
+    } else if (senderAnswer.answer === "no" || recipientAnswer.answer === "no") {
+      // Someone answered "No" to this question. In this case, we return "no"
+      // for both players in the API response. No cheating by inspecting the API
+      // response!
+      answers.push({
+        id,
+        sender: { answer: "no", notes: senderAnswer.notes },
+        recipient: { answer: "no", notes: recipientAnswer.notes },
+      });
+    } else {
+      answers.push({ id, sender: senderAnswer, recipient: recipientAnswer });
     }
   }
 

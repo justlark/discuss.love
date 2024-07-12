@@ -10,8 +10,8 @@ const props = defineProps<{
   initialNotes?: string;
 }>();
 
-const answer = ref<AnswerType>(props.initialAnswer ?? "no");
-const notes = ref<string>(props.initialNotes ?? "");
+const answer = ref(props.initialAnswer);
+const notes = ref(props.initialNotes ?? "");
 
 defineExpose({
   id: props.id,

@@ -26,7 +26,7 @@ type StoredResponses = { code: string; responses: Array<Response> };
 const collectResponses = (): Array<Response> => {
   return responseInputs.value.map((element) => ({
     id: element.id,
-    answer: element.answer ?? "no",
+    answer: element.answer,
     notes: element.notes ?? "",
   }));
 };

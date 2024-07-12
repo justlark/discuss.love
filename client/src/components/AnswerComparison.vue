@@ -24,7 +24,19 @@ const description = ref(questionDef.value.description);
   <section>
     <h2>{{ title }}</h2>
     <p>{{ description }}</p>
-    <div class="answer-pair" v-if="props.senderAnswer && props.recipientAnswer">
+    <div class="answer-pair" v-if="!props.senderAnswer || !props.recipientAnswer">
+      <i>Someone didn't answer this question.</i>
+    </div>
+    <!-- If either player answered "No" to a question, the worker will return
+      "no" for both players in the API response. This prevents users from
+      inspecting the API response to see the actual answers. -->
+    <div
+      class="answer-pair"
+      v-else-if="props.senderAnswer?.answer == 'no' || props.recipientAnswer?.answer == 'no'"
+    >
+      <i>Someone said "No" to this.</i>
+    </div>
+    <div class="answer-pair" v-else>
       <QuestionAnswer
         :playerName="props.senderAnswer.playerName"
         :questionAnswer="props.senderAnswer.answer"
@@ -35,9 +47,6 @@ const description = ref(questionDef.value.description);
         :questionAnswer="props.recipientAnswer.answer"
         :notes="props.recipientAnswer.notes"
       />
-    </div>
-    <div class="answer-pair" v-else>
-      <i>Someone said "No" to this.</i>
     </div>
     <hr />
   </section>
