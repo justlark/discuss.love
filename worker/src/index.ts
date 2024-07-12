@@ -9,7 +9,7 @@ const FORM_SIZE_LIMIT = 1000 * 100; // 100 KB
 
 const corsMiddleware = (response: Response) => {
   response.headers.set("Access-Control-Allow-Origin", "https://discuss.love");
-  response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
+  response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   response.headers.set("Access-Control-Allow-Headers", "Content-Type");
 
   return response;
