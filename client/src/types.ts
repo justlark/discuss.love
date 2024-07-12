@@ -1,5 +1,7 @@
 import QuestionAnswer from "./components/QuestionAnswer.vue";
 
+export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+
 export interface QuestionDefinition {
   id: string;
   title: string;
@@ -20,7 +22,7 @@ export const humanReadableAnswer = (answer: AnswerType): string => {
 };
 
 export interface QuestionAnswer {
-  answer?: AnswerType;
+  answer: AnswerType;
   notes: string;
 }
 

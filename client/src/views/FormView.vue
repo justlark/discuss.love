@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
-import type { QuestionAnswer, SessionInfo, WithQuestionId } from "@/types";
+import type { Optional, QuestionAnswer, SessionInfo, WithQuestionId } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
@@ -23,7 +23,7 @@ const otherPlayerName = ref<string>();
 
 const responseInputs = ref<Array<InstanceType<typeof ResponseInput>>>([]);
 
-type Response = WithQuestionId<QuestionAnswer>;
+type Response = WithQuestionId<Optional<QuestionAnswer, "answer">>;
 type StoredResponses = { code: string; responses: Array<Response> };
 
 const collectResponses = (): Array<Response> => {
@@ -43,7 +43,7 @@ const storeResponses = () => {
 
 const initialStoredResponses = ref<StoredResponses | undefined>();
 
-const storedResponses = computed((): Map<string, QuestionAnswer> | undefined => {
+const storedResponses = computed((): Map<string, Response> | undefined => {
   if (!initialStoredResponses.value) {
     return undefined;
   }
@@ -54,12 +54,10 @@ const storedResponses = computed((): Map<string, QuestionAnswer> | undefined => 
     return undefined;
   }
 
-  return new Map(
-    responses.map((response) => [response.id, { answer: response.answer, notes: response.notes }]),
-  );
+  return new Map(responses.map((response) => [response.id, response]));
 });
 
-const getStoredResponse = (id: string): QuestionAnswer | undefined => {
+const getStoredResponse = (id: string): Response | undefined => {
   if (!storedResponses.value) {
     return undefined;
   }
