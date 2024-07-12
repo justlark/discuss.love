@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { API_URL } from "@/api";
+import { sessionsEndpoint } from "@/api";
 import NameInput from "@/components/NameInput.vue";
 import { useRouter } from "vue-router";
 
@@ -14,7 +14,7 @@ const startSession = async () => {
     return;
   }
 
-  const response = await fetch(`${API_URL}/sessions`, {
+  const response = await fetch(sessionsEndpoint(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

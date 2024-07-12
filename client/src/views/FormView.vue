@@ -4,8 +4,8 @@ import ResponseInput from "@/components/ResponseInput.vue";
 import type { QuestionAnswer, SessionInfo, WithQuestionId } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
+import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import CopyButton from "@/components/CopyButton.vue";
-import { API_URL } from "@/api";
 
 const route = useRoute();
 const router = useRouter();
@@ -72,7 +72,7 @@ const submissionStatus = ref<{ state: "error"; error: string } | { state: "succe
 const submitForm = async () => {
   const responses = collectResponses();
 
-  const response = await fetch(`${API_URL}/submissions/${sharingCode.value}/${player.value}`, {
+  const response = await fetch(submissionsEndpoint(sharingCode.value, player.value), {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -99,7 +99,7 @@ const submitForm = async () => {
 };
 
 const resetForm = async () => {
-  await fetch(`${API_URL}/submissions/${sharingCode.value}`, {
+  await fetch(submissionsEndpoint(sharingCode.value), {
     method: "DELETE",
   });
   sessionStatus.value = {
@@ -123,8 +123,8 @@ onBeforeMount(async () => {
     ? JSON.parse(initialStoredResponsesString)
     : undefined;
 
-  const sessionResponse = await fetch(`${API_URL}/sessions/${sharingCode.value}`);
-  const submissionResponse = await fetch(`${API_URL}/submissions/${sharingCode.value}`);
+  const sessionResponse = await fetch(sessionsEndpoint(sharingCode.value));
+  const submissionResponse = await fetch(submissionsEndpoint(sharingCode.value));
 
   if (sessionResponse.status === 404) {
     sessionStatus.value = {

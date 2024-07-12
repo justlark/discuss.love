@@ -2,7 +2,7 @@
 import { computed, onBeforeMount, ref } from "vue";
 import type { FormAnswers, SessionInfo } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
-import { API_URL } from "@/api";
+import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
@@ -55,8 +55,8 @@ const navigateEditPage = () => {
 
 onBeforeMount(async () => {
   const [sessionResponse, submissionResponse] = await Promise.all([
-    fetch(`${API_URL}/sessions/${sharingCode.value}`),
-    fetch(`${API_URL}/submissions/${sharingCode.value}`),
+    fetch(sessionsEndpoint(sharingCode.value)),
+    fetch(submissionsEndpoint(sharingCode.value)),
   ]);
 
   const [sessionResponseBody, submissionResponseBody] = await Promise.all([
