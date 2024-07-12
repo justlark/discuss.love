@@ -7,6 +7,10 @@ import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
 // into the text field.
 const FORM_SIZE_LIMIT = 1000 * 100; // 100 KB
 
+// We don't want to be overly restrictive with what people call themselves; we
+// just need to prevent abuse and discourage names that will break the UI.
+const NAME_SIZE_LIMIT = 50;
+
 const corsMiddleware = (response: Response) => {
   response.headers.set("Access-Control-Allow-Origin", "https://discuss.love");
   response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -27,6 +31,13 @@ router.options("*", () => {
 
 router.post("/sessions", async (request: SessionPostRequest, env: Env) => {
   const info = await request.json<SessionInfo>();
+
+  if (
+    info.players.sender.length > NAME_SIZE_LIMIT ||
+    info.players.recipient.length > NAME_SIZE_LIMIT
+  ) {
+    return error(413, "One of the provided names is too long.");
+  }
 
   const sharingCode = await startSession(env.KV, info);
 

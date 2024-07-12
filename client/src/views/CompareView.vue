@@ -10,10 +10,10 @@ const route = useRoute();
 const sharingCode = ref<string>(route.query.code as string);
 
 const responseStatus = ref<
-  | { state: "error"; error: string }
-  | { state: "waiting" }
-  | { state: "expired" }
-  | { state: "success" }
+  | { status: "error"; error: string }
+  | { status: "waiting" }
+  | { status: "expired" }
+  | { status: "success" }
 >();
 
 const sessionInfo = ref<SessionInfo>();
@@ -66,37 +66,36 @@ onBeforeMount(async () => {
 
   if (sessionResponse.status === 404) {
     responseStatus.value = {
-      state: "expired",
+      status: "expired",
     };
     return;
   }
 
   if (sessionResponse.status !== 200) {
     responseStatus.value = {
-      state: "error",
-      error: sessionResponseBody.error ?? "Unknown error fetching session data. This may be a bug.",
+      status: "error",
+      error: sessionResponseBody.error,
     };
     return;
   }
 
   if (submissionResponse.status === 404) {
     responseStatus.value = {
-      state: "waiting",
+      status: "waiting",
     };
     return;
   }
 
   if (submissionResponse.status !== 200) {
     responseStatus.value = {
-      state: "error",
-      error:
-        submissionResponseBody.error ?? "Unknown error fetching your answers. This may be a bug.",
+      status: "error",
+      error: submissionResponseBody.error,
     };
     return;
   }
 
   responseStatus.value = {
-    state: "success",
+    status: "success",
   };
 
   sessionInfo.value = sessionResponseBody;
@@ -109,7 +108,7 @@ onBeforeMount(async () => {
     <h1>Compare answers</h1>
     <button @click="navigateEditPage">Edit Answers</button>
     <hr />
-    <div v-if="responseStatus?.state == 'success'">
+    <div v-if="responseStatus?.status == 'success'">
       <AnswerComparison
         :id="pair.id"
         :senderAnswer="pair.sender"
@@ -118,16 +117,16 @@ onBeforeMount(async () => {
         :key="pair.id"
       />
     </div>
-    <div v-else-if="responseStatus?.state == 'waiting'">
+    <div v-else-if="responseStatus?.status == 'waiting'">
       <p>
         The other person hasn't submitted their answers yet. Wait until they're done, and then
         reload this page.
       </p>
     </div>
-    <div v-else-if="responseStatus?.state == 'expired'">
+    <div v-else-if="responseStatus?.status == 'expired'">
       <p>This session has expired; you can no longer see each others' answers.</p>
     </div>
-    <div v-else-if="responseStatus?.state == 'error'">
+    <div v-else-if="responseStatus?.status == 'error'">
       <p class="error-message">Error: {{ responseStatus.error }}</p>
     </div>
   </div>

@@ -83,7 +83,7 @@ const submitForm = async () => {
 
     submissionStatus.value = {
       state: "error",
-      error: responseBody.error ?? "Unknown error submitting your answers. This may be a bug.",
+      error: responseBody.error,
     };
 
     return;
@@ -133,7 +133,7 @@ onBeforeMount(async () => {
 
     sessionStatus.value = {
       state: "error",
-      error: error ?? "Unknown error fetching session data. This may be a bug.",
+      error: error,
     };
 
     return;
@@ -146,7 +146,7 @@ onBeforeMount(async () => {
 
     sessionStatus.value = {
       state: "error",
-      error: error ?? "Unknown error fetching submission data. This may be a bug.",
+      error: error,
     };
 
     return;

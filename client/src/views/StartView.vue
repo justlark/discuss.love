@@ -9,6 +9,8 @@ const recipientName = ref<string>();
 
 const router = useRouter();
 
+const sessionStatus = ref<{ state: "success" } | { state: "error"; error: string }>();
+
 const startSession = async () => {
   if (!senderName.value || !recipientName.value) {
     return;
@@ -27,7 +29,20 @@ const startSession = async () => {
     }),
   });
 
+  if (response.status !== 201) {
+    const { error } = await response.json();
+
+    sessionStatus.value = {
+      state: "error",
+      error: error,
+    };
+
+    return;
+  }
+
   const { code } = await response.json();
+
+  sessionStatus.value = { state: "success" };
 
   // When a user starts a session, the sharing code is stored in their local
   // storage so we can differentiate the sender from the recipient.
@@ -42,6 +57,9 @@ const startSession = async () => {
     <h1>Start a new discussion</h1>
     <NameInput id="sender" label="Your name" v-model="senderName" />
     <NameInput id="recipient" label="Their name" v-model="recipientName" />
+    <div v-if="sessionStatus?.state == 'error'">
+      <p class="error-message">Error: {{ sessionStatus.error }}</p>
+    </div>
     <button @click="startSession">Start</button>
   </main>
 </template>
