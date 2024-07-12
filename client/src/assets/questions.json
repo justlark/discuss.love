@@ -93,5 +93,10 @@
     "id": "contact",
     "title": "Regular contact",
     "description": "Texting, calling, or otherwise checking in daily or regularly."
+  },
+  {
+    "id": "gifts",
+    "title": "Gift giving",
+    "description": "Giving each other small gifts or tokens of affection."
   }
 ]
