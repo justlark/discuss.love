@@ -1,6 +1,6 @@
 # discuss.love
 
-This webapp is a tool for negotiating interpersonal relationships.
+This web app is a tool for negotiating interpersonal relationships.
 
 ## Architecture
 
@@ -33,6 +33,24 @@ Then you can start the local dev server.
 cd ./client/
 npm install
 npm run dev
+```
+
+## Deployment
+
+The client app is automatically deployed to Cloudflare Pages on pushes to
+`main`. To deploy the worker, run:
+
+```shell
+cd ./worker/
+npx wrangler deploy
+```
+
+You can also build the client app locally like this:
+
+```shell
+cd ./client/
+npm install
+npm run build
 ```
 
 ## Copyright
