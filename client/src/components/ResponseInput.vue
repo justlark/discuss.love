@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { humanReadableAnswer, type AnswerType } from "@/types";
-import { ref, defineEmits } from "vue";
+import { ref } from "vue";
 
 const props = defineProps<{
   id: string;
