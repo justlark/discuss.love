@@ -44,3 +44,7 @@ export type FormAnswers = Array<FormAnswer>;
 export type SessionInfo = {
   players: ByPlayer<string>;
 };
+
+export type ResponseStatus<T extends Array<string>> =
+  | { status: "error"; error: string }
+  | { [P in T[number]]: { status: P } }[T[number]];

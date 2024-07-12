@@ -3,13 +3,14 @@ import { ref } from "vue";
 import { sessionsEndpoint } from "@/api";
 import NameInput from "@/components/NameInput.vue";
 import { useRouter } from "vue-router";
+import type { ResponseStatus } from "@/types";
 
 const senderName = ref<string>();
 const recipientName = ref<string>();
 
 const router = useRouter();
 
-const sessionStatus = ref<{ state: "success" } | { state: "error"; error: string }>();
+const sessionStatus = ref<ResponseStatus<["success"]>>();
 
 const startSession = async () => {
   if (!senderName.value || !recipientName.value) {
@@ -33,7 +34,7 @@ const startSession = async () => {
     const { error } = await response.json();
 
     sessionStatus.value = {
-      state: "error",
+      status: "error",
       error: error,
     };
 
@@ -42,7 +43,7 @@ const startSession = async () => {
 
   const { code } = await response.json();
 
-  sessionStatus.value = { state: "success" };
+  sessionStatus.value = { status: "success" };
 
   // When a user starts a session, the sharing code is stored in their local
   // storage so we can differentiate the sender from the recipient.
@@ -57,7 +58,7 @@ const startSession = async () => {
     <h1>Start a new discussion</h1>
     <NameInput id="sender" label="Your name" v-model="senderName" />
     <NameInput id="recipient" label="Their name" v-model="recipientName" />
-    <div v-if="sessionStatus?.state == 'error'">
+    <div v-if="sessionStatus?.status == 'error'">
       <p class="error-message">Error: {{ sessionStatus.error }}</p>
     </div>
     <button @click="startSession">Start</button>

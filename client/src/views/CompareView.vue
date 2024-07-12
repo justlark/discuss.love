@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from "vue";
-import type { FormAnswers, SessionInfo } from "@/types";
+import type { FormAnswers, SessionInfo, ResponseStatus } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import { useRoute, useRouter } from "vue-router";
@@ -9,12 +9,7 @@ const route = useRoute();
 
 const sharingCode = ref<string>(route.query.code as string);
 
-const responseStatus = ref<
-  | { status: "error"; error: string }
-  | { status: "waiting" }
-  | { status: "expired" }
-  | { status: "success" }
->();
+const responseStatus = ref<ResponseStatus<["waiting" | "expired" | "success"]>>();
 
 const sessionInfo = ref<SessionInfo>();
 const formAnswers = ref<FormAnswers>();

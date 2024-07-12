@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
-import type { Optional, QuestionAnswer, SessionInfo, WithQuestionId } from "@/types";
+import type {
+  Optional,
+  QuestionAnswer,
+  ResponseStatus,
+  SessionInfo,
+  WithQuestionId,
+} from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
@@ -13,12 +19,9 @@ const router = useRouter();
 const sharingCode = ref<string>(route.query.code as string);
 const player = ref<string>();
 
-const sessionStatus = ref<
-  | { state: "error"; error: string }
-  | { state: "session-nonexistent" }
-  | { state: "already-submitted" }
-  | { state: "success" }
->();
+const sessionStatus =
+  ref<ResponseStatus<["session-nonexistent" | "already-submitted" | "success"]>>();
+
 const otherPlayerName = ref<string>();
 
 const responseInputs = ref<Array<InstanceType<typeof ResponseInput>>>([]);
@@ -65,7 +68,7 @@ const getStoredResponse = (id: string): Response | undefined => {
   return storedResponses.value.get(id);
 };
 
-const submissionStatus = ref<{ state: "error"; error: string } | { state: "success" }>();
+const submissionStatus = ref<ResponseStatus<["success"]>>();
 
 const submitForm = async () => {
   const responses = collectResponses();
@@ -82,7 +85,7 @@ const submitForm = async () => {
     const responseBody = await response.json();
 
     submissionStatus.value = {
-      state: "error",
+      status: "error",
       error: responseBody.error,
     };
 
@@ -90,7 +93,7 @@ const submitForm = async () => {
   }
 
   submissionStatus.value = {
-    state: "success",
+    status: "success",
   };
 
   router.push({ path: "/compare", query: { code: sharingCode.value } });
@@ -101,7 +104,7 @@ const resetForm = async () => {
     method: "DELETE",
   });
   sessionStatus.value = {
-    state: "success",
+    status: "success",
   };
 };
 
@@ -126,33 +129,33 @@ onBeforeMount(async () => {
 
   if (sessionResponse.status === 404) {
     sessionStatus.value = {
-      state: "session-nonexistent",
+      status: "session-nonexistent",
     };
   } else if (sessionResponse.status !== 200) {
     const { error } = await sessionResponse.json();
 
     sessionStatus.value = {
-      state: "error",
+      status: "error",
       error: error,
     };
 
     return;
   } else if (submissionResponse.status === 200) {
     sessionStatus.value = {
-      state: "already-submitted",
+      status: "already-submitted",
     };
   } else if (submissionResponse.status !== 404) {
     const { error } = await submissionResponse.json();
 
     sessionStatus.value = {
-      state: "error",
+      status: "error",
       error: error,
     };
 
     return;
   } else {
     sessionStatus.value = {
-      state: "success",
+      status: "success",
     };
   }
 
@@ -166,7 +169,7 @@ onBeforeMount(async () => {
 <template>
   <main>
     <h1>What are you looking for?</h1>
-    <div v-if="sessionStatus?.state == 'success'">
+    <div v-if="sessionStatus?.status == 'success'">
       <div v-if="player == 'sender'">
         <p>
           <i>
@@ -198,18 +201,18 @@ onBeforeMount(async () => {
         ref="responseInputs"
         @input="storeResponses"
       />
-      <div v-if="submissionStatus?.state == 'error'">
+      <div v-if="submissionStatus?.status == 'error'">
         <p class="error-message">Error: {{ submissionStatus.error }}</p>
       </div>
       <button @click="submitForm">Submit</button>
     </div>
-    <div v-else-if="sessionStatus?.state == 'session-nonexistent'">
+    <div v-else-if="sessionStatus?.status == 'session-nonexistent'">
       <p>
         The link you followed to get here is invalid or has expired. To start a new discussion,
         <RouterLink to="/start">click here</RouterLink>.
       </p>
     </div>
-    <div v-else-if="sessionStatus?.state == 'already-submitted'">
+    <div v-else-if="sessionStatus?.status == 'already-submitted'">
       <p>
         Everyone has already submitted their answers for this discussion. You can edit and resubmit
         your answers, but you'll have to wait for the other person to resubmit theirs as well. Your
@@ -217,7 +220,7 @@ onBeforeMount(async () => {
       </p>
       <button @click="resetForm">Start Over</button>
     </div>
-    <div v-else-if="sessionStatus?.state == 'error'">
+    <div v-else-if="sessionStatus?.status == 'error'">
       <p class="error-message">Error: {{ sessionStatus.error }}</p>
     </div>
   </main>
