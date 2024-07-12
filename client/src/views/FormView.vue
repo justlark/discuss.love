@@ -5,6 +5,7 @@ import type { QuestionAnswer, SessionInfo, WithQuestionId } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
 import { API_URL } from "@/api";
+import CopyButton from "@/components/CopyButton.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -94,17 +95,7 @@ const submitForm = async () => {
   router.push({ path: "/compare", query: { code: sharingCode.value } });
 };
 
-const isCopied = ref(false);
-
-const copyLink = () => {
-  navigator.clipboard.writeText(window.location.href);
-
-  isCopied.value = true;
-
-  setTimeout(() => {
-    isCopied.value = false;
-  }, 2000);
-};
+const pageLink = ref(window.location.href);
 
 onBeforeMount(async () => {
   const storedSharingCode = localStorage.getItem("code");
@@ -159,10 +150,7 @@ onBeforeMount(async () => {
             <RouterLink to="/start">Click here</RouterLink>.
           </i>
         </p>
-        <span class="copy-button">
-          <button @click="copyLink">Copy Link</button>
-          <span class="copy-confirmation" v-if="isCopied">Copied!</span>
-        </span>
+        <CopyButton text="Copy Link" :link="pageLink" />
       </div>
       <div v-else>
         <p>
@@ -202,15 +190,4 @@ onBeforeMount(async () => {
   </main>
 </template>
 
-<style scoped>
-.copy-button {
-  display: flex;
-  gap: 1rem;
-  align-items: baseline;
-}
-
-.copy-confirmation {
-  font-size: 13pt;
-  filter: brightness(80%);
-}
-</style>
+<style scoped></style>

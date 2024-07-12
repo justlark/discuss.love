@@ -3,7 +3,7 @@ import { computed, onBeforeMount, ref } from "vue";
 import type { FormAnswers, SessionInfo } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
 import { API_URL } from "@/api";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 
@@ -46,6 +46,12 @@ const answerPairs = computed(() => {
     }
   });
 });
+
+const router = useRouter();
+
+const navigateEditPage = () => {
+  router.push(`/join?code=${sharingCode.value}`);
+};
 
 onBeforeMount(async () => {
   const [sessionResponse, submissionResponse] = await Promise.all([
@@ -101,6 +107,7 @@ onBeforeMount(async () => {
 <template>
   <div>
     <h1>Compare answers</h1>
+    <button @click="navigateEditPage">Edit Answers</button>
     <hr />
     <div v-if="responseStatus?.state == 'success'">
       <AnswerComparison
