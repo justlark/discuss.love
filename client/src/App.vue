@@ -6,6 +6,7 @@ import {
   darkTheme,
   useOsTheme,
   type GlobalThemeOverrides,
+  NMessageProvider,
 } from "naive-ui";
 import { computed, ref } from "vue";
 import TopNav from "@/components/TopNav.vue";
@@ -32,10 +33,12 @@ const themeOverrides: GlobalThemeOverrides = {
 
 <template>
   <n-config-provider :theme="theme" :theme-overrides="themeOverrides">
-    <n-theme-editor v-if="isDev">
-      <TopNav />
-      <n-global-style />
-    </n-theme-editor>
+    <n-message-provider placement="bottom">
+      <n-theme-editor v-if="isDev">
+        <TopNav />
+        <n-global-style />
+      </n-theme-editor>
+    </n-message-provider>
   </n-config-provider>
 </template>
 

@@ -3,18 +3,30 @@ import { ref } from "vue";
 import { sessionsEndpoint } from "@/api";
 import NameInput from "@/components/NameInput.vue";
 import { useRouter } from "vue-router";
-import type { ResponseStatus } from "@/types";
-import { NButton } from "naive-ui";
+import { type FormInst, NButton, NForm, useMessage } from "naive-ui";
 
-const senderName = ref<string>();
-const recipientName = ref<string>();
+const formRef = ref<FormInst>();
+const names = ref({ sender: "", recipient: "" });
 
 const router = useRouter();
+const message = useMessage();
 
-const sessionStatus = ref<ResponseStatus<["success"]>>();
+const rules = {
+  sender: {
+    required: true,
+    message: "Please enter your name",
+    trigger: "input",
+  },
+  recipient: {
+    required: true,
+    message: "Please enter their name",
+    trigger: "input",
+  },
+};
 
 const startSession = async () => {
-  if (!senderName.value || !recipientName.value) {
+  const errors = await formRef.value?.validate();
+  if (errors?.warnings) {
     return;
   }
 
@@ -25,8 +37,8 @@ const startSession = async () => {
     },
     body: JSON.stringify({
       players: {
-        sender: senderName.value,
-        recipient: recipientName.value,
+        sender: names.value.sender,
+        recipient: names.value.recipient,
       },
     }),
   });
@@ -34,17 +46,12 @@ const startSession = async () => {
   if (response.status !== 201) {
     const { error } = await response.json();
 
-    sessionStatus.value = {
-      status: "error",
-      error: error,
-    };
+    message.error(error);
 
     return;
   }
 
   const { code } = await response.json();
-
-  sessionStatus.value = { status: "success" };
 
   // When a user starts a session, the sharing code is stored in their local
   // storage so we can differentiate the sender from the recipient.
@@ -57,12 +64,11 @@ const startSession = async () => {
 <template>
   <main>
     <h1>Start a new discussion</h1>
-    <NameInput id="sender" label="Your name" v-model="senderName" />
-    <NameInput id="recipient" label="Their name" v-model="recipientName" />
-    <div v-if="sessionStatus?.status == 'error'">
-      <p class="error-message">Error: {{ sessionStatus.error }}</p>
-    </div>
-    <n-button @click="startSession">Start</n-button>
+    <n-form ref="formRef" :rules="rules" :model="names">
+      <name-input label="Your name" path="sender" v-model="names.sender" />
+      <name-input label="Their name" path="recipient" v-model="names.recipient" />
+      <n-button @click="startSession">Start</n-button>
+    </n-form>
   </main>
 </template>
 

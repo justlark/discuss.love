@@ -1,21 +1,18 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { NInput, NFormItem } from "naive-ui";
 
-const model = defineModel();
+const model = defineModel<string>();
 
 const props = defineProps<{
-  id: string;
   label: string;
+  path: string;
 }>();
-
-const inputId = computed(() => `name-input-${props.id}`);
 </script>
 
 <template>
-  <div class="name-input">
-    <label :for="inputId">{{ props.label }}</label>
-    <input type="text" :id="inputId" v-model="model" />
-  </div>
+  <n-form-item :label="props.label" :path="path" class="name-input">
+    <n-input type="text" placeholder="" v-model:value="model" />
+  </n-form-item>
 </template>
 
 <style scoped>
