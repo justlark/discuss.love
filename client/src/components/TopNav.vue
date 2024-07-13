@@ -8,7 +8,7 @@ import { RouterView } from "vue-router";
   <header>
     <nav>
       <n-flex justify="space-between">
-        <nav-link to="/">discuss.love</nav-link>
+        <nav-link to="/">Discuss.love</nav-link>
         <nav-link to="https://github.com/justlark/discuss.love" target="_blank">GitHub</nav-link>
       </n-flex>
     </nav>
