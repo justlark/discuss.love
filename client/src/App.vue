@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import {
   NConfigProvider,
-  NThemeEditor,
   NGlobalStyle,
   darkTheme,
   useOsTheme,
   type GlobalThemeOverrides,
   NMessageProvider,
 } from "naive-ui";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import TopNav from "@/components/TopNav.vue";
-
-const isDev = ref(import.meta.env.DEV);
 
 const themeRef = useOsTheme();
 const theme = computed(() => {
@@ -34,10 +31,8 @@ const themeOverrides: GlobalThemeOverrides = {
 <template>
   <n-config-provider :theme="theme" :theme-overrides="themeOverrides">
     <n-message-provider placement="bottom">
-      <n-theme-editor v-if="isDev">
-        <TopNav />
-        <n-global-style />
-      </n-theme-editor>
+      <TopNav />
+      <n-global-style />
     </n-message-provider>
   </n-config-provider>
 </template>
