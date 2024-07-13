@@ -180,7 +180,7 @@ onBeforeMount(async () => {
             <nav-link to="/start">Click here</nav-link>.
           </i>
         </p>
-        <CopyButton text="Copy Link" :link="pageLink" />
+        <copy-button text="Copy Link" :link="pageLink" />
       </div>
       <div v-else>
         <p>
