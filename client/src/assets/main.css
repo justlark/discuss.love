@@ -1,16 +1,6 @@
 body {
   min-width: 200px;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 30px;
-}
-
-.nav-link {
-  font-size: 16pt;
-  font-weight: bold;
-}
-
-.error-message {
-  color: #ea868f;
-  font-weight: bold;
+  margin: 0 auto !important;
+  padding: 30px !important;
 }

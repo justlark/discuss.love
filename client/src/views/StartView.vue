@@ -4,6 +4,7 @@ import { sessionsEndpoint } from "@/api";
 import NameInput from "@/components/NameInput.vue";
 import { useRouter } from "vue-router";
 import type { ResponseStatus } from "@/types";
+import { NButton } from "naive-ui";
 
 const senderName = ref<string>();
 const recipientName = ref<string>();
@@ -61,7 +62,7 @@ const startSession = async () => {
     <div v-if="sessionStatus?.status == 'error'">
       <p class="error-message">Error: {{ sessionStatus.error }}</p>
     </div>
-    <button @click="startSession">Start</button>
+    <n-button @click="startSession">Start</n-button>
   </main>
 </template>
 

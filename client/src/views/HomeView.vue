@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
+import NavLink from "@/components/NavLink.vue";
 </script>
 
 <template>
   <main>
     <h1 class="site-title">Negotiate your relationships</h1>
-    <RouterLink to="/start" class="start-button nav-link">Start a discussion</RouterLink>
+    <nav-link to="/start" class="start-button">Start a discussion</nav-link>
     <p>
       This is a tool for negotiating relationships. Each of you will pick and choose what you want
       out of your relationship from a menu of options, and once you're both done, you can compare
