@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { NButton, NText, NFlex } from "naive-ui";
 
 const props = defineProps<{
   text: string;
@@ -15,26 +16,15 @@ const copyLink = () => {
 
   setTimeout(() => {
     isCopied.value = false;
-  }, 2000);
+  }, 1500);
 };
 </script>
 
 <template>
-  <span class="copy-button">
-    <button @click="copyLink">{{ props.text }}</button>
-    <span class="copy-confirmation" v-if="isCopied">Copied!</span>
-  </span>
+  <n-flex gap="1rem" align="baseline">
+    <n-button @click="copyLink">{{ props.text }}</n-button>
+    <n-text depth="2" v-if="isCopied">Copied!</n-text>
+  </n-flex>
 </template>
 
-<style scoped>
-.copy-button {
-  display: flex;
-  gap: 1rem;
-  align-items: baseline;
-}
-
-.copy-confirmation {
-  font-size: 13pt;
-  filter: brightness(80%);
-}
-</style>
+<style scoped></style>

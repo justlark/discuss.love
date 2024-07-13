@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { humanReadableAnswer, type AnswerType } from "@/types";
+import { NForm, NRadioGroup, NRadio, NInput, NFormItem, NFlex } from "naive-ui";
 import { ref } from "vue";
 
 const props = defineProps<{
@@ -10,92 +11,41 @@ const props = defineProps<{
   initialNotes?: string;
 }>();
 
-const answer = ref(props.initialAnswer);
-const notes = ref(props.initialNotes ?? "");
+const response = ref<{ answer?: AnswerType; notes: string }>({
+  answer: props.initialAnswer,
+  notes: props.initialNotes ?? "",
+});
 
 defineExpose({
   id: props.id,
-  answer,
-  notes,
+  response,
 });
 
 const emit = defineEmits(["input"]);
-
-const onAnswerInput = (event: Event) => {
-  // This should be unnecessary, but exists to work around an issue I was having
-  // where the value being persisted in the browser local storage was being set
-  // to the *previous* value of the radio fieldset instead of the current one.
-  const inputElement = event.target as HTMLInputElement;
-  answer.value = inputElement.value as AnswerType;
-
-  emit("input");
-};
-
-const onNotesInput = () => emit("input");
 </script>
 
 <template>
-  <section>
-    <h2>{{ props.title }}</h2>
-    <p>{{ props.description }}</p>
-    <fieldset class="response-scale">
-      <div class="scale-input">
-        <input
-          type="radio"
-          :id="`response-yes-${props.id}`"
-          v-model="answer"
-          value="yes"
-          @input="onAnswerInput"
-        />
-        <label :for="`response-yes-${props.id}`">{{ humanReadableAnswer("yes") }}</label>
-      </div>
-
-      <div class="scale-input">
-        <input
-          type="radio"
-          :id="`response-no-${props.id}`"
-          v-model="answer"
-          value="no"
-          @input="onAnswerInput"
-        />
-        <label :for="`response-no-${props.id}`">{{ humanReadableAnswer("no") }}</label>
-      </div>
-
-      <div class="scale-input">
-        <input
-          type="radio"
-          :id="`response-later-${props.id}`"
-          v-model="answer"
-          value="later"
-          @input="onAnswerInput"
-        />
-        <label :for="`response-later-${props.id}`">{{ humanReadableAnswer("later") }}</label>
-      </div>
-    </fieldset>
-    <p :id="`notes-label-${props.id}`">Give some more detail</p>
-    <textarea v-model="notes" @input="onNotesInput" :aria-labelledby="`notes-label-${props.id}`" />
-  </section>
+  <h2>{{ props.title }}</h2>
+  <n-form :model="response">
+    <n-form-item :label="props.description" path="answer">
+      <n-radio-group v-model:value="response.answer" @update:value="emit('input')">
+        <n-flex vertical>
+          <n-radio value="yes">
+            {{ humanReadableAnswer("yes") }}
+          </n-radio>
+          <n-radio value="no">
+            {{ humanReadableAnswer("no") }}
+          </n-radio>
+          <n-radio value="later">
+            {{ humanReadableAnswer("later") }}
+          </n-radio>
+        </n-flex>
+      </n-radio-group>
+    </n-form-item>
+    <n-form-item label="Give some more detail" path="notes">
+      <n-input type="textarea" v-model:value="response.notes" @input="emit('input')" />
+    </n-form-item>
+  </n-form>
 </template>
 
-<style scoped>
-section {
-  padding: 0;
-}
-
-.response-scale {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  padding: 1rem;
-}
-
-.scale-input {
-  display: flex;
-  flex-direction: row;
-  gap: 0.8rem;
-}
-
-.scale-input > * {
-  margin: 0;
-}
-</style>
+<style scoped></style>

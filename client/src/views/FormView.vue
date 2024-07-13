@@ -8,10 +8,12 @@ import type {
   SessionInfo,
   WithQuestionId,
 } from "@/types";
-import { RouterLink, useRoute, useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
+import { NButton, NDivider } from "naive-ui";
 import CopyButton from "@/components/CopyButton.vue";
+import NavLink from "@/components/NavLink.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -32,8 +34,8 @@ type StoredResponses = { code: string; responses: Array<Response> };
 const collectResponses = (): Array<Response> => {
   return responseInputs.value.map((element) => ({
     id: element.id,
-    answer: element.answer,
-    notes: element.notes ?? "",
+    answer: element.response.answer,
+    notes: element.response.notes,
   }));
 };
 
@@ -175,7 +177,7 @@ onBeforeMount(async () => {
           <i>
             Send <strong>{{ otherPlayerName }}</strong> a link to this page so they can join the
             discussion. Want to start over with a new person?
-            <RouterLink to="/start">Click here</RouterLink>.
+            <nav-link to="/start">Click here</nav-link>.
           </i>
         </p>
         <CopyButton text="Copy Link" :link="pageLink" />
@@ -184,13 +186,12 @@ onBeforeMount(async () => {
         <p>
           <i
             >You're answering these questions for <strong>{{ otherPlayerName }}</strong
-            >. Want to start over with a new person?
-            <RouterLink to="/start">Click here</RouterLink>.</i
+            >. Want to start over with a new person? <nav-link to="/start">Click here</nav-link>.</i
           >
         </p>
       </div>
-      <hr />
-      <ResponseInput
+      <n-divider />
+      <response-input
         :id="question.id"
         :title="question.title"
         :description="question.description"
@@ -204,12 +205,12 @@ onBeforeMount(async () => {
       <div v-if="submissionStatus?.status == 'error'">
         <p class="error-message">Error: {{ submissionStatus.error }}</p>
       </div>
-      <button @click="submitForm">Submit</button>
+      <n-button @click="submitForm">Submit</n-button>
     </div>
     <div v-else-if="sessionStatus?.status == 'session-nonexistent'">
       <p>
         The link you followed to get here is invalid or has expired. To start a new discussion,
-        <RouterLink to="/start">click here</RouterLink>.
+        <nav-link to="/start">click here</nav-link>.
       </p>
     </div>
     <div v-else-if="sessionStatus?.status == 'already-submitted'">
@@ -218,7 +219,7 @@ onBeforeMount(async () => {
         your answers, but you'll have to wait for the other person to resubmit theirs as well. Your
         previous answers will be pre-filled in.
       </p>
-      <button @click="resetForm">Start Over</button>
+      <n-button @click="resetForm">Start Over</n-button>
     </div>
     <div v-else-if="sessionStatus?.status == 'error'">
       <p class="error-message">Error: {{ sessionStatus.error }}</p>
