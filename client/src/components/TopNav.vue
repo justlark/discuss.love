@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NFlex } from "naive-ui";
 import NavLink from "@/components/NavLink.vue";
+import { RouterView } from "vue-router";
 </script>
 
 <template>
@@ -12,7 +13,13 @@ import NavLink from "@/components/NavLink.vue";
       </n-flex>
     </nav>
   </header>
-  <RouterView />
+  <n-flex justify="center">
+    <router-view />
+  </n-flex>
 </template>
 
-<style scoped></style>
+<style scoped>
+header {
+  margin-bottom: 2rem;
+}
+</style>
