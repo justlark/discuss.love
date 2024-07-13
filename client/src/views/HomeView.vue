@@ -1,11 +1,20 @@
 <script setup lang="ts">
-import NavLink from "@/components/NavLink.vue";
+import { NButton } from "naive-ui";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const navigateStart = () => {
+  router.push("/start");
+};
 </script>
 
 <template>
   <main>
     <h1 class="site-title">Negotiate your relationships</h1>
-    <nav-link to="/start" class="start-button">Start a discussion</nav-link>
+    <n-button @click="navigateStart" type="primary" class="start-button"
+      >Start a Discussion</n-button
+    >
     <p>
       This is a tool for negotiating relationships. Each of you will pick and choose what you want
       out of your relationship from a menu of options, and once you're both done, you can compare
@@ -40,7 +49,8 @@ import NavLink from "@/components/NavLink.vue";
 
 .start-button {
   display: block;
-  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
