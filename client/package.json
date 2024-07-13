@@ -29,9 +29,11 @@
     "concrete.css": "^3.0.0",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.23.0",
+    "naive-ui": "^2.38.2",
     "npm-run-all2": "^6.2.0",
     "prettier": "^3.2.5",
     "typescript": "~5.4.0",
+    "vfonts": "^0.0.3",
     "vite": "^5.3.1",
     "vue-tsc": "^2.0.21"
   }
