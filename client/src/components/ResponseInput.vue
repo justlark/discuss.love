@@ -74,12 +74,21 @@ const emit = defineEmits(["input"]);
         </n-flex>
       </n-radio-group>
     </n-form-item>
-    <n-form-item label="Give some more detail" path="notes">
+    <!--
+      Naive UI doesn't do accessibility properly with form inputs:
+      https://github.com/tusen-ai/naive-ui/issues/4598
+    -->
+    <n-form-item
+      label="Give some more detail"
+      path="notes"
+      :label-props="{ for: `notes-input-${props.id}` }"
+    >
       <n-input
         type="textarea"
         v-model:value="response.notes"
         :placeholder="getRandomPrompt(response.answer)"
         @input="emit('input')"
+        :input-props="{ id: `notes-input-${props.id}` }"
       />
     </n-form-item>
   </n-form>

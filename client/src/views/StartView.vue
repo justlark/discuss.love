@@ -65,8 +65,8 @@ const startSession = async () => {
   <main>
     <h1>Start a new discussion</h1>
     <n-form ref="formRef" :rules="rules" :model="names">
-      <name-input label="Your name" path="sender" v-model="names.sender" />
-      <name-input label="Their name" path="recipient" v-model="names.recipient" />
+      <name-input id="sender" label="Your name" path="sender" v-model="names.sender" />
+      <name-input id="recipient" label="Their name" path="recipient" v-model="names.recipient" />
       <n-button @click="startSession">Start</n-button>
     </n-form>
   </main>
