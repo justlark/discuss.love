@@ -37,14 +37,14 @@ const description = ref(questionDef.value.description);
       <i>Someone said "No" to this.</i>
     </div>
     <div class="answer-pair" v-else>
-      <QuestionAnswer
-        :playerName="props.senderAnswer.playerName"
-        :questionAnswer="props.senderAnswer.answer"
+      <question-answer
+        :player-name="props.senderAnswer.playerName"
+        :question-answer="props.senderAnswer.answer"
         :notes="props.senderAnswer.notes"
       />
-      <QuestionAnswer
-        :playerName="props.recipientAnswer.playerName"
-        :questionAnswer="props.recipientAnswer.answer"
+      <question-answer
+        :player-name="props.recipientAnswer.playerName"
+        :question-answer="props.recipientAnswer.answer"
         :notes="props.recipientAnswer.notes"
       />
     </div>

@@ -104,10 +104,10 @@ onBeforeMount(async () => {
     <button @click="navigateEditPage">Edit Answers</button>
     <hr />
     <div v-if="responseStatus?.status == 'success'">
-      <AnswerComparison
+      <answer-comparison
         :id="pair.id"
-        :senderAnswer="pair.sender"
-        :recipientAnswer="pair.recipient"
+        :sender-answer="pair.sender"
+        :recipient-answer="pair.recipient"
         v-for="pair in answerPairs"
         :key="pair.id"
       />
