@@ -197,6 +197,7 @@ onBeforeMount(async () => {
         :description="question.description"
         :initialAnswer="getStoredResponse(question.id)?.answer"
         :initialNotes="getStoredResponse(question.id)?.notes"
+        :sharingCode="sharingCode"
         v-for="question in randomizedQuestions(sharingCode)"
         :key="question.id"
         ref="responseInputs"

@@ -2,9 +2,28 @@
 import { humanReadableAnswer, type AnswerType } from "@/types";
 import { NForm, NRadioGroup, NRadio, NInput, NFormItem, NFlex } from "naive-ui";
 import { ref } from "vue";
+import seedrandom from "seedrandom";
+
+const yesPrompts = [
+  "I want this becase…",
+  "I want this, except…",
+  "I want this, but also…",
+  "To me, this means…",
+  "I'm specifically looking for…",
+  "This is important to me becase…",
+];
+
+const laterPrompts = [
+  "I might be okay with this if…",
+  "I'll be ready for this when…",
+  "I don't want this right now, but…",
+  "Before we do this, we need to…",
+  "For this to change, I need…",
+];
 
 const props = defineProps<{
   id: string;
+  sharingCode: string;
   title: string;
   description: string;
   initialAnswer?: AnswerType;
@@ -15,6 +34,19 @@ const response = ref<{ answer?: AnswerType; notes: string }>({
   answer: props.initialAnswer,
   notes: props.initialNotes ?? "",
 });
+
+// TODO: This is too random. We should be shuffling a deck of questions and then
+// cycling through them.
+const getRandomPrompt = (answer: AnswerType | undefined) => {
+  if (!answer || answer === "no") {
+    return "";
+  }
+
+  const rng = seedrandom(`${props.sharingCode}.${props.id}`);
+  const prompts = answer === "yes" ? yesPrompts : laterPrompts;
+
+  return prompts[Math.floor(rng() * prompts.length)];
+};
 
 defineExpose({
   id: props.id,
@@ -43,7 +75,12 @@ const emit = defineEmits(["input"]);
       </n-radio-group>
     </n-form-item>
     <n-form-item label="Give some more detail" path="notes">
-      <n-input type="textarea" v-model:value="response.notes" @input="emit('input')" />
+      <n-input
+        type="textarea"
+        v-model:value="response.notes"
+        :placeholder="getRandomPrompt(response.answer)"
+        @input="emit('input')"
+      />
     </n-form-item>
   </n-form>
 </template>
