@@ -89,6 +89,7 @@ const emit = defineEmits(["input"]);
         :placeholder="getRandomPrompt(response.answer)"
         @input="emit('input')"
         :input-props="{ id: `notes-input-${props.id}` }"
+        :disabled="response.answer === 'no'"
       />
     </n-form-item>
   </n-form>
