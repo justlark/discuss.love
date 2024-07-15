@@ -16,12 +16,16 @@ import { RouterView } from "vue-router";
     </nav>
   </header>
   <n-flex justify="center">
-    <router-view />
+    <router-view class="body" />
   </n-flex>
 </template>
 
 <style scoped>
 header {
   margin-bottom: 2rem;
+}
+
+.body {
+  flex-grow: 1;
 }
 </style>

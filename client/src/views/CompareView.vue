@@ -4,10 +4,10 @@ import type { FormAnswers, SessionInfo, ResponseStatus } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import { useRoute, useRouter } from "vue-router";
-import { NButton, NResult, NDivider, useMessage } from "naive-ui";
+import { NButton, NDivider } from "naive-ui";
+import ErrorCard from "@/components/ErrorCard.vue";
 
 const route = useRoute();
-const message = useMessage();
 
 const sharingCode = ref<string>(route.query.code as string);
 
@@ -84,7 +84,10 @@ onBeforeMount(async () => {
   }
 
   if (submissionResponse.status !== 200) {
-    message.error(submissionResponseBody.error);
+    status.value = {
+      status: "error",
+      error: submissionResponseBody.error,
+    };
     return;
   }
 
@@ -99,32 +102,34 @@ onBeforeMount(async () => {
 
 <template>
   <div>
-    <h1>Compare answers</h1>
-    <n-button v-if="status?.status != 'error'" @click="navigateEditPage">Edit Answers</n-button>
-    <n-divider />
-    <n-result
+    <error-card
       v-if="status?.status == 'error'"
       status="error"
       title="Error"
       :description="status.error"
     />
-    <div v-else-if="status?.status == 'success'">
-      <answer-comparison
-        :id="pair.id"
-        :sender-answer="pair.sender"
-        :recipient-answer="pair.recipient"
-        v-for="pair in answerPairs"
-        :key="pair.id"
-      />
-    </div>
-    <div v-else-if="status?.status == 'waiting'">
-      <p>
-        The other person hasn't submitted their answers yet. Wait until they're done, and then
-        reload this page.
-      </p>
-    </div>
-    <div v-else-if="status?.status == 'expired'">
-      <p>This session has expired; you can no longer see each others' answers.</p>
+    <div v-else>
+      <h1>Compare answers</h1>
+      <n-button v-if="status?.status != 'expired'" @click="navigateEditPage">Edit Answers</n-button>
+      <n-divider />
+      <div v-if="status?.status == 'waiting'">
+        <p>
+          The other person hasn't submitted their answers yet. Wait until they're done, and then
+          reload this page.
+        </p>
+      </div>
+      <div v-else-if="status?.status == 'expired'">
+        <p>This session has expired; you can no longer see each others' answers.</p>
+      </div>
+      <div v-else-if="status?.status == 'success'">
+        <answer-comparison
+          :id="pair.id"
+          :sender-answer="pair.sender"
+          :recipient-answer="pair.recipient"
+          v-for="pair in answerPairs"
+          :key="pair.id"
+        />
+      </div>
     </div>
   </div>
 </template>

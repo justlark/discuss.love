@@ -24,7 +24,7 @@ const laterPrompts = [
 const props = defineProps<{
   id: string;
   sharingCode: string;
-  player: Player;
+  player?: Player;
   title: string;
   description: string;
   initialAnswer?: AnswerType;
@@ -38,7 +38,7 @@ const response = ref<{ answer?: AnswerType; notes: string }>({
 
 // TODO: This is too random. We should be shuffling a deck of questions and then
 // cycling through them.
-const getRandomPrompt = (answer: AnswerType | undefined, player: Player) => {
+const getRandomPrompt = (answer: AnswerType | undefined, player?: Player) => {
   if (!answer || !player || answer === "no") {
     return "";
   }
@@ -99,9 +99,14 @@ const emit = defineEmits(["input"]);
         @input="emit('input')"
         :input-props="{ id: `notes-input-${props.id}` }"
         :disabled="response.answer === 'no'"
+        class="notes"
       />
     </n-form-item>
   </n-form>
 </template>
 
-<style scoped></style>
+<style scoped>
+.notes {
+  max-width: 40rem;
+}
+</style>
