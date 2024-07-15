@@ -3,6 +3,7 @@ import { ref, computed } from "vue";
 import type { AttributedAnswer } from "@/types";
 import QuestionAnswer from "@/components/QuestionAnswer.vue";
 import { questionMap } from "@/questions";
+import { NDivider } from "naive-ui";
 
 const props = defineProps<{
   id: string;
@@ -50,7 +51,7 @@ const description = ref(questionDef.value.description);
         :notes="props.recipientAnswer.notes"
       />
     </div>
-    <hr />
+    <n-divider />
   </section>
 </template>
 
