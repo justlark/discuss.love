@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
-import type { Optional, QuestionAnswer, SessionInfo, WithQuestionId } from "@/types";
+import type {
+  Optional,
+  QuestionAnswer,
+  ResponseStatus,
+  SessionInfo,
+  WithQuestionId,
+} from "@/types";
 import { useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
-import { NButton, NDivider, useMessage } from "naive-ui";
+import { NButton, NDivider, useMessage, NResult } from "naive-ui";
 import CopyButton from "@/components/CopyButton.vue";
 import NavLink from "@/components/NavLink.vue";
 
@@ -16,7 +22,7 @@ const message = useMessage();
 const sharingCode = ref<string>(route.query.code as string);
 const player = ref<string>();
 
-const sessionStatus = ref<"session-nonexistent" | "already-submitted" | "success">();
+const status = ref<ResponseStatus<["session-nonexistent" | "already-submitted" | "success"]>>();
 
 const otherPlayerName = ref<string>();
 
@@ -87,10 +93,19 @@ const submitForm = async () => {
 };
 
 const resetForm = async () => {
-  await fetch(submissionsEndpoint(sharingCode.value), {
+  const response = await fetch(submissionsEndpoint(sharingCode.value), {
     method: "DELETE",
   });
-  sessionStatus.value = "success";
+
+  if (response.status !== 204) {
+    const { error } = await response.json();
+
+    message.error(error);
+
+    return;
+  }
+
+  status.value = { status: "success" };
 };
 
 const pageLink = ref(window.location.href);
@@ -113,23 +128,23 @@ onBeforeMount(async () => {
   const submissionResponse = await fetch(submissionsEndpoint(sharingCode.value));
 
   if (sessionResponse.status === 404) {
-    sessionStatus.value = "session-nonexistent";
+    status.value = { status: "session-nonexistent" };
   } else if (sessionResponse.status !== 200) {
     const { error } = await sessionResponse.json();
 
-    message.error(error);
+    status.value = { status: "error", error };
 
     return;
   } else if (submissionResponse.status === 200) {
-    sessionStatus.value = "already-submitted";
+    status.value = { status: "already-submitted" };
   } else if (submissionResponse.status !== 404) {
     const { error } = await submissionResponse.json();
 
-    message.error(error);
+    status.value = { status: "error", error };
 
     return;
   } else {
-    sessionStatus.value = "success";
+    status.value = { status: "success" };
   }
 
   const sessionInfo: SessionInfo = await sessionResponse.json();
@@ -142,13 +157,17 @@ onBeforeMount(async () => {
 <template>
   <main>
     <h1>What are you looking for?</h1>
-    <div v-if="sessionStatus == 'session-nonexistent'">
+    <div v-if="status?.status === 'error'">
+      <n-divider />
+      <n-result status="error" title="Error" :description="status.error" />
+    </div>
+    <div v-else-if="status?.status === 'session-nonexistent'">
       <p>
         The link you followed to get here is invalid or has expired. To start a new discussion,
         <nav-link to="/start">click here</nav-link>.
       </p>
     </div>
-    <div v-else-if="sessionStatus == 'already-submitted'">
+    <div v-else-if="status?.status === 'already-submitted'">
       <p>
         Everyone has already submitted their answers for this discussion. You can edit and resubmit
         your answers, but you'll have to wait for the other person to resubmit theirs as well. Your
@@ -156,8 +175,8 @@ onBeforeMount(async () => {
       </p>
       <n-button @click="resetForm">Start Over</n-button>
     </div>
-    <div v-else-if="sessionStatus == 'success'">
-      <div v-if="player == 'sender'">
+    <div v-else-if="status?.status === 'success'">
+      <div v-if="player === 'sender'">
         <p>
           <i>
             Send <strong>{{ otherPlayerName }}</strong> a link to this page so they can join the

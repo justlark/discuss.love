@@ -4,12 +4,14 @@ import type { FormAnswers, SessionInfo, ResponseStatus } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import { useRoute, useRouter } from "vue-router";
+import { NButton, NResult, NDivider, useMessage } from "naive-ui";
 
 const route = useRoute();
+const message = useMessage();
 
 const sharingCode = ref<string>(route.query.code as string);
 
-const responseStatus = ref<ResponseStatus<["waiting" | "expired" | "success"]>>();
+const status = ref<ResponseStatus<["waiting" | "expired" | "success"]>>();
 
 const sessionInfo = ref<SessionInfo>();
 const formAnswers = ref<FormAnswers>();
@@ -60,14 +62,14 @@ onBeforeMount(async () => {
   ]);
 
   if (sessionResponse.status === 404) {
-    responseStatus.value = {
+    status.value = {
       status: "expired",
     };
     return;
   }
 
   if (sessionResponse.status !== 200) {
-    responseStatus.value = {
+    status.value = {
       status: "error",
       error: sessionResponseBody.error,
     };
@@ -75,21 +77,18 @@ onBeforeMount(async () => {
   }
 
   if (submissionResponse.status === 404) {
-    responseStatus.value = {
+    status.value = {
       status: "waiting",
     };
     return;
   }
 
   if (submissionResponse.status !== 200) {
-    responseStatus.value = {
-      status: "error",
-      error: submissionResponseBody.error,
-    };
+    message.error(submissionResponseBody.error);
     return;
   }
 
-  responseStatus.value = {
+  status.value = {
     status: "success",
   };
 
@@ -101,9 +100,15 @@ onBeforeMount(async () => {
 <template>
   <div>
     <h1>Compare answers</h1>
-    <button @click="navigateEditPage">Edit Answers</button>
-    <hr />
-    <div v-if="responseStatus?.status == 'success'">
+    <n-button v-if="status?.status != 'error'" @click="navigateEditPage">Edit Answers</n-button>
+    <n-divider />
+    <n-result
+      v-if="status?.status == 'error'"
+      status="error"
+      title="Error"
+      :description="status.error"
+    />
+    <div v-else-if="status?.status == 'success'">
       <answer-comparison
         :id="pair.id"
         :sender-answer="pair.sender"
@@ -112,17 +117,14 @@ onBeforeMount(async () => {
         :key="pair.id"
       />
     </div>
-    <div v-else-if="responseStatus?.status == 'waiting'">
+    <div v-else-if="status?.status == 'waiting'">
       <p>
         The other person hasn't submitted their answers yet. Wait until they're done, and then
         reload this page.
       </p>
     </div>
-    <div v-else-if="responseStatus?.status == 'expired'">
+    <div v-else-if="status?.status == 'expired'">
       <p>This session has expired; you can no longer see each others' answers.</p>
-    </div>
-    <div v-else-if="responseStatus?.status == 'error'">
-      <p class="error-message">Error: {{ responseStatus.error }}</p>
     </div>
   </div>
 </template>
