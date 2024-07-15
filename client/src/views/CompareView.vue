@@ -11,7 +11,9 @@ const route = useRoute();
 
 const sharingCode = ref<string>(route.query.code as string);
 
-const status = ref<ResponseStatus<["waiting" | "expired" | "success"]>>();
+const status = ref<ResponseStatus<["loading" | "waiting" | "expired" | "success"]>>({
+  status: "loading",
+});
 
 const sessionInfo = ref<SessionInfo>();
 const formAnswers = ref<FormAnswers>();

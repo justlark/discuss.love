@@ -12,7 +12,7 @@ import type {
 import { useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
-import { NButton, NDivider, useMessage } from "naive-ui";
+import { NButton, NDivider, NSpin, useMessage } from "naive-ui";
 import CopyButton from "@/components/CopyButton.vue";
 import NavLink from "@/components/NavLink.vue";
 import ErrorCard from "@/components/ErrorCard.vue";
@@ -24,7 +24,11 @@ const message = useMessage();
 const sharingCode = ref<string>(route.query.code as string);
 const player = ref<Player>();
 
-const status = ref<ResponseStatus<["session-nonexistent" | "already-submitted" | "success"]>>();
+const status = ref<
+  ResponseStatus<["loading" | "session-nonexistent" | "already-submitted" | "success"]>
+>({
+  status: "loading",
+});
 
 const otherPlayerName = ref<string>();
 
