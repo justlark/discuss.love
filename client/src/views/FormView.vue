@@ -125,8 +125,10 @@ onBeforeMount(async () => {
     ? JSON.parse(initialStoredResponsesString)
     : undefined;
 
-  const sessionResponse = await fetch(sessionsEndpoint(sharingCode.value));
-  const submissionResponse = await fetch(submissionsEndpoint(sharingCode.value));
+  const [sessionResponse, submissionResponse] = await Promise.all([
+    fetch(sessionsEndpoint(sharingCode.value)),
+    fetch(submissionsEndpoint(sharingCode.value)),
+  ]);
 
   if (sessionResponse.status === 404) {
     status.value = { status: "session-nonexistent" };
