@@ -105,25 +105,27 @@ onBeforeMount(async () => {
 <template>
   <div>
     <error-card
-      v-if="status?.status == 'error'"
+      v-if="status?.status === 'error'"
       status="error"
       title="Error"
       :description="status.error"
     />
     <div v-else>
       <h1>Compare answers</h1>
-      <n-button v-if="status?.status != 'expired'" @click="navigateEditPage">Edit Answers</n-button>
+      <n-button v-if="status?.status !== 'expired'" @click="navigateEditPage"
+        >Edit Answers</n-button
+      >
       <n-divider />
-      <div v-if="status?.status == 'waiting'">
+      <div v-if="status?.status === 'waiting'">
         <p>
           The other person hasn't submitted their answers yet. Wait until they're done, and then
           reload this page.
         </p>
       </div>
-      <div v-else-if="status?.status == 'expired'">
+      <div v-else-if="status?.status === 'expired'">
         <p>This session has expired; you can no longer see each others' answers.</p>
       </div>
-      <div v-else-if="status?.status == 'success'">
+      <div v-else-if="status?.status === 'success'">
         <answer-comparison
           :id="pair.id"
           :sender-answer="pair.sender"

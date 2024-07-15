@@ -35,7 +35,7 @@ const description = ref(questionDef.value.description);
     -->
     <div
       class="answer-pair"
-      v-else-if="props.senderAnswer?.answer == 'no' || props.recipientAnswer?.answer == 'no'"
+      v-else-if="props.senderAnswer?.answer === 'no' || props.recipientAnswer?.answer === 'no'"
     >
       <i>Someone said "No" to this.</i>
     </div>
