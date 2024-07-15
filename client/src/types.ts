@@ -33,6 +33,8 @@ export type ByPlayer<T> = {
   recipient: T;
 };
 
+export type Player = keyof ByPlayer<never>;
+
 export type AttributedAnswer = { playerName: string } & QuestionAnswer;
 
 export type AnswerPair = WithQuestionId<ByPlayer<AttributedAnswer>>;

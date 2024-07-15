@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { humanReadableAnswer, type AnswerType } from "@/types";
+import { humanReadableAnswer, type AnswerType, type Player } from "@/types";
 import { NForm, NRadioGroup, NRadio, NInput, NFormItem, NFlex } from "naive-ui";
 import { ref } from "vue";
 import seedrandom from "seedrandom";
 
 const yesPrompts = [
-  "I want this becase…",
+  "I want this because…",
   "I want this, except…",
   "I want this, but also…",
   "To me, this means…",
   "I'm specifically looking for…",
-  "This is important to me becase…",
+  "This is important to me because…",
 ];
 
 const laterPrompts = [
@@ -24,6 +24,7 @@ const laterPrompts = [
 const props = defineProps<{
   id: string;
   sharingCode: string;
+  player: Player;
   title: string;
   description: string;
   initialAnswer?: AnswerType;
@@ -37,12 +38,20 @@ const response = ref<{ answer?: AnswerType; notes: string }>({
 
 // TODO: This is too random. We should be shuffling a deck of questions and then
 // cycling through them.
-const getRandomPrompt = (answer: AnswerType | undefined) => {
-  if (!answer || answer === "no") {
+const getRandomPrompt = (answer: AnswerType | undefined, player: Player) => {
+  if (!answer || !player || answer === "no") {
     return "";
   }
 
-  const rng = seedrandom(`${props.sharingCode}.${props.id}`);
+  // - We include the sharing code so that the prompts don't change on page
+  // reload.
+  // - We include the player so that each user gets different prompts, with the
+  // intent that that generates different answers and stimulates discussion.
+  // - We include the question ID so that the prompts don't change on page
+  // reload.
+  // - We include the answer so that the "Yes" and "Maybe later" answers don't
+  // always get the same prompts paired together.
+  const rng = seedrandom(`${props.sharingCode}.${player}.${props.id}.${answer}`);
   const prompts = answer === "yes" ? yesPrompts : laterPrompts;
 
   return prompts[Math.floor(rng() * prompts.length)];
@@ -86,7 +95,7 @@ const emit = defineEmits(["input"]);
       <n-input
         type="textarea"
         v-model:value="response.notes"
-        :placeholder="getRandomPrompt(response.answer)"
+        :placeholder="getRandomPrompt(response.answer, props.player)"
         @input="emit('input')"
         :input-props="{ id: `notes-input-${props.id}` }"
         :disabled="response.answer === 'no'"

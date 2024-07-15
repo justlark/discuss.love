@@ -3,6 +3,7 @@ import { computed, onBeforeMount, ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
 import type {
   Optional,
+  Player,
   QuestionAnswer,
   ResponseStatus,
   SessionInfo,
@@ -20,7 +21,7 @@ const router = useRouter();
 const message = useMessage();
 
 const sharingCode = ref<string>(route.query.code as string);
-const player = ref<string>();
+const player = ref<Player>();
 
 const status = ref<ResponseStatus<["session-nonexistent" | "already-submitted" | "success"]>>();
 
@@ -202,6 +203,7 @@ onBeforeMount(async () => {
         :initial-answer="getStoredResponse(question.id)?.answer"
         :initial-notes="getStoredResponse(question.id)?.notes"
         :sharing-code="sharingCode"
+        :player="player"
         v-for="question in randomizedQuestions(sharingCode)"
         :key="question.id"
         ref="responseInputs"
