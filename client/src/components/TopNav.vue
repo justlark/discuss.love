@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NFlex } from "naive-ui";
+import { NFlex, NText } from "naive-ui";
 import NavLink from "@/components/NavLink.vue";
 import { RouterView } from "vue-router";
 </script>
@@ -7,11 +7,10 @@ import { RouterView } from "vue-router";
 <template>
   <header>
     <nav>
-      <n-flex justify="space-between">
+      <n-flex size="small">
         <nav-link to="/" size="large">Discuss.love</nav-link>
-        <nav-link to="https://github.com/justlark/discuss.love" target="_blank" size="large"
-          >GitHub</nav-link
-        >
+        <n-text depth="1">|</n-text>
+        <n-text depth="2">A tool for negotiating relationships</n-text>
       </n-flex>
     </nav>
   </header>

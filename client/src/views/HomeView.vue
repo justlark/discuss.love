@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NButton } from "naive-ui";
 import { useRouter } from "vue-router";
+import NavLink from "@/components/NavLink.vue";
 
 const router = useRouter();
 
@@ -38,6 +39,9 @@ const navigateStart = () => {
       way you can pick and choose what you want from a buffet of options. The concept is often
       associated with relationship anarchy.
     </p>
+    <p class="callout-link">
+      <nav-link to="https://github.com/justlark/discuss.love" target="_blank">GitHub</nav-link>
+    </p>
   </main>
 </template>
 
@@ -53,6 +57,11 @@ const navigateStart = () => {
   margin-right: auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+.callout-link {
+  text-align: center;
+  margin-top: 2rem;
 }
 
 p {
