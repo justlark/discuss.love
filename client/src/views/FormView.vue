@@ -12,7 +12,7 @@ import type {
 import { useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
-import { NButton, NDivider, useMessage } from "naive-ui";
+import { NButton, NDivider, NFlex, useMessage } from "naive-ui";
 import CopyButton from "@/components/CopyButton.vue";
 import NavLink from "@/components/NavLink.vue";
 import ErrorCard from "@/components/ErrorCard.vue";
@@ -76,6 +76,10 @@ const getStoredResponse = (id: string): Response | undefined => {
   return storedResponses.value.get(id);
 };
 
+const viewSubmissions = () => {
+  router.push({ path: "/compare", query: { code: sharingCode.value } });
+};
+
 const submitForm = async () => {
   const responses = collectResponses();
 
@@ -101,7 +105,7 @@ const submitForm = async () => {
   // which hasn't, to control what message they see.
   localStorage.removeItem("completed");
 
-  router.push({ path: "/compare", query: { code: sharingCode.value } });
+  viewSubmissions();
 };
 
 const resetForm = async () => {
@@ -187,7 +191,10 @@ onBeforeMount(async () => {
           resubmit your answers, but you'll have to wait for the other person to resubmit theirs as
           well. Your previous answers will be pre-filled in.
         </p>
-        <n-button @click="resetForm">Start Over</n-button>
+        <n-flex>
+          <n-button type="error" @click="resetForm">Start Over</n-button>
+          <n-button @click="viewSubmissions">See Answers</n-button>
+        </n-flex>
       </div>
       <div v-else-if="status?.status === 'success'">
         <div v-if="player === 'sender'">
