@@ -95,6 +95,12 @@ const submitForm = async () => {
     return;
   }
 
+  // This value is set when retrieving the submissions (after all users have
+  // submitted) and unset here, on form submission. It's used when a player
+  // restarts the session to track which player has resubmitted the form and
+  // which hasn't, to control what message they see.
+  localStorage.removeItem("completed");
+
   router.push({ path: "/compare", query: { code: sharingCode.value } });
 };
 

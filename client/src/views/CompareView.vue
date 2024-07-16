@@ -52,6 +52,10 @@ const navigateEditPage = () => {
   router.push(`/join?code=${sharingCode.value}`);
 };
 
+const hasPreviouslyCompleted = computed(
+  () => localStorage.getItem("completed") === sharingCode.value,
+);
+
 onBeforeMount(async () => {
   const [sessionResponse, submissionResponse] = await Promise.all([
     fetch(sessionsEndpoint(sharingCode.value)),
@@ -97,6 +101,15 @@ onBeforeMount(async () => {
     status: "success",
   };
 
+  // Everyone has completed and submitted the form. We need to track this
+  // information persistently so that we can inform the current player that the
+  // other player has reset the form and the current player needs to edit and
+  // resubmit.
+  //
+  // We include the sharing code so the app doesn't get confused when a user is
+  // attempting to join multiple sessions.
+  localStorage.setItem("completed", sharingCode.value);
+
   sessionInfo.value = sessionResponseBody;
   formAnswers.value = submissionResponseBody;
 });
@@ -117,10 +130,18 @@ onBeforeMount(async () => {
       >
       <n-divider />
       <div v-if="status?.status === 'waiting'">
-        <p>
-          The other person hasn't submitted their answers yet. Wait until they're done, and then
-          reload this page.
-        </p>
+        <div v-if="hasPreviouslyCompleted">
+          <p>
+            The other person has edited their answers. Edit your answers and resubmit to compare
+            them.
+          </p>
+        </div>
+        <div v-else>
+          <p>
+            The other person hasn't submitted their answers yet. Wait until they're done, and then
+            reload this page.
+          </p>
+        </div>
       </div>
       <div v-else-if="status?.status === 'expired'">
         <p>This session has expired; you can no longer see each others' answers.</p>
