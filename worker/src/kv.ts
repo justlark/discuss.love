@@ -95,10 +95,13 @@ const coalesceAnswers = (sender: FormSubmission, recipient: FormSubmission): For
       // Someone answered "No" to this question. In this case, we return "no"
       // for both players in the API response. No cheating by inspecting the API
       // response!
+      //
+      // Additionally, we don't return any notes. Players don't see notes when
+      // someone answers "No."
       answers.push({
         id,
-        sender: { answer: "no", notes: senderAnswer.notes },
-        recipient: { answer: "no", notes: recipientAnswer.notes },
+        sender: { answer: "no", notes: "" },
+        recipient: { answer: "no", notes: "" },
       });
     } else {
       answers.push({ id, sender: senderAnswer, recipient: recipientAnswer });
