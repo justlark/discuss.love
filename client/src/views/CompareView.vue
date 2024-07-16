@@ -4,10 +4,12 @@ import type { FormAnswers, SessionInfo, ResponseStatus } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import { useRoute, useRouter } from "vue-router";
-import { NButton, NDivider } from "naive-ui";
+import { NButton, NDivider, NFlex, useDialog, useMessage } from "naive-ui";
 import ErrorCard from "@/components/ErrorCard.vue";
 
 const route = useRoute();
+const message = useMessage();
+const dialog = useDialog();
 
 const sharingCode = ref<string>(route.query.code as string);
 
@@ -55,6 +57,46 @@ const navigateEditPage = () => {
 const hasPreviouslyCompleted = computed(
   () => localStorage.getItem("completed") === sharingCode.value,
 );
+
+const deleteSubmissions = async () => {
+  const submissionDeleteResponse = await fetch(submissionsEndpoint(sharingCode.value), {
+    method: "DELETE",
+  });
+
+  if (submissionDeleteResponse.status !== 204) {
+    const { error } = await submissionDeleteResponse.json();
+
+    message.error(error);
+
+    return;
+  }
+
+  const sessionDeleteResponse = await fetch(sessionsEndpoint(sharingCode.value), {
+    method: "DELETE",
+  });
+
+  if (sessionDeleteResponse.status !== 204) {
+    const { error } = await sessionDeleteResponse.json();
+
+    message.error(error);
+
+    return;
+  }
+
+  // Go back to the homepage.
+  router.push("/");
+};
+
+const openDeleteDialog = () => {
+  dialog.error({
+    title: "Delete everyone's answers",
+    content:
+      "To protect your privacy, everyone's answers are automatically deleted after 7 days. Alternatively, you can delete them now. This cannot be undone.",
+    positiveText: "Delete",
+    negativeText: "Cancel",
+    onPositiveClick: deleteSubmissions,
+  });
+};
 
 onBeforeMount(async () => {
   const [sessionResponse, submissionResponse] = await Promise.all([
@@ -125,9 +167,10 @@ onBeforeMount(async () => {
     />
     <div v-else>
       <h1>Compare answers</h1>
-      <n-button v-if="status?.status !== 'expired'" @click="navigateEditPage"
-        >Edit Answers</n-button
-      >
+      <n-flex v-if="status?.status !== 'expired'">
+        <n-button @click="navigateEditPage">Edit Answers</n-button>
+        <n-button type="error" @click="openDeleteDialog">Delete Answers</n-button>
+      </n-flex>
       <n-divider />
       <div v-if="status?.status === 'waiting'">
         <div v-if="hasPreviouslyCompleted">

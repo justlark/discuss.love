@@ -23,8 +23,9 @@ const newSharingCode = (): string => {
   return sharingCode;
 };
 
-const sessionTtl = 60 * 60 * 24 * 30;
-const submissionTtl = 60 * 60 * 24 * 30;
+// Auto-delete sessions and submissions after 7 days.
+const sessionTtl = 60 * 60 * 24 * 7;
+const submissionTtl = 60 * 60 * 24 * 7;
 
 const sessionKey = (code: SharingCode): string => `sessions:${code}`;
 

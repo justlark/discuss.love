@@ -2,6 +2,7 @@
 import {
   NConfigProvider,
   NGlobalStyle,
+  NDialogProvider,
   darkTheme,
   useOsTheme,
   type GlobalThemeOverrides,
@@ -30,10 +31,12 @@ const themeOverrides: GlobalThemeOverrides = {
 
 <template>
   <n-config-provider :theme="theme" :theme-overrides="themeOverrides">
-    <n-message-provider placement="bottom">
-      <TopNav />
-      <n-global-style />
-    </n-message-provider>
+    <n-dialog-provider>
+      <n-message-provider placement="bottom">
+        <TopNav />
+        <n-global-style />
+      </n-message-provider>
+    </n-dialog-provider>
   </n-config-provider>
 </template>
 
