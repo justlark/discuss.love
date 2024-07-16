@@ -1,0 +1,15 @@
+
+/*
+    X-Content-Type-Options: nosniff
+    X-Frame-Options: DENY
+    Content-Security-Policy: default-src 'self'; connect-src https://api.discuss.love; style-src 'self' 'unsafe-inline'; frame-ancestors 'none';
+    Referrer-Policy: strict-origin
+    Cache-Control: no-cache
+
+/assets/*.js
+  ! Cache-Control
+  Cache-Control: public, immutable, max-age=31536000
+
+/assets/*.css
+  ! Cache-Control
+  Cache-Control: public, immutable, max-age=31536000
