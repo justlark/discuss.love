@@ -21,7 +21,7 @@ const copyLink = () => {
 </script>
 
 <template>
-  <n-flex gap="1rem" align="baseline">
+  <n-flex size="medium" align="baseline">
     <n-button @click="copyLink">{{ props.text }}</n-button>
     <n-text depth="2" v-if="isCopied">Copied!</n-text>
   </n-flex>
