@@ -14,7 +14,7 @@ resource "cloudflare_pages_project" "smorgasbord" {
 
     config {
       owner                         = "justlark"
-      repo_name                     = "smorgasbord"
+      repo_name                     = "discuss.love"
       production_branch             = "main"
       pr_comments_enabled           = true
       deployments_enabled           = true
@@ -28,5 +28,5 @@ resource "cloudflare_pages_project" "smorgasbord" {
 resource "cloudflare_pages_domain" "smorgasbord" {
   account_id   = var.cloudflare_account_id
   project_name = cloudflare_pages_project.smorgasbord.name
-  domain       = "discuss.love"
+  domain       = data.cloudflare_zone.smorgasbord.name
 }
