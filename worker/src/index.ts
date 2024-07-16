@@ -1,5 +1,12 @@
 import { AutoRouter, IRequestStrict, error, json, status } from "itty-router";
-import { getAnswers, startSession, getSessionInfo, submitForm, deleteSubmission } from "./kv";
+import {
+  getAnswers,
+  startSession,
+  getSessionInfo,
+  submitForm,
+  deleteSubmission,
+  deleteSession,
+} from "./kv";
 import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
 
 // This should be plenty large enough for any reasonable-length form submission.
@@ -42,6 +49,16 @@ router.post("/sessions", async (request: SessionPostRequest, env: Env) => {
   const sharingCode = await startSession(env.KV, info);
 
   return json({ code: sharingCode }, { status: 201 });
+});
+
+type SessionDeleteRequest = {
+  code: SharingCode;
+} & IRequestStrict;
+
+router.delete("/sessions/:code", async (request: SessionDeleteRequest, env: Env) => {
+  await deleteSession(env.KV, request.code);
+
+  return status(204);
 });
 
 type SessionGetRequest = {

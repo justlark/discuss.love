@@ -38,6 +38,10 @@ export const startSession = async (kv: KVNamespace, info: SessionInfo): Promise<
   return sharingCode;
 };
 
+export const deleteSession = async (kv: KVNamespace, code: SharingCode): Promise<void> => {
+  await kv.delete(sessionKey(code));
+};
+
 export const getSessionInfo = async (kv: KVNamespace, code: SharingCode): Promise<SessionInfo> => {
   const info = await kv.get(sessionKey(code));
 
@@ -69,8 +73,10 @@ export const submitForm = async (
 };
 
 export const deleteSubmission = async (kv: KVNamespace, code: SharingCode): Promise<void> => {
-  await kv.delete(submissionKey(code, "sender"));
-  await kv.delete(submissionKey(code, "recipient"));
+  await Promise.all([
+    kv.delete(submissionKey(code, "sender")),
+    kv.delete(submissionKey(code, "recipient")),
+  ]);
 };
 
 const answersByQuestion = (submission: FormSubmission): Map<string, QuestionAnswer> =>
