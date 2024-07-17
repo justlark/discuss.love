@@ -6,6 +6,8 @@ import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import { useRoute, useRouter } from "vue-router";
 import { NButton, NDivider, NFlex, useDialog, useMessage } from "naive-ui";
 import ErrorCard from "@/components/ErrorCard.vue";
+import { useVueToPrint } from "vue-to-print";
+import concrete from "concrete.css?raw";
 
 const route = useRoute();
 const message = useMessage();
@@ -98,6 +100,15 @@ const openDeleteDialog = () => {
   });
 };
 
+const answersRef = ref();
+
+const { handlePrint } = useVueToPrint({
+  content: () => answersRef.value,
+  documentTitle: "Discuss.love Answers",
+  copyStyles: false,
+  pageStyle: concrete,
+});
+
 onBeforeMount(async () => {
   const [sessionResponse, submissionResponse] = await Promise.all([
     fetch(sessionsEndpoint(sharingCode.value)),
@@ -169,6 +180,7 @@ onBeforeMount(async () => {
       <h1>Compare answers</h1>
       <n-flex v-if="status?.status !== 'expired'">
         <n-button @click="navigateEditPage">Edit Answers</n-button>
+        <n-button v-if="status?.status === 'success'" @click="handlePrint">Print Answers</n-button>
         <n-button type="error" @click="openDeleteDialog">Delete Answers</n-button>
       </n-flex>
       <n-divider />
@@ -189,7 +201,7 @@ onBeforeMount(async () => {
       <div v-else-if="status?.status === 'expired'">
         <p>This session has expired; you can no longer see each others' answers.</p>
       </div>
-      <div v-else-if="status?.status === 'success'">
+      <div ref="answersRef" v-else-if="status?.status === 'success'">
         <answer-comparison
           :id="pair.id"
           :sender-answer="pair.sender"
