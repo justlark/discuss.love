@@ -22,8 +22,8 @@ const description = ref(questionDef.value.description);
 </script>
 
 <template>
-  <section>
-    <h2>{{ title }}</h2>
+  <section :aria-labelledby="`answer-section-heading-${props.id}`">
+    <h2 :id="`answer-section-heading-${props.id}`">{{ title }}</h2>
     <p>{{ description }}</p>
     <div class="answer-pair" v-if="!props.senderAnswer || !props.recipientAnswer">
       <i>Someone didn't answer this question.</i>

@@ -173,12 +173,12 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <main>
+  <main aria-labelledby="main-heading">
     <div v-if="status?.status === 'error'">
       <error-card status="error" title="Error" :description="status.error" />
     </div>
     <div v-else>
-      <h1>What are you looking for?</h1>
+      <h1 id="main-heading">What are you looking for?</h1>
       <div v-if="status?.status === 'session-nonexistent'">
         <p>
           The link you followed to get here is invalid or has expired. To start a new discussion,

@@ -62,8 +62,8 @@ const startSession = async () => {
 </script>
 
 <template>
-  <main>
-    <h1 class="title">Start a new discussion</h1>
+  <main aria-labelledby="main-heading">
+    <h1 id="main-heading" class="title">Start a new discussion</h1>
     <n-flex size="large" justify="space-around">
       <div class="form">
         <n-form ref="formRef" :rules="rules" :model="names">
@@ -80,25 +80,33 @@ const startSession = async () => {
       <aside class="aside">
         <n-ul>
           <n-li>
-            You won't be able to see each other's answers until you're both done answering.
+            <p>You won't be able to see each other's answers until you're both done answering.</p>
           </n-li>
           <n-li>
-            You'll only see the answers that you agree on. If one of you selects "No" to a
-            particular question, you won't see how the other person responded. Don't be afraid to
-            say yes to something just because you're worried the other person will say no!
+            <p>
+              You'll only see the answers that you agree on. If one of you selects "No" to a
+              particular question, you won't see how the other person responded. Don't be afraid to
+              say yes to something just because you're worried the other person will say no!
+            </p>
           </n-li>
-          <n-li
-            >If you want to change your answers, you'll both have the opportunity to go back and
-            make changes before you can compare answers again.</n-li
-          >
           <n-li>
-            The purpose of this tool is to start a discussion, not to replace one! Once you compare
-            answers, take the time to ask each other clarifying questions.
+            <p>
+              If you want to change your answers, you'll both have the opportunity to go back and
+              make changes before you can compare answers again.
+            </p>
           </n-li>
-          <n-li
-            >You can delete your data from this website at any time. It will auto-delete after 7
-            days.</n-li
-          >
+          <n-li>
+            <p>
+              The purpose of this tool is to start a discussion, not to replace one! Once you
+              compare answers, take the time to ask each other clarifying questions.
+            </p>
+          </n-li>
+          <n-li>
+            <p>
+              You can delete your data from this website at any time. It will auto-delete after 7
+              days.
+            </p>
+          </n-li>
         </n-ul>
       </aside>
     </n-flex>

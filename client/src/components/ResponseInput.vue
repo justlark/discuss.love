@@ -66,8 +66,8 @@ const emit = defineEmits(["input"]);
 </script>
 
 <template>
-  <h2>{{ props.title }}</h2>
-  <n-form :model="response">
+  <n-form :aria-labelledby="`response-input-heading-${props.id}`" :model="response">
+    <h2 :id="`response-input-heading-${props.id}`">{{ props.title }}</h2>
     <n-form-item :label="props.description" path="answer">
       <n-radio-group v-model:value="response.answer" @update:value="emit('input')">
         <n-flex vertical>

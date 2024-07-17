@@ -11,8 +11,8 @@ const navigateStart = () => {
 </script>
 
 <template>
-  <main>
-    <h1 class="site-title">Negotiate your relationships</h1>
+  <main aria-labelledby="main-heading">
+    <h1 id="main-heading" class="site-title">Negotiate your relationships</h1>
     <n-button @click="navigateStart" type="primary" class="start-button"
       >Start a Discussion</n-button
     >

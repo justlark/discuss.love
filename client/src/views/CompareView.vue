@@ -169,7 +169,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div>
+  <main aria-labelledby="main-heading">
     <error-card
       v-if="status?.status === 'error'"
       status="error"
@@ -177,7 +177,7 @@ onBeforeMount(async () => {
       :description="status.error"
     />
     <div v-else>
-      <h1>Compare answers</h1>
+      <h1 id="main-heading">Compare answers</h1>
       <n-flex v-if="status?.status !== 'expired'">
         <n-button @click="navigateEditPage">Edit Answers</n-button>
         <n-button v-if="status?.status === 'success'" @click="handlePrint">Print Answers</n-button>
@@ -211,7 +211,7 @@ onBeforeMount(async () => {
         />
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <style scoped></style>
