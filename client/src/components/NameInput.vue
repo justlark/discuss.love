@@ -35,6 +35,5 @@ const props = defineProps<{
 .name-input {
   display: flex;
   flex-direction: column;
-  max-width: 20rem;
 }
 </style>

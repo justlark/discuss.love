@@ -16,29 +16,22 @@ const navigateStart = () => {
     <n-button @click="navigateStart" type="primary" class="start-button"
       >Start a Discussion</n-button
     >
-    <p>
-      This is a tool for negotiating relationships. Each of you will pick and choose what you want
-      out of your relationship from a menu of options, and once you're both done, you can compare
-      answers to see if you're on the same page or not.
-    </p>
-    <p>
-      The purpose of this tool is to start a discussion, not to replace one! Once you compare
-      answers, take the time to ask each other clarifying questions.
-    </p>
-    <p>
-      You'll only see the answers that you agree on. If one of you selects "No" to a particular
-      question, you won't see how the other person responded. Don't be afraid to say "Yes" to
-      something just because you're worried the other person will say "No"!
-    </p>
-    <p>
-      This tool isn't just for romantic relationships! Use it with your friends, platonic partners,
-      play partners, or anyone else you want to build a healthier relationship with.
-    </p>
-    <p>
-      You'll often see this exercise referred to as the "relationship smorgasbord," referring to the
-      way you can pick and choose what you want from a buffet of options. The concept is often
-      associated with relationship anarchy.
-    </p>
+    <div class="body">
+      <p>
+        This is a tool for negotiating relationships. Each of you will pick and choose what you want
+        out of your relationship from a menu of options, and once you're both done, you can compare
+        answers to see if you're on the same page or not.
+      </p>
+      <p>
+        This tool isn't just for romantic relationships! Use it with your friends, platonic
+        partners, play partners, or anyone else you want to build a healthier relationship with.
+      </p>
+      <p>
+        You'll often see this exercise referred to as the "relationship smorgasbord," referring to
+        the way you can pick and choose what you want from a buffet of options. The concept is often
+        associated with relationship anarchy.
+      </p>
+    </div>
     <p class="callout-link">
       <nav-link to="https://github.com/justlark/discuss.love" target="_blank">GitHub</nav-link>
     </p>
@@ -64,7 +57,8 @@ const navigateStart = () => {
   margin-top: 2rem;
 }
 
-p {
+.body {
   text-align: justify;
+  max-width: 50rem;
 }
 </style>
