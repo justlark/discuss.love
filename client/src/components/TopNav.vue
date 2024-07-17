@@ -7,9 +7,8 @@ import { RouterView } from "vue-router";
 <template>
   <header>
     <nav>
-      <n-flex size="small">
+      <n-flex size="medium">
         <nav-link to="/" size="large">Discuss.love</nav-link>
-        <n-text depth="1">|</n-text>
         <n-text depth="2">A tool for negotiating relationships</n-text>
       </n-flex>
     </nav>
