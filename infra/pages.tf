@@ -23,6 +23,22 @@ resource "cloudflare_pages_project" "smorgasbord" {
       preview_branch_includes       = ["dev"]
     }
   }
+
+  deployment_configs {
+    production {
+      environment_variables = {
+        VITE_API_URL = "https://api.${data.cloudflare_zone.smorgasbord.name}"
+      }
+      usage_model = "standard"
+    }
+
+    preview {
+      environment_variables = {
+        VITE_API_URL = "https://api-dev.${data.cloudflare_zone.smorgasbord.name}"
+      }
+      usage_model = "standard"
+    }
+  }
 }
 
 resource "cloudflare_pages_domain" "smorgasbord" {

@@ -11,3 +11,13 @@ custom_domain = true
 [[kv_namespaces]]
 binding = "KV"
 id = "584052a94e464845865eaab4fd96191b"
+
+[env.dev]
+
+  [env.dev.route]
+  pattern = "api-dev.discuss.love"
+  custom_domain = true
+
+  [[env.dev.kv_namespaces]]
+  binding = "KV"
+  id = "f6bdaf4fc8854e37aa4946362d38fec5"

@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.DEV ? "/api" : "https://api.discuss.love";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const sessionsEndpoint = (code?: string) =>
   code ? `${API_URL}/sessions/${code}` : `${API_URL}/sessions`;

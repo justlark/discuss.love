@@ -18,10 +18,22 @@ const FORM_SIZE_LIMIT = 1000 * 100; // 100 KB
 // just need to prevent abuse and discourage names that will break the UI.
 const NAME_SIZE_LIMIT = 50;
 
-const corsMiddleware = (response: Response) => {
-  response.headers.set("Access-Control-Allow-Origin", "https://discuss.love");
-  response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+const corsAllowedOrigins = [
+  // Prod environment.
+  "https://discuss.love",
+
+  // Dev environment.
+  "https://dev.smorgasbord.pages.dev",
+];
+
+const corsMiddleware = (response: Response, request: Request) => {
+  const reqOrigin = request.headers.get("Origin");
+
+  if (reqOrigin !== null && corsAllowedOrigins.includes(reqOrigin)) {
+    response.headers.set("Access-Control-Allow-Origin", reqOrigin);
+    response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+  }
 
   return response;
 };
