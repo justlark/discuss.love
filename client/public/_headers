@@ -2,7 +2,7 @@
 /*
     X-Content-Type-Options: nosniff
     X-Frame-Options: DENY
-    Content-Security-Policy: default-src 'self'; connect-src https://api.discuss.love https://api-dev.discuss.love; style-src 'self' 'unsafe-inline'; frame-ancestors 'none';
+    Content-Security-Policy: default-src 'self'; connect-src https://api.discuss.love https://api-dev.discuss.love; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-ancestors 'none';
     Referrer-Policy: strict-origin
     Cache-Control: no-cache
 
