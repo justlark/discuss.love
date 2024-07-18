@@ -22,7 +22,6 @@ const props = defineProps<{
     :label-props="{ for: `name-input-${props.id}` }"
   >
     <n-input
-      :id="`name-input-${props.id}`"
       type="text"
       placeholder=""
       v-model:value="model"
