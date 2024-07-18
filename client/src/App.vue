@@ -32,7 +32,7 @@ const themeOverrides: GlobalThemeOverrides = {
 <template>
   <n-config-provider :theme="theme" :theme-overrides="themeOverrides">
     <n-dialog-provider>
-      <n-message-provider placement="bottom">
+      <n-message-provider keep-alive-on-hover placement="bottom">
         <TopNav />
         <n-global-style />
       </n-message-provider>
