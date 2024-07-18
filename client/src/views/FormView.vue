@@ -175,7 +175,7 @@ onBeforeMount(async () => {
 <template>
   <action-header
     title="What are you looking for?"
-    :errorText="status?.status === 'error' ? status.error : undefined"
+    :error-text="status?.status === 'error' ? status.error : undefined"
   >
     <template #subtitle v-if="status?.status === 'success'">
       <div v-if="player === 'sender'">
