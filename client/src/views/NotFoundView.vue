@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import ErrorCard from "@/components/ErrorCard.vue";
+import ResultCard from "@/components/ResultCard.vue";
 </script>
 
 <template>
   <main>
-    <error-card
+    <result-card
       status="404"
       title="Not Found"
       description="This page doesn't exist. Did you copy a URL wrong?"

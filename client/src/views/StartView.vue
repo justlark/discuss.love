@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { sessionsEndpoint } from "@/api";
 import NameInput from "@/components/NameInput.vue";
 import { useRouter } from "vue-router";
-import { type FormInst, NDivider, NButton, NForm, NUl, NLi, NFlex, useMessage } from "naive-ui";
+import { type FormInst, NButton, NForm, NUl, NLi, NFlex, useMessage } from "naive-ui";
 
 const formRef = ref<FormInst>();
 const names = ref({ sender: "", recipient: "" });
@@ -66,7 +66,7 @@ const startSession = async () => {
     <h1 id="main-heading" class="title">Start a new discussion</h1>
     <n-flex size="large" justify="space-around">
       <div class="form">
-        <n-form ref="formRef" :rules="rules" :model="names">
+        <n-form aria-labelledby="main-heading" ref="formRef" :rules="rules" :model="names">
           <name-input id="sender" label="Your name" path="sender" v-model="names.sender" />
           <name-input
             id="recipient"

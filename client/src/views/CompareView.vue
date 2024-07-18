@@ -4,10 +4,10 @@ import type { FormAnswers, SessionInfo, ResponseStatus } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import { useRoute, useRouter } from "vue-router";
-import { NButton, NDivider, NFlex, useDialog, useMessage } from "naive-ui";
-import ErrorCard from "@/components/ErrorCard.vue";
+import { NButton, useDialog, useMessage } from "naive-ui";
 import { useVueToPrint } from "vue-to-print";
 import concrete from "concrete.css?raw";
+import ActionHeader from "@/components/ActionHeader.vue";
 
 const route = useRoute();
 const message = useMessage();
@@ -169,21 +169,17 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <main aria-labelledby="main-heading">
-    <error-card
-      v-if="status?.status === 'error'"
-      status="error"
-      title="Error"
-      :description="status.error"
-    />
-    <div v-else>
-      <h1 id="main-heading">Compare answers</h1>
-      <n-flex v-if="status?.status !== 'expired'">
-        <n-button @click="navigateEditPage">Edit Answers</n-button>
-        <n-button v-if="status?.status === 'success'" @click="handlePrint">Print Answers</n-button>
-        <n-button type="error" @click="openDeleteDialog">Delete Answers</n-button>
-      </n-flex>
-      <n-divider />
+  <action-header
+    title="Compare answers"
+    :error-text="status?.status === 'error' ? status.error : undefined"
+  >
+    <template #actions v-if="status?.status !== 'expired'">
+      <n-button @click="navigateEditPage">Edit Answers</n-button>
+      <n-button v-if="status?.status === 'success'" @click="handlePrint">Print Answers</n-button>
+      <n-button type="error" @click="openDeleteDialog">Delete Answers</n-button>
+    </template>
+
+    <template #body>
       <div v-if="status?.status === 'waiting'">
         <div v-if="hasPreviouslyCompleted">
           <p>
@@ -201,7 +197,7 @@ onBeforeMount(async () => {
       <div v-else-if="status?.status === 'expired'">
         <p>This session has expired; you can no longer see each others' answers.</p>
       </div>
-      <div ref="answersRef" v-else-if="status?.status === 'success'">
+      <div v-else-if="status?.status === 'success'" ref="answersRef">
         <answer-comparison
           :id="pair.id"
           :sender-answer="pair.sender"
@@ -210,8 +206,8 @@ onBeforeMount(async () => {
           :key="pair.id"
         />
       </div>
-    </div>
-  </main>
+    </template>
+  </action-header>
 </template>
 
 <style scoped></style>

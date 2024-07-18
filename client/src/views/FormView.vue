@@ -12,10 +12,10 @@ import type {
 import { useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
-import { NButton, NDivider, NFlex, useMessage } from "naive-ui";
+import { NButton, useMessage } from "naive-ui";
 import CopyButton from "@/components/CopyButton.vue";
 import NavLink from "@/components/NavLink.vue";
-import ErrorCard from "@/components/ErrorCard.vue";
+import ActionHeader from "@/components/ActionHeader.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -173,12 +173,37 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <main aria-labelledby="main-heading">
-    <div v-if="status?.status === 'error'">
-      <error-card status="error" title="Error" :description="status.error" />
-    </div>
-    <div v-else>
-      <h1 id="main-heading">What are you looking for?</h1>
+  <action-header
+    title="What are you looking for?"
+    :errorText="status?.status === 'error' ? status.error : undefined"
+  >
+    <template #subtitle v-if="status?.status === 'success'">
+      <div v-if="player === 'sender'">
+        Send <strong>{{ otherPlayerName }}</strong> a link to this page so they can join the
+        discussion. Want to start over with a new person?
+        <nav-link to="/start">Click here</nav-link>.
+      </div>
+      <div v-else>
+        You're answering these questions for <strong>{{ otherPlayerName }}</strong
+        >. Want to start over with a new person? <nav-link to="/start">Click here</nav-link>.
+      </div>
+    </template>
+
+    <template #actions>
+      <copy-button
+        text="Copy Link"
+        :link="pageLink"
+        v-if="status?.status === 'success' && player === 'sender'"
+      />
+      <n-button type="error" @click="resetForm" v-if="status?.status === 'already-submitted'">
+        Start Over
+      </n-button>
+      <n-button @click="viewSubmissions" v-if="status?.status === 'already-submitted'">
+        See Answers
+      </n-button>
+    </template>
+
+    <template #body>
       <div v-if="status?.status === 'session-nonexistent'">
         <p>
           The link you followed to get here is invalid or has expired. To start a new discussion,
@@ -191,51 +216,25 @@ onBeforeMount(async () => {
           resubmit your answers, but you'll have to wait for the other person to resubmit theirs as
           well. Your previous answers will be pre-filled in.
         </p>
-        <n-flex>
-          <n-button type="error" @click="resetForm">Start Over</n-button>
-          <n-button @click="viewSubmissions">See Answers</n-button>
-        </n-flex>
       </div>
-      <div v-else-if="status?.status === 'success'">
-        <div v-if="player === 'sender'">
-          <p>
-            <i>
-              Send <strong>{{ otherPlayerName }}</strong> a link to this page so they can join the
-              discussion. Want to start over with a new person?
-              <nav-link to="/start">Click here</nav-link>.
-            </i>
-          </p>
-          <copy-button text="Copy Link" :link="pageLink" />
-        </div>
-        <div v-else>
-          <p>
-            <i
-              >You're answering these questions for <strong>{{ otherPlayerName }}</strong
-              >. Want to start over with a new person?
-              <nav-link to="/start">Click here</nav-link>.</i
-            >
-          </p>
-        </div>
-        <n-divider />
-        <div class="responses">
-          <response-input
-            :id="question.id"
-            :title="question.title"
-            :description="question.description"
-            :initial-answer="getStoredResponse(question.id)?.answer"
-            :initial-notes="getStoredResponse(question.id)?.notes"
-            :sharing-code="sharingCode"
-            :player="player"
-            v-for="question in randomizedQuestions(sharingCode)"
-            :key="question.id"
-            ref="responseInputs"
-            @input="storeResponses"
-          />
-        </div>
+      <div class="responses" v-else-if="status?.status === 'success'">
+        <response-input
+          :id="question.id"
+          :title="question.title"
+          :description="question.description"
+          :initial-answer="getStoredResponse(question.id)?.answer"
+          :initial-notes="getStoredResponse(question.id)?.notes"
+          :sharing-code="sharingCode"
+          :player="player"
+          v-for="question in randomizedQuestions(sharingCode)"
+          :key="question.id"
+          ref="responseInputs"
+          @input="storeResponses"
+        />
         <n-button @click="submitForm">Submit</n-button>
       </div>
-    </div>
-  </main>
+    </template>
+  </action-header>
 </template>
 
 <style scoped>
