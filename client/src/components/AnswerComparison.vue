@@ -25,7 +25,7 @@ const description = ref(questionDef.value.description);
   <section :aria-labelledby="`answer-section-heading-${props.id}`">
     <h2 :id="`answer-section-heading-${props.id}`">{{ title }}</h2>
     <p>{{ description }}</p>
-    <div class="answer-pair" v-if="!props.senderAnswer || !props.recipientAnswer">
+    <div class="answer" v-if="!props.senderAnswer || !props.recipientAnswer">
       <i>Someone didn't answer this question.</i>
     </div>
     <!--
@@ -34,12 +34,12 @@ const description = ref(questionDef.value.description);
       inspecting the API response to see the actual answers.
     -->
     <div
-      class="answer-pair"
+      class="answer"
       v-else-if="props.senderAnswer?.answer === 'no' || props.recipientAnswer?.answer === 'no'"
     >
       <i>Someone said "No" to this.</i>
     </div>
-    <div class="answer-pair" v-else>
+    <div class="answer answer-pair" v-else>
       <question-answer
         :player-name="props.senderAnswer.playerName"
         :question-answer="props.senderAnswer.answer"
@@ -56,26 +56,28 @@ const description = ref(questionDef.value.description);
 </template>
 
 <style scoped>
+.answer {
+  margin-left: 2rem;
+}
+
 .answer-pair {
   display: flex;
   justify-content: space-around;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .answer-pair > * {
-  max-width: 60%;
+  flex: 1 0;
 }
 
 @media (max-width: 768px) {
-  .answer-pair {
-    flex-direction: column;
-    gap: 1.5rem;
+  .answer {
+    margin-left: 0;
   }
 
-  .answer-pair > * {
-    max-width: 100%;
+  .answer-pair {
+    flex-direction: column;
+    gap: 0;
   }
 }
 </style>
