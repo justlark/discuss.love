@@ -12,10 +12,11 @@ import type {
 import { useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
-import { NButton, useMessage } from "naive-ui";
+import { NButton } from "naive-ui";
 import CopyButton from "@/components/CopyButton.vue";
 import NavLink from "@/components/NavLink.vue";
 import ActionHeader from "@/components/ActionHeader.vue";
+import { useMessage } from "@/message";
 
 const route = useRoute();
 const router = useRouter();

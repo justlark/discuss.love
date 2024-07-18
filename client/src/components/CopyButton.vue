@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { NButton, useMessage } from "naive-ui";
+import { NButton } from "naive-ui";
+import { useMessage } from "@/message";
 
 const message = useMessage();
 
@@ -10,7 +11,7 @@ const props = defineProps<{
 
 const copyLink = () => {
   navigator.clipboard.writeText(props.link);
-  message.success("Link copied!");
+  message.info("Link copied!");
 };
 </script>
 
