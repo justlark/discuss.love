@@ -6,7 +6,7 @@ import App from "./App.vue";
 import router from "./router";
 import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
-import { definePreset, palette } from "@primevue/themes";
+import { definePreset } from "@primevue/themes";
 import ToastService from "primevue/toastservice";
 import ConfirmationService from "primevue/confirmationservice";
 
@@ -14,7 +14,20 @@ const app = createApp(App);
 
 const preset = definePreset(Aura, {
   semantic: {
-    primary: palette("#63e2b7"),
+    colorScheme: {
+      light: {
+        primary: {
+          color: "{indigo.600}",
+          hoverColor: "{indigo.500}",
+        },
+      },
+      dark: {
+        primary: {
+          color: "{teal.300}",
+          hoverColor: "{teal.400}",
+        },
+      },
+    },
   },
 });
 
