@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NDivider, NFlex } from "naive-ui";
+import Divider from "primevue/divider";
 import ResultCard from "@/components/ResultCard.vue";
 
 const props = defineProps<{
@@ -17,11 +17,11 @@ const props = defineProps<{
           <slot name="subtitle" />
         </i>
       </p>
-      <n-flex v-if="$slots.actions">
+      <div class="flex flex-wrap gap-4 my-4" v-if="$slots.actions">
         <slot name="actions" />
-      </n-flex>
+      </div>
     </div>
-    <n-divider />
+    <Divider />
     <result-card
       v-if="props.errorText"
       status="error"
