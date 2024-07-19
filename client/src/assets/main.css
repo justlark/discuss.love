@@ -7,7 +7,7 @@
     min-width: 200px;
     max-width: 1200px;
     margin: 0 auto !important;
-    padding: 30px !important;
+    @apply p-8;
   }
 
   p {
@@ -21,6 +21,19 @@
   h5,
   h6 {
     @apply mb-2 font-bold;
+  }
+
+  ul,
+  ol {
+    @apply pl-4;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  ol {
+    @apply list-decimal;
   }
 
   h1 {
