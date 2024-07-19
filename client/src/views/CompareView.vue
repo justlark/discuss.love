@@ -4,9 +4,10 @@ import type { FormAnswers, SessionInfo, ResponseStatus } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import { useRoute, useRouter } from "vue-router";
-import { NButton, useDialog } from "naive-ui";
+import { useDialog } from "naive-ui";
 import { useToast } from "primevue/usetoast";
 import { useVueToPrint } from "vue-to-print";
+import Button from "primevue/button";
 import concrete from "concrete.css?raw";
 import ActionHeader from "@/components/ActionHeader.vue";
 
@@ -177,9 +178,14 @@ onBeforeMount(async () => {
     :error-text="status?.status === 'error' ? status.error : undefined"
   >
     <template #actions v-if="status?.status !== 'expired'">
-      <n-button @click="navigateEditPage">Edit Answers</n-button>
-      <n-button v-if="status?.status === 'success'" @click="handlePrint">Print Answers</n-button>
-      <n-button type="error" @click="openDeleteDialog">Delete Answers</n-button>
+      <Button severity="secondary" @click="navigateEditPage" label="Edit Answers" />
+      <Button
+        severity="secondary"
+        v-if="status?.status === 'success'"
+        @click="handlePrint"
+        label="Print Answers"
+      />
+      <Button severity="danger" @click="openDeleteDialog" label="Delete Answers" />
     </template>
 
     <template #body>
@@ -201,7 +207,7 @@ onBeforeMount(async () => {
         <p>This session has expired; you can no longer see each others' answers.</p>
       </div>
       <div v-else-if="status?.status === 'success'" ref="answersRef">
-        <answer-comparison
+        <AnswerComparison
           :id="pair.id"
           :sender-answer="pair.sender"
           :recipient-answer="pair.recipient"

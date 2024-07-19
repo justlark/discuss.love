@@ -51,6 +51,10 @@
   ol {
     @apply list-decimal;
   }
+
+  blockquote {
+    @apply border-l-4 pl-2.5 my-2 border-surface-200 dark:border-surface-600;
+  }
 }
 
 .color-danger {

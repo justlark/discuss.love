@@ -3,7 +3,7 @@ import { ref, computed } from "vue";
 import type { AttributedAnswer } from "@/types";
 import QuestionAnswer from "@/components/QuestionAnswer.vue";
 import { questionMap } from "@/questions";
-import { NDivider } from "naive-ui";
+import Divider from "primevue/divider";
 
 const props = defineProps<{
   id: string;
@@ -25,7 +25,7 @@ const description = ref(questionDef.value.description);
   <section :aria-labelledby="`answer-section-heading-${props.id}`">
     <h2 :id="`answer-section-heading-${props.id}`">{{ title }}</h2>
     <p>{{ description }}</p>
-    <div class="answer" v-if="!props.senderAnswer || !props.recipientAnswer">
+    <div class="sm:ml-8" v-if="!props.senderAnswer || !props.recipientAnswer">
       <i>Someone didn't answer this question.</i>
     </div>
     <!--
@@ -34,50 +34,27 @@ const description = ref(questionDef.value.description);
       inspecting the API response to see the actual answers.
     -->
     <div
-      class="answer"
+      class="sm:ml-8"
       v-else-if="props.senderAnswer?.answer === 'no' || props.recipientAnswer?.answer === 'no'"
     >
       <i>Someone said "No" to this.</i>
     </div>
-    <div class="answer answer-pair" v-else>
-      <question-answer
+    <div class="flex flex-col sm:flex-row justify-around sm:gap-8 sm:ml-8" v-else>
+      <QuestionAnswer
+        class="grow basis-0"
         :player-name="props.senderAnswer.playerName"
         :question-answer="props.senderAnswer.answer"
         :notes="props.senderAnswer.notes"
       />
-      <question-answer
+      <QuestionAnswer
+        class="grow basis-0"
         :player-name="props.recipientAnswer.playerName"
         :question-answer="props.recipientAnswer.answer"
         :notes="props.recipientAnswer.notes"
       />
     </div>
-    <n-divider />
+    <Divider />
   </section>
 </template>
 
-<style scoped>
-.answer {
-  margin-left: 2rem;
-}
-
-.answer-pair {
-  display: flex;
-  justify-content: space-around;
-  gap: 2rem;
-}
-
-.answer-pair > * {
-  flex: 1 0;
-}
-
-@media (max-width: 768px) {
-  .answer {
-    margin-left: 0;
-  }
-
-  .answer-pair {
-    flex-direction: column;
-    gap: 0;
-  }
-}
-</style>
+<style scoped></style>
