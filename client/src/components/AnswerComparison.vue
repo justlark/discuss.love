@@ -39,7 +39,7 @@ const description = ref(questionDef.value.description);
     >
       <i>Someone said "No" to this.</i>
     </div>
-    <div class="flex flex-col sm:flex-row justify-around sm:gap-8 sm:ml-8" v-else>
+    <div class="flex flex-col sm:flex-row justify-around gap-x-8 gap-y-4 sm:ml-8" v-else>
       <QuestionAnswer
         class="grow basis-0"
         :player-name="props.senderAnswer.playerName"
