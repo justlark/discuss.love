@@ -225,7 +225,7 @@ onBeforeMount(async () => {
           well. Your previous answers will be pre-filled in.
         </p>
       </div>
-      <div class="responses" v-else-if="status?.status === 'success'">
+      <div class="max-w-2xl" v-else-if="status?.status === 'success'">
         <response-input
           :id="question.id"
           :title="question.title"
@@ -238,6 +238,7 @@ onBeforeMount(async () => {
           :key="question.id"
           ref="responseInputs"
           @update="storeResponses"
+          class="mb-8"
         />
         <Button @click="submitForm" label="Submit" />
       </div>
@@ -245,8 +246,4 @@ onBeforeMount(async () => {
   </action-header>
 </template>
 
-<style scoped>
-.responses {
-  max-width: 50rem;
-}
-</style>
+<style scoped></style>
