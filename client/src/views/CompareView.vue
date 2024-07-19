@@ -97,7 +97,7 @@ const openDeleteDialog = () => {
   confirm.require({
     header: "Delete everyone's answers",
     message:
-      "To protect your privacy, everyone's answers are automatically deleted after 7 days. Alternatively, you can delete them now. This cannot be undone.",
+      "Everyone's answers are automatically deleted after 7 days. Alternatively, you can delete them now. This cannot be undone.",
     icon: "pi pi-trash",
     rejectProps: {
       label: "Cancel",
