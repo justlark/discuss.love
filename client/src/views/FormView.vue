@@ -237,9 +237,9 @@ onBeforeMount(async () => {
           v-for="question in randomizedQuestions(sharingCode)"
           :key="question.id"
           ref="responseInputs"
-          @input="storeResponses"
+          @update="storeResponses"
         />
-        <n-button @click="submitForm">Submit</n-button>
+        <Button @click="submitForm" label="Submit" />
       </div>
     </template>
   </action-header>

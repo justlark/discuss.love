@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { humanReadableAnswer, type AnswerType, type Player } from "@/types";
-import { NInput, NFormItem } from "naive-ui";
 import RadioButton from "@/components/RadioButton.vue";
 import RadioGroup from "@/components/RadioGroup.vue";
+import Textarea from "@/components/Textarea.vue";
 import { ref } from "vue";
 import seedrandom from "seedrandom";
 
@@ -64,11 +64,11 @@ defineExpose({
   response,
 });
 
-const emit = defineEmits(["input"]);
+const emit = defineEmits(["update"]);
 </script>
 
 <template>
-  <form :aria-labelledby="`response-input-heading-${props.id}`" :model="response">
+  <form :aria-labelledby="`response-input-heading-${props.id}`">
     <h2 :id="`response-input-heading-${props.id}`">{{ props.title }}</h2>
     <RadioGroup :label="props.description">
       <RadioButton
@@ -76,40 +76,33 @@ const emit = defineEmits(["input"]);
         v-model="response.answer"
         value="yes"
         :label="humanReadableAnswer('yes')"
+        @update="emit('update')"
       />
       <RadioButton
         :id="`answer-input-no-${props.id}`"
         v-model="response.answer"
         value="no"
         :label="humanReadableAnswer('no')"
+        @update="emit('update')"
       />
       <RadioButton
         :id="`answer-input-later-${props.id}`"
         v-model="response.answer"
         value="later"
         :label="humanReadableAnswer('later')"
+        @update="emit('update')"
       />
     </RadioGroup>
-    <n-form-item
+    <Textarea
+      :id="`notes-input-${props.id}`"
       label="Give some more detail"
-      path="notes"
-      :label-props="{ for: `notes-input-${props.id}` }"
-    >
-      <n-input
-        type="textarea"
-        v-model:value="response.notes"
-        :placeholder="getRandomPrompt(response.answer, props.player)"
-        @input="emit('input')"
-        :input-props="{ id: `notes-input-${props.id}` }"
-        :disabled="!response.answer || response.answer === 'no'"
-        class="notes"
-      />
-    </n-form-item>
+      :placeholder="getRandomPrompt(response.answer, props.player)"
+      :disabled="!response.answer || response.answer === 'no'"
+      v-model="response.notes"
+      class="my-4 max-w-xl"
+      @update="emit('update')"
+    />
   </form>
 </template>
 
-<style scoped>
-.notes {
-  max-width: 40rem;
-}
-</style>
+<style scoped></style>

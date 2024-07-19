@@ -1,24 +1,28 @@
 <script setup lang="ts">
-import RadioButton from "primevue/radiobutton";
+import Textarea from "primevue/textarea";
 
 const model = defineModel<string>();
+
 const props = defineProps<{
   id: string;
   label: string;
-  value: string;
+  placeholder?: string;
+  disabled?: boolean;
 }>();
+
 const emit = defineEmits(["update"]);
 </script>
 
 <template>
-  <div class="flex items-center gap-4">
-    <RadioButton
-      :inputId="props.id"
+  <div class="flex flex-col gap-2">
+    <label :for="props.id" class="flex gap-2">{{ props.label }}</label>
+    <Textarea
+      :id="props.id"
       v-model="model"
-      :value="props.value"
+      :placeholder="props.placeholder"
+      :disabled="props.disabled"
       @update:model-value="emit('update')"
     />
-    <label :for="props.id">{{ props.label }}</label>
   </div>
 </template>
 
