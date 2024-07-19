@@ -13,6 +13,7 @@ import { useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import { NButton } from "naive-ui";
+import Button from "primevue/button";
 import CopyButton from "@/components/CopyButton.vue";
 import NavLink from "@/components/NavLink.vue";
 import ActionHeader from "@/components/ActionHeader.vue";
@@ -196,12 +197,18 @@ onBeforeMount(async () => {
         :link="pageLink"
         v-if="status?.status === 'success' && player === 'sender'"
       />
-      <n-button type="error" @click="resetForm" v-if="status?.status === 'already-submitted'">
-        Start Over
-      </n-button>
-      <n-button @click="viewSubmissions" v-if="status?.status === 'already-submitted'">
-        See Answers
-      </n-button>
+      <Button
+        severity="danger"
+        @click="resetForm"
+        v-if="status?.status === 'already-submitted'"
+        label="Start Over"
+      />
+      <Button
+        severity="secondary"
+        @click="viewSubmissions"
+        v-if="status?.status === 'already-submitted'"
+        label="See Answers"
+      />
     </template>
 
     <template #body>

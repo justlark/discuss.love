@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NButton } from "naive-ui";
+import Button from "primevue/button";
 import { useMessage } from "@/message";
 
 const message = useMessage();
@@ -16,7 +16,7 @@ const copyLink = () => {
 </script>
 
 <template>
-  <n-button @click="copyLink">{{ props.text }}</n-button>
+  <Button severity="secondary" @click="copyLink" :label="props.text" />
 </template>
 
 <style scoped></style>

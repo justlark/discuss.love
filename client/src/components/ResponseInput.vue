@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { humanReadableAnswer, type AnswerType, type Player } from "@/types";
-import { NForm, NRadioGroup, NRadio, NInput, NFormItem, NFlex } from "naive-ui";
+import { NInput, NFormItem } from "naive-ui";
+import RadioButton from "@/components/RadioButton.vue";
+import RadioGroup from "@/components/RadioGroup.vue";
 import { ref } from "vue";
 import seedrandom from "seedrandom";
 
@@ -66,27 +68,28 @@ const emit = defineEmits(["input"]);
 </script>
 
 <template>
-  <n-form :aria-labelledby="`response-input-heading-${props.id}`" :model="response">
+  <form :aria-labelledby="`response-input-heading-${props.id}`" :model="response">
     <h2 :id="`response-input-heading-${props.id}`">{{ props.title }}</h2>
-    <n-form-item :label="props.description" path="answer">
-      <n-radio-group v-model:value="response.answer" @update:value="emit('input')">
-        <n-flex vertical>
-          <n-radio value="yes">
-            {{ humanReadableAnswer("yes") }}
-          </n-radio>
-          <n-radio value="no">
-            {{ humanReadableAnswer("no") }}
-          </n-radio>
-          <n-radio value="later">
-            {{ humanReadableAnswer("later") }}
-          </n-radio>
-        </n-flex>
-      </n-radio-group>
-    </n-form-item>
-    <!--
-      Naive UI doesn't do accessibility properly with form inputs:
-      https://github.com/tusen-ai/naive-ui/issues/4598
-    -->
+    <RadioGroup :label="props.description">
+      <RadioButton
+        :id="`answer-input-yes-${props.id}`"
+        v-model="response.answer"
+        value="yes"
+        :label="humanReadableAnswer('yes')"
+      />
+      <RadioButton
+        :id="`answer-input-no-${props.id}`"
+        v-model="response.answer"
+        value="no"
+        :label="humanReadableAnswer('no')"
+      />
+      <RadioButton
+        :id="`answer-input-later-${props.id}`"
+        v-model="response.answer"
+        value="later"
+        :label="humanReadableAnswer('later')"
+      />
+    </RadioGroup>
     <n-form-item
       label="Give some more detail"
       path="notes"
@@ -102,7 +105,7 @@ const emit = defineEmits(["input"]);
         class="notes"
       />
     </n-form-item>
-  </n-form>
+  </form>
 </template>
 
 <style scoped>

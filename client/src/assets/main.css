@@ -23,6 +23,22 @@
     @apply mb-2 font-bold;
   }
 
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  a:not(.p-button) {
+    @apply text-primary underline underline-offset-2;
+  }
+
+  a:hover:not(.p-button) {
+    @apply decoration-2;
+  }
+
   ul,
   ol {
     @apply pl-4;
@@ -34,17 +50,5 @@
 
   ol {
     @apply list-decimal;
-  }
-
-  h1 {
-    @apply text-3xl;
-  }
-
-  a:not(.p-button) {
-    @apply text-primary underline underline-offset-2;
-  }
-
-  a:hover:not(.p-button) {
-    @apply decoration-2;
   }
 }
