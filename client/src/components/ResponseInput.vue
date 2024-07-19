@@ -2,7 +2,7 @@
 import { humanReadableAnswer, type AnswerType, type Player } from "@/types";
 import RadioButton from "@/components/RadioButton.vue";
 import RadioGroup from "@/components/RadioGroup.vue";
-import Textarea from "@/components/Textarea.vue";
+import TextArea from "@/components/TextArea.vue";
 import { ref } from "vue";
 import seedrandom from "seedrandom";
 
@@ -93,7 +93,7 @@ const emit = defineEmits(["update"]);
         @update="emit('update')"
       />
     </RadioGroup>
-    <Textarea
+    <TextArea
       :id="`notes-input-${props.id}`"
       label="Give some more detail"
       :placeholder="getRandomPrompt(response.answer, props.player)"

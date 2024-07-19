@@ -14,7 +14,6 @@ import { randomizedQuestions } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import Button from "primevue/button";
 import CopyButton from "@/components/CopyButton.vue";
-import NavLink from "@/components/NavLink.vue";
 import ActionHeader from "@/components/ActionHeader.vue";
 import { useToast } from "primevue/usetoast";
 

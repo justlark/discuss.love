@@ -9,12 +9,15 @@ const props = defineProps<{
 </script>
 
 <template>
-  <p>
-    <span>
-      <strong>{{ props.playerName }}</strong>: {{ humanReadableAnswer(props.questionAnswer) }}
-    </span>
-    <blockquote v-if="props.notes" align="justify">{{ props.notes }}</blockquote>
-  </p>
+  <div>
+    <p>
+      <span>
+        <strong>{{ props.playerName }}</strong
+        >: {{ humanReadableAnswer(props.questionAnswer) }}
+      </span>
+    </p>
+    <blockquote v-if="props.notes" class="text-justify">{{ props.notes }}</blockquote>
+  </div>
 </template>
 
 <style scoped></style>
