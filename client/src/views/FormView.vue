@@ -196,7 +196,7 @@ onBeforeMount(async () => {
       #actions
       v-if="status?.status === 'success' || status?.status === 'already-submitted'"
     >
-      <copy-button
+      <CopyButton
         text="Copy Link"
         :link="pageLink"
         v-if="status?.status === 'success' && player === 'sender'"

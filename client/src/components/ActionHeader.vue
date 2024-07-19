@@ -17,7 +17,7 @@ const props = defineProps<{
           <slot name="subtitle" />
         </i>
       </p>
-      <div class="flex flex-wrap gap-4 my-4" v-if="$slots.actions">
+      <div class="flex flex-wrap justify-center gap-4 my-4" v-if="$slots.actions">
         <slot name="actions" />
       </div>
     </div>
