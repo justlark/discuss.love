@@ -1,0 +1,13 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/concrete.css/3.0.0/concrete.min.css");
+
+/*
+ * Adjust the font size to take up less space on the page.
+ */
+
+html {
+  font-size: 1rem;
+}
+
+h2 {
+  font-size: 1.3em;
+}

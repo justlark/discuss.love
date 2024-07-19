@@ -8,7 +8,7 @@ import { useToast } from "primevue/usetoast";
 import { useConfirm } from "primevue/useconfirm";
 import { useVueToPrint } from "vue-to-print";
 import Button from "primevue/button";
-import concrete from "concrete.css?raw";
+import printStyles from "@/assets/print.css?raw";
 import ActionHeader from "@/components/ActionHeader.vue";
 
 const ERROR_TOAST_TTL = 3000;
@@ -118,7 +118,7 @@ const { handlePrint } = useVueToPrint({
   content: () => answersRef.value,
   documentTitle: "Discuss.love Answers",
   copyStyles: false,
-  pageStyle: concrete,
+  pageStyle: printStyles,
 });
 
 onBeforeMount(async () => {
