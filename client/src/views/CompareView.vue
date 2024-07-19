@@ -4,8 +4,8 @@ import type { FormAnswers, SessionInfo, ResponseStatus } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import { useRoute, useRouter } from "vue-router";
-import { useDialog } from "naive-ui";
 import { useToast } from "primevue/usetoast";
+import { useConfirm } from "primevue/useconfirm";
 import { useVueToPrint } from "vue-to-print";
 import Button from "primevue/button";
 import concrete from "concrete.css?raw";
@@ -15,7 +15,7 @@ const ERROR_TOAST_TTL = 3000;
 
 const route = useRoute();
 const toast = useToast();
-const dialog = useDialog();
+const confirm = useConfirm();
 
 const sharingCode = ref<string>(route.query.code as string);
 
@@ -94,13 +94,21 @@ const deleteSubmissions = async () => {
 };
 
 const openDeleteDialog = () => {
-  dialog.error({
-    title: "Delete everyone's answers",
-    content:
+  confirm.require({
+    header: "Delete everyone's answers",
+    message:
       "To protect your privacy, everyone's answers are automatically deleted after 7 days. Alternatively, you can delete them now. This cannot be undone.",
-    positiveText: "Delete",
-    negativeText: "Cancel",
-    onPositiveClick: deleteSubmissions,
+    icon: "pi pi-trash",
+    rejectProps: {
+      label: "Cancel",
+      severity: "secondary",
+      outlined: true,
+    },
+    acceptProps: {
+      label: "Delete",
+      severity: "danger",
+    },
+    accept: deleteSubmissions,
   });
 };
 

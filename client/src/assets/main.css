@@ -60,3 +60,7 @@
 .color-danger {
   @apply text-red-500 dark:text-red-300;
 }
+
+.p-dialog {
+  @apply m-8;
+}

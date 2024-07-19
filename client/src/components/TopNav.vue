@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import Toast from "primevue/toast";
+import ConfirmDialog from "primevue/confirmdialog";
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import Toast from "primevue/toast";
     <span class="text-muted-color">A tool for negotiating relationships</span>
   </header>
   <div class="flex justify-center">
+    <ConfirmDialog />
     <Toast position="bottom-center" />
     <router-view class="grow flex flex-col items-center" />
   </div>
