@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Divider from "primevue/divider";
-import ResultCard from "@/components/ResultCard.vue";
+import Card from "primevue/card";
 
 const props = defineProps<{
   title: string;
@@ -22,14 +22,24 @@ const props = defineProps<{
       </div>
     </div>
     <Divider />
-    <result-card
+    <Card
       v-if="props.errorText"
-      status="error"
-      title="Error"
-      :description="props.errorText"
-    />
+      class="self-stretch sm:self-center max-w-[40rem] sm:min-w-[24rem] sm:mx-8 mt-8"
+    >
+      <template #header>
+        <div class="flex justify-center">
+          <i class="pi pi-exclamation-circle color-danger mt-8 error-icon"></i>
+        </div>
+      </template>
+      <template #title>Error</template>
+      <template #content>{{ props.errorText }}</template>
+    </Card>
     <slot name="body" v-if="!props.errorText" />
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.error-icon {
+  @apply text-8xl;
+}
+</style>

@@ -10,7 +10,7 @@ import Toast from "primevue/toast";
   </header>
   <div class="flex justify-center">
     <Toast position="bottom-center" />
-    <router-view />
+    <router-view class="grow flex flex-col items-center" />
   </div>
 </template>
 

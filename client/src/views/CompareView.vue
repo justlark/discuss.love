@@ -172,7 +172,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <action-header
+  <ActionHeader
     title="Compare answers"
     :error-text="status?.status === 'error' ? status.error : undefined"
   >
@@ -210,7 +210,7 @@ onBeforeMount(async () => {
         />
       </div>
     </template>
-  </action-header>
+  </ActionHeader>
 </template>
 
 <style scoped></style>

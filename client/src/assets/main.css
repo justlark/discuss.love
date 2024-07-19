@@ -52,3 +52,7 @@
     @apply list-decimal;
   }
 }
+
+.color-danger {
+  @apply text-red-500 dark:text-red-300;
+}

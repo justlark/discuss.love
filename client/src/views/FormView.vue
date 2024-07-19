@@ -176,7 +176,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <action-header
+  <ActionHeader
     title="What are you looking for?"
     :error-text="status?.status === 'error' ? status.error : undefined"
   >
@@ -247,7 +247,7 @@ onBeforeMount(async () => {
         <Button @click="submitForm" label="Submit" />
       </div>
     </template>
-  </action-header>
+  </ActionHeader>
 </template>
 
 <style scoped></style>
