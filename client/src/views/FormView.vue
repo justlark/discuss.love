@@ -193,7 +193,10 @@ onBeforeMount(async () => {
 
     <template
       #actions
-      v-if="status?.status === 'success' || status?.status === 'already-submitted'"
+      v-if="
+        (status?.status === 'success' && player === 'sender') ||
+        status?.status === 'already-submitted'
+      "
     >
       <CopyButton
         text="Copy Link"
