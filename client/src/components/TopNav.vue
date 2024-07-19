@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
+import Toast from "primevue/toast";
 </script>
 
 <template>
@@ -8,6 +9,7 @@ import { RouterView } from "vue-router";
     <span class="text-muted-color">A tool for negotiating relationships</span>
   </header>
   <div class="flex justify-center">
+    <Toast position="bottom-center" />
     <router-view />
   </div>
 </template>

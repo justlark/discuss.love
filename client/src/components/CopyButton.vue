@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Button from "primevue/button";
-import { useMessage } from "@/message";
+import { useToast } from "primevue/usetoast";
 
-const message = useMessage();
+const toast = useToast();
 
 const props = defineProps<{
   text: string;
@@ -11,7 +11,7 @@ const props = defineProps<{
 
 const copyLink = () => {
   navigator.clipboard.writeText(props.link);
-  message.info("Link copied!");
+  toast.add({ severity: "info", summary: "Link copied!", life: 1500 });
 };
 </script>
 
