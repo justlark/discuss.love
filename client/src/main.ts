@@ -23,8 +23,8 @@ const preset = definePreset(Aura, {
       },
       dark: {
         primary: {
-          color: "{teal.300}",
-          hoverColor: "{teal.400}",
+          color: "{teal.200}",
+          hoverColor: "{teal.300}",
         },
       },
     },
