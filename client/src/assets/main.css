@@ -1,16 +1,37 @@
-body {
-  min-width: 200px;
-  max-width: 1200px;
-  margin: 0 auto !important;
-  padding: 30px !important;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.visually-hidden {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
+@layer base {
+  body {
+    min-width: 200px;
+    max-width: 1200px;
+    margin: 0 auto !important;
+    padding: 30px !important;
+  }
+
+  p {
+    @apply mb-4;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mb-2 font-bold;
+  }
+
+  h1 {
+    @apply text-3xl;
+  }
+
+  a:not(.p-button) {
+    @apply text-primary underline underline-offset-2;
+  }
+
+  a:hover:not(.p-button) {
+    @apply decoration-2;
+  }
 }
