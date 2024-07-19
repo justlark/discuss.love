@@ -25,7 +25,7 @@ const props = defineProps<{
       :required="props.required"
       :aria-describedby="`${props.id}-validation-message`"
     />
-    <small v-if="props.errorMessage" :id="`${props.id}-validation-message`" class="danger-text">
+    <small v-if="props.errorMessage" :id="`${props.id}-validation-message`" class="color-danger">
       {{ props.errorMessage }}
     </small>
   </div>
