@@ -232,7 +232,7 @@ onBeforeMount(async () => {
         </p>
       </div>
       <div class="max-w-2xl" v-else-if="status?.status === 'success'">
-        <response-input
+        <ResponseInput
           :id="question.id"
           :title="question.title"
           :description="question.description"
