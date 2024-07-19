@@ -5,13 +5,15 @@ import AnswerComparison from "@/components/AnswerComparison.vue";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import { useRoute, useRouter } from "vue-router";
 import { NButton, useDialog } from "naive-ui";
-import { useMessage } from "@/message";
+import { useToast } from "primevue/usetoast";
 import { useVueToPrint } from "vue-to-print";
 import concrete from "concrete.css?raw";
 import ActionHeader from "@/components/ActionHeader.vue";
 
+const ERROR_TOAST_TTL = 3000;
+
 const route = useRoute();
-const message = useMessage();
+const toast = useToast();
 const dialog = useDialog();
 
 const sharingCode = ref<string>(route.query.code as string);
@@ -69,7 +71,7 @@ const deleteSubmissions = async () => {
   if (submissionDeleteResponse.status !== 204) {
     const { error } = await submissionDeleteResponse.json();
 
-    message.error(error);
+    toast.add({ severity: "error", summary: "Error", detail: error, life: ERROR_TOAST_TTL });
 
     return;
   }
@@ -81,7 +83,7 @@ const deleteSubmissions = async () => {
   if (sessionDeleteResponse.status !== 204) {
     const { error } = await sessionDeleteResponse.json();
 
-    message.error(error);
+    toast.add({ severity: "error", summary: "Error", detail: error, life: ERROR_TOAST_TTL });
 
     return;
   }

@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { NDialogProvider, NMessageProvider } from "naive-ui";
+import { NDialogProvider } from "naive-ui";
 import TopNav from "@/components/TopNav.vue";
 </script>
 
 <template>
   <n-dialog-provider>
-    <n-message-provider keep-alive-on-hover placement="bottom">
-      <TopNav />
-    </n-message-provider>
+    <TopNav />
   </n-dialog-provider>
 </template>
 

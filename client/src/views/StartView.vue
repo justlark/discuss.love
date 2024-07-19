@@ -4,13 +4,15 @@ import { sessionsEndpoint } from "@/api";
 import TextInput from "@/components/TextInput.vue";
 import Button from "primevue/button";
 import { useRouter } from "vue-router";
-import { useMessage } from "@/message";
+import { useToast } from "primevue/usetoast";
+
+const ERROR_TOAST_TTL = 3000;
 
 const names = ref({ sender: "", recipient: "" });
 const validationErrors = ref({ sender: "", recipient: "" });
 
 const router = useRouter();
-const message = useMessage();
+const toast = useToast();
 
 const startSession = async () => {
   if (!names.value.sender) {
@@ -41,7 +43,7 @@ const startSession = async () => {
   if (response.status !== 201) {
     const { error } = await response.json();
 
-    message.error(error);
+    toast.add({ severity: "error", summary: "Error", detail: error, life: ERROR_TOAST_TTL });
 
     return;
   }

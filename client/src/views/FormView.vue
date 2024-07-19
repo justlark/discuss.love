@@ -16,11 +16,13 @@ import Button from "primevue/button";
 import CopyButton from "@/components/CopyButton.vue";
 import NavLink from "@/components/NavLink.vue";
 import ActionHeader from "@/components/ActionHeader.vue";
-import { useMessage } from "@/message";
+import { useToast } from "primevue/usetoast";
+
+const ERROR_TOAST_TTL = 3000;
 
 const route = useRoute();
 const router = useRouter();
-const message = useMessage();
+const toast = useToast();
 
 const sharingCode = ref<string>(route.query.code as string);
 const player = ref<Player>();
@@ -95,7 +97,7 @@ const submitForm = async () => {
   if (response.status !== 201) {
     const { error } = await response.json();
 
-    message.error(error);
+    toast.add({ severity: "error", summary: "Error", detail: error, life: ERROR_TOAST_TTL });
 
     return;
   }
@@ -117,7 +119,7 @@ const resetForm = async () => {
   if (response.status !== 204) {
     const { error } = await response.json();
 
-    message.error(error);
+    toast.add({ severity: "error", summary: "Error", detail: error, life: ERROR_TOAST_TTL });
 
     return;
   }
