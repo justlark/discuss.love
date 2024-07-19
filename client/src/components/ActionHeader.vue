@@ -11,7 +11,7 @@ const props = defineProps<{
 <template>
   <main aria-labelledby="main-heading">
     <h1 id="main-heading">{{ props.title }}</h1>
-    <div v-if="!props.errorText">
+    <div v-if="!props.errorText && ($slots.subtitle || $slots.actions)">
       <p v-if="$slots.subtitle">
         <i>
           <slot name="subtitle" />

@@ -12,7 +12,6 @@ import type {
 import { useRoute, useRouter } from "vue-router";
 import { randomizedQuestions } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
-import { NButton } from "naive-ui";
 import Button from "primevue/button";
 import CopyButton from "@/components/CopyButton.vue";
 import NavLink from "@/components/NavLink.vue";
@@ -191,7 +190,10 @@ onBeforeMount(async () => {
       </div>
     </template>
 
-    <template #actions>
+    <template
+      #actions
+      v-if="status?.status === 'success' || status?.status === 'already-submitted'"
+    >
       <copy-button
         text="Copy Link"
         :link="pageLink"
