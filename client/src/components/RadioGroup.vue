@@ -1,16 +1,16 @@
 <script setup lang="ts">
-const props = defineProps<{ label: string }>();
+const props = defineProps<{ formId: string; label: string }>();
 </script>
 
 <template>
-  <fieldset>
-    <div class="flex flex-col gap-2">
-      <legend>{{ props.label }}</legend>
+  <div>
+    <fieldset :form="props.formId">
+      <legend class="mb-2">{{ props.label }}</legend>
       <div class="flex flex-col gap-2">
         <slot />
       </div>
-    </div>
-  </fieldset>
+    </fieldset>
+  </div>
 </template>
 
 <style scoped></style>

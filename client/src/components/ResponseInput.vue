@@ -68,9 +68,9 @@ const emit = defineEmits(["update"]);
 </script>
 
 <template>
-  <form :aria-labelledby="`response-input-heading-${props.id}`">
+  <form :id="`response-form-${props.id}`" :aria-labelledby="`response-input-heading-${props.id}`">
     <h2 :id="`response-input-heading-${props.id}`">{{ props.title }}</h2>
-    <RadioGroup :label="props.description">
+    <RadioGroup :form-id="`response-form-${props.id}`" :label="props.description">
       <RadioButton
         :id="`answer-input-yes-${props.id}`"
         v-model="response.answer"
