@@ -65,5 +65,5 @@
 }
 
 .p-dialog {
-  @apply m-8;
+  @apply m-8 max-w-xl;
 }
