@@ -15,7 +15,7 @@ const props = defineProps<{
   <div class="flex flex-col gap-2">
     <label :for="props.id" class="flex gap-2">
       <span>{{ props.label }}</span>
-      <span v-if="props.required" class="color-danger">*</span>
+      <span v-if="props.required" class="color-error">*</span>
     </label>
     <InputText
       :id="props.id"
@@ -28,7 +28,7 @@ const props = defineProps<{
     <small
       v-if="props.errorMessage"
       :id="`${props.id}-validation-message`"
-      class="color-danger"
+      class="color-error"
       role="alert"
     >
       {{ props.errorMessage }}

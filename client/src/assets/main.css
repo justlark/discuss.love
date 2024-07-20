@@ -60,7 +60,7 @@
   }
 }
 
-.color-danger {
+.color-error {
   @apply text-red-600 dark:text-red-300;
 }
 
