@@ -6,6 +6,7 @@ export interface QuestionDefinition {
   id: string;
   title: string;
   description: string;
+  prompts: Array<string>;
 }
 
 export type AnswerType = "yes" | "no" | "later";

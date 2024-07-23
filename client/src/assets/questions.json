@@ -2,101 +2,177 @@
   {
     "id": "friendship",
     "title": "Friendship",
-    "description": "Companionship, playfulness, shared activities and interests."
+    "description": "Companionship, playfulness, shared activities and interests.",
+    "prompts": ["How important is having shared interests to you?"]
   },
   {
     "id": "sex",
     "title": "Sex",
-    "description": "Playing with genitals, anuses, orgasms, etc."
+    "description": "Playing with genitals, anuses, orgasms, etc.",
+    "prompts": [
+      "What kinds of sexual contact are you comfortable with? Do you have any hard limits?",
+      "What are your expectations surrounding barrier and contraceptive use?",
+      "Do you have any sexual preferences that could be a dealbreaker? For example: genital preferences, top vs bottom, etc.",
+      "How do you negotiate consent during sexual encounters? What does the other person have blanket consent for? What requires explicit consent each time?"
+    ]
   },
   {
     "id": "cosleeping",
     "title": "Co-sleeping",
-    "description": "Sleeping in the same bed, not necessarily sexual."
+    "description": "Sleeping in the same bed, not necessarily sexual.",
+    "prompts": [
+      "Do you have any expectations around how often you co-sleep?",
+      "Do you have any conditions or preferences that could make co-sleeping difficult for you or other people?"
+    ]
   },
   {
     "id": "domestic",
     "title": "Domestic",
-    "description": "Cohabitating, sharing a home, sharing domestic duties."
+    "description": "Cohabitating, sharing a home, sharing domestic duties.",
+    "prompts": [
+      "What kind of living situation are you looking for?",
+      "What spaces do you want to share vs keep separate? For example, separate bedrooms vs shared bedrooms.",
+      "How do you plan to split domestic duties?"
+    ]
   },
   {
     "id": "physical-touch",
     "title": "Physical touch",
-    "description": "Casual touch, cuddling, hugs, pets, hand holding, massage, etc."
+    "description": "Casual touch, cuddling, hugs, pets, hand holding, massage, etc.",
+    "prompts": [
+      "What kinds of touch are you comfortable with?",
+      "What kinds of touch do you enjoy most/least?",
+      "What kinds of touch have blanket consent? What kinds of touch require explicit consent each time?"
+    ]
   },
   {
     "id": "emotional-commitment",
     "title": "Emotional commitment",
-    "description": "Expectation of long-term involvement, commitment to relationship maintenance, commitment to working through challenges."
+    "description": "Expectation of long-term involvement, commitment to relationship maintenance, commitment to working through challenges.",
+    "prompts": [
+      "What does \"commitment\" mean to you?",
+      "What does \"long-term\" mean to you?",
+      "How do you plan to resolve conflicts or disagreements?"
+    ]
   },
   {
     "id": "coparenting",
     "title": "Co-parenting",
-    "description": "Raising children together, sharing parenting responsibilities."
+    "description": "Raising children together, sharing parenting responsibilities.",
+    "prompts": [
+      "Do you want biological children, adoptive children, foster children, etc.?",
+      "How many children do you expect to have?",
+      "How do you plan to split parenting responsibilities?"
+    ]
   },
   {
     "id": "caretaking",
     "title": "Caretaking",
-    "description": "Taking care of each other when sick, injured, recovering, etc."
+    "description": "Taking care of each other when sick, injured, recovering, etc.",
+    "prompts": [
+      "What happens when someone becomes disabled or falls chronically ill?",
+      "How much and what kinds of support are you willing or able to offer? What kinds of support do you expect to receive?"
+    ]
   },
   {
     "id": "emotional-intimacy",
     "title": "Emotional intimacy",
-    "description": "Sharing vulnerable feelings, mutual emotional support."
+    "description": "Sharing vulnerable feelings, mutual emotional support.",
+    "prompts": [
+      "What kinds of support do you need? What kinds of support can you offer?",
+      "What does \"vulnerability\" mean to you?",
+      "How do you want to be comforted when you're upset?"
+    ]
   },
   {
     "id": "social",
     "title": "Social partners",
-    "description": "Attending social events together, meeting family and friends."
+    "description": "Attending social events together, meeting family and friends.",
+    "prompts": [
+      "Do you expect to meet friends? When?",
+      "Do you expect to meet family? When?",
+      "Do you expect to attend social events together? What kinds?",
+      "How do you want to present your relationship to others?"
+    ]
   },
   {
     "id": "life-partner",
     "title": "Life partners",
-    "description": "Sharing long-term goals."
+    "description": "Sharing long-term goals.",
+    "prompts": ["What kinds of decisions do you expect be made jointly vs independently?"]
   },
   {
     "id": "labels",
     "title": "Using partner labels",
-    "description": "Referring to each other as partners, boyfriend/girlfriend, etc."
+    "description": "Referring to each other as partners, boyfriend/girlfriend, etc.",
+    "prompts": [
+      "What labels do you want to use to describe your relationship? Why?",
+      "What do those labels mean to you? Do they represent a certain level of commitment or certain expectation?",
+      "How do you want to describe your relationship to others?"
+    ]
   },
   {
     "id": "verbal-love",
     "title": "Expressing love verbally",
-    "description": "Saying \"I love you.\""
+    "description": "Saying \"I love you.\"",
+    "prompts": [
+      "How important are verbal affirmation to you compared to other displays of affection?"
+    ]
   },
   {
     "id": "kissing",
     "title": "Kissing",
-    "description": "Kissing on the lips, face, neck, etc."
+    "description": "Kissing on the lips, face, neck, etc.",
+    "prompts": ["How do you feel about public displays of affection?"]
   },
   {
     "id": "financial",
     "title": "Financial",
-    "description": "Sharing money, accounts, payment responsibilities, property."
+    "description": "Sharing money, accounts, payment responsibilities, property.",
+    "prompts": [
+      "What assets do you expect to share? What stays separate?",
+      "How do you manage mismatches in income, existing assets, or debt?",
+      "How do you make decisions about purchases?"
+    ]
   },
   {
     "id": "power-dynamic",
     "title": "Power dynamic",
-    "description": "Power exchange, dominance/submission."
+    "description": "Power exchange, dominance/submission.",
+    "prompts": [
+      "What roles do you take in power dynamics? Dominant, submissive, switch, etc.",
+      "How do you negotiate consent in these dynamics? How do you revoke consent?",
+      "How private vs public do you want this aspect of your relationship to be?"
+    ]
   },
   {
     "id": "sadomasochism",
     "title": "Sadism and masochism",
-    "description": "Playing with physical pain."
+    "description": "Playing with physical pain.",
+    "prompts": ["What kinds of pain do you enjoy? Do you have any hard limits?"]
   },
   {
     "id": "collaboration",
     "title": "Collaborative partners",
-    "description": "Working together on projects, art, organizing, etc."
+    "description": "Working together on projects, art, organizing, etc.",
+    "prompts": ["What kinds of projects do you want to work on together?"]
   },
   {
     "id": "contact",
     "title": "Regular contact",
-    "description": "Texting, calling, or otherwise checking in daily or regularly."
+    "description": "Texting, calling, or otherwise checking in daily or regularly.",
+    "prompts": [
+      "How frequently do you expect to hear from each other?",
+      "How often do you expect to see each other in-person vs virtually?"
+    ]
   },
   {
     "id": "gifts",
     "title": "Gift giving",
-    "description": "Giving each other small gifts or tokens of affection."
+    "description": "Giving each other small gifts or tokens of affection.",
+    "prompts": [
+      "What kind or size of gifts are appropriate?",
+      "Do you like to be surprised, or do you prefer to know about gifts ahead of time?"
+    ]
   }
 ]
