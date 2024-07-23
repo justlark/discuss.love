@@ -104,7 +104,7 @@ const emit = defineEmits(["update"]);
         @update="emit('update')"
       />
     </RadioGroup>
-    <div :hidden="answerIsNo">
+    <div :class="{ collapsible: true, expanded: !answerIsNo }">
       <Panel :id="promptListId" class="my-6">
         <template #header><span class="font-bold">Prompts</span></template>
         <ul>
@@ -122,4 +122,16 @@ const emit = defineEmits(["update"]);
   </form>
 </template>
 
-<style scoped></style>
+<style scoped>
+.collapsible {
+  visibility: hidden;
+  transition: max-height 0.2s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.collapsible.expanded {
+  visibility: visible;
+  max-height: 100vh;
+}
+</style>
