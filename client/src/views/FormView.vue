@@ -236,6 +236,7 @@ onBeforeMount(async () => {
           :id="question.id"
           :title="question.title"
           :description="question.description"
+          :prompts="question.prompts"
           :initial-answer="getStoredResponse(question.id)?.answer"
           :initial-notes="getStoredResponse(question.id)?.notes"
           :sharing-code="sharingCode"

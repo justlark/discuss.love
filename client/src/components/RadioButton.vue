@@ -6,6 +6,7 @@ const props = defineProps<{
   id: string;
   label: string;
   value: string;
+  inputProps?: Record<string, string | boolean>;
 }>();
 const emit = defineEmits(["update"]);
 </script>
@@ -17,6 +18,7 @@ const emit = defineEmits(["update"]);
       v-model="model"
       :value="props.value"
       @update:model-value="emit('update')"
+      :pt:input="props.inputProps"
     />
     <label :for="props.id">{{ props.label }}</label>
   </div>

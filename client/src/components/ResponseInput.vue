@@ -2,8 +2,9 @@
 import { humanReadableAnswer, type AnswerType, type Player } from "@/types";
 import RadioButton from "@/components/RadioButton.vue";
 import RadioGroup from "@/components/RadioGroup.vue";
+import Panel from "primevue/panel";
 import TextArea from "@/components/TextArea.vue";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import seedrandom from "seedrandom";
 
 const yesPrompts = [
@@ -29,6 +30,7 @@ const props = defineProps<{
   player?: Player;
   title: string;
   description: string;
+  prompts: Array<string>;
   initialAnswer?: AnswerType;
   initialNotes?: string;
 }>();
@@ -59,6 +61,9 @@ const getRandomPrompt = (answer: AnswerType | undefined, player?: Player) => {
   return prompts[Math.floor(rng() * prompts.length)];
 };
 
+const promptListId = computed(() => `notes-prompt-list-${props.id}`);
+const answerIsNo = computed(() => !response.value.answer || response.value.answer === "no");
+
 defineExpose({
   id: props.id,
   response,
@@ -76,6 +81,7 @@ const emit = defineEmits(["update"]);
         v-model="response.answer"
         value="yes"
         :label="humanReadableAnswer('yes')"
+        :inputProps="{ 'aria-expanded': !answerIsNo, 'aria-controls': promptListId }"
         @update="emit('update')"
       />
       <RadioButton
@@ -83,6 +89,7 @@ const emit = defineEmits(["update"]);
         v-model="response.answer"
         value="no"
         :label="humanReadableAnswer('no')"
+        :inputProps="{ 'aria-expanded': !answerIsNo, 'aria-controls': promptListId }"
         @update="emit('update')"
       />
       <RadioButton
@@ -90,18 +97,25 @@ const emit = defineEmits(["update"]);
         v-model="response.answer"
         value="later"
         :label="humanReadableAnswer('later')"
+        :inputProps="{ 'aria-expanded': !answerIsNo, 'aria-controls': promptListId }"
         @update="emit('update')"
       />
     </RadioGroup>
-    <TextArea
-      :id="`notes-input-${props.id}`"
-      label="Give some more detail"
-      :placeholder="getRandomPrompt(response.answer, props.player)"
-      :disabled="!response.answer || response.answer === 'no'"
-      v-model="response.notes"
-      class="my-4 max-w-xl"
-      @update="emit('update')"
-    />
+    <div :hidden="answerIsNo">
+      <Panel :id="promptListId" class="my-6">
+        <template #header><span class="font-bold">Prompts</span></template>
+        <ul>
+          <li v-for="prompt in props.prompts" :key="prompt">{{ prompt }}</li>
+        </ul>
+      </Panel>
+      <TextArea
+        :id="`notes-input-${props.id}`"
+        label="Give some more detail"
+        :placeholder="getRandomPrompt(response.answer, props.player)"
+        v-model="response.notes"
+        @update="emit('update')"
+      />
+    </div>
   </form>
 </template>
 
