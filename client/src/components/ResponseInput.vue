@@ -76,12 +76,17 @@ const emit = defineEmits(["update"]);
   <form :id="`response-form-${props.id}`" :aria-labelledby="`response-input-heading-${props.id}`">
     <h2 :id="`response-input-heading-${props.id}`">{{ props.title }}</h2>
     <RadioGroup :form-id="`response-form-${props.id}`" :label="props.description">
+      <!--
+        TODO: You should be using something like `aria-expanded` and
+        `aria-controls` to indicate that the prompt and notes field are hidden
+        until a radio button is selected, but those ARIA attributes aren't valid
+        on the radio button role.
+      -->
       <RadioButton
         :id="`answer-input-yes-${props.id}`"
         v-model="response.answer"
         value="yes"
         :label="humanReadableAnswer('yes')"
-        :inputProps="{ 'aria-expanded': !answerIsNo, 'aria-controls': promptListId }"
         @update="emit('update')"
       />
       <RadioButton
@@ -89,7 +94,6 @@ const emit = defineEmits(["update"]);
         v-model="response.answer"
         value="no"
         :label="humanReadableAnswer('no')"
-        :inputProps="{ 'aria-expanded': !answerIsNo, 'aria-controls': promptListId }"
         @update="emit('update')"
       />
       <RadioButton
@@ -97,7 +101,6 @@ const emit = defineEmits(["update"]);
         v-model="response.answer"
         value="later"
         :label="humanReadableAnswer('later')"
-        :inputProps="{ 'aria-expanded': !answerIsNo, 'aria-controls': promptListId }"
         @update="emit('update')"
       />
     </RadioGroup>
