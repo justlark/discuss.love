@@ -67,3 +67,7 @@
 .p-dialog {
   @apply m-8 max-w-xl;
 }
+
+.p-toast {
+  @apply px-8;
+}
