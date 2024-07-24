@@ -242,7 +242,7 @@ onBeforeMount(async () => {
             :key="category.name"
           >
             <template #header>
-              <h2>{{ category.name }}</h2>
+              <h2 class="my-auto">{{ category.name }}</h2>
             </template>
             <div class="flex flex-col gap-8">
               <ResponseInput
