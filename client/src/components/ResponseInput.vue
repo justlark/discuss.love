@@ -64,7 +64,8 @@ const emit = defineEmits(["update"]);
         value="later"
         @update="emit('update')"
       >
-        Maybe later <small class="text-muted-color">(I don't want this now, but might later)</small>
+        Maybe later
+        <small class="text-muted-color">(I don't want this now, but might someday)</small>
       </RadioButton>
     </RadioGroup>
     <div :class="{ collapsible: true, expanded: !answerIsNo }">
