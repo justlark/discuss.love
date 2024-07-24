@@ -4,24 +4,6 @@ import RadioButton from "@/components/RadioButton.vue";
 import RadioGroup from "@/components/RadioGroup.vue";
 import TextArea from "@/components/TextArea.vue";
 import { computed, ref } from "vue";
-import seedrandom from "seedrandom";
-
-const yesPrompts = [
-  "I want this because…",
-  "I want this, except…",
-  "I want this, but also…",
-  "To me, this means…",
-  "I'm specifically looking for…",
-  "This is important to me because…",
-];
-
-const laterPrompts = [
-  "I might be okay with this if…",
-  "I'll be ready for this when…",
-  "I don't want this right now, but…",
-  "Before we do this, we need to…",
-  "For this to change, I need…",
-];
 
 const props = defineProps<{
   id: string;
@@ -39,28 +21,6 @@ const response = ref<{ answer?: AnswerType; notes: string }>({
   notes: props.initialNotes ?? "",
 });
 
-// TODO: This is too random. We should be shuffling a deck of questions and then
-// cycling through them.
-const getRandomPrompt = (answer: AnswerType | undefined, player?: Player) => {
-  if (!answer || !player || answer === "no") {
-    return "";
-  }
-
-  // - We include the sharing code so that the prompts don't change on page
-  // reload.
-  // - We include the player so that each user gets different prompts, with the
-  // intent that that generates different answers and stimulates discussion.
-  // - We include the question ID so that the prompts don't change on page
-  // reload.
-  // - We include the answer so that the "Yes" and "Maybe later" answers don't
-  // always get the same prompts paired together.
-  const rng = seedrandom(`${props.sharingCode}.${player}.${props.id}.${answer}`);
-  const prompts = answer === "yes" ? yesPrompts : laterPrompts;
-
-  return prompts[Math.floor(rng() * prompts.length)];
-};
-
-const promptListId = computed(() => `notes-prompt-list-${props.id}`);
 const answerIsNo = computed(() => !response.value.answer || response.value.answer === "no");
 
 defineExpose({
@@ -109,7 +69,6 @@ const emit = defineEmits(["update"]);
         :id="`notes-input-${props.id}`"
         :textarea-props="{ 'aria-details': `prompt-list-${props.id}` }"
         label="Give some more detail"
-        :placeholder="getRandomPrompt(response.answer, props.player)"
         v-model="response.notes"
         @update="emit('update')"
       />
