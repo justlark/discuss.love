@@ -10,7 +10,7 @@ import type {
   WithQuestionId,
 } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
-import { randomizedQuestions } from "@/questions";
+import { randomizedQuestionCategories } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import Button from "primevue/button";
 import CopyButton from "@/components/CopyButton.vue";
@@ -241,7 +241,7 @@ onBeforeMount(async () => {
           :initial-notes="getStoredResponse(question.id)?.notes"
           :sharing-code="sharingCode"
           :player="player"
-          v-for="question in randomizedQuestions(sharingCode)"
+          v-for="question in randomizedQuestionCategories(sharingCode)"
           :key="question.id"
           ref="responseInputs"
           @update="storeResponses"

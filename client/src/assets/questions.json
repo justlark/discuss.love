@@ -3,12 +3,14 @@
     "id": "friendship",
     "title": "Friendship",
     "description": "Companionship, playfulness, shared activities and interests.",
+    "category": "Companionship",
     "prompts": ["How important is having shared interests to you?"]
   },
   {
     "id": "sex",
     "title": "Sex",
     "description": "Playing with genitals, anuses, orgasms, etc.",
+    "category": "Intimacy",
     "prompts": [
       "What's important to you in a sexual relationship?",
       "What kinds of sexual contact are you comfortable with? Do you have any hard limits?",
@@ -22,15 +24,17 @@
     "id": "cosleeping",
     "title": "Co-sleeping",
     "description": "Sleeping in the same bed, not necessarily sexual.",
+    "category": "Intimacy",
     "prompts": [
       "Do you have any expectations around how often you co-sleep?",
       "Do you have any conditions or preferences that could make co-sleeping difficult for you or other people?"
     ]
   },
   {
-    "id": "domestic",
-    "title": "Domestic",
+    "id": "cohabitating",
+    "title": "Cohabitating",
     "description": "Cohabitating, sharing a home, sharing domestic duties.",
+    "category": "Domestic",
     "prompts": [
       "What kind of living situation are you looking for?",
       "What spaces do you want to share vs keep separate? For example, separate bedrooms vs shared bedrooms.",
@@ -41,6 +45,7 @@
     "id": "physical-touch",
     "title": "Physical touch",
     "description": "Casual touch, cuddling, hugs, pets, hand holding, massage, etc.",
+    "category": "Intimacy",
     "prompts": [
       "What kinds of touch are you comfortable with?",
       "What kinds of touch do you enjoy most/least?",
@@ -51,6 +56,7 @@
     "id": "emotional-commitment",
     "title": "Emotional commitment",
     "description": "Expectation of long-term involvement, commitment to relationship maintenance, commitment to working through challenges.",
+    "category": "Commitment",
     "prompts": [
       "What does \"commitment\" mean to you?",
       "What does \"long-term\" mean to you?",
@@ -61,6 +67,7 @@
     "id": "coparenting",
     "title": "Co-parenting",
     "description": "Raising children together, sharing parenting responsibilities.",
+    "category": "Domestic",
     "prompts": [
       "Do you want biological children, adoptive children, foster children, etc.?",
       "How many children do you expect to have?",
@@ -71,6 +78,7 @@
     "id": "caretaking",
     "title": "Caretaking",
     "description": "Taking care of each other when sick, injured, recovering, etc.",
+    "category": "Companionship",
     "prompts": [
       "What happens when someone becomes disabled or falls chronically ill?",
       "How much and what kinds of support are you willing or able to offer? What kinds of support do you expect to receive?"
@@ -80,6 +88,7 @@
     "id": "emotional-intimacy",
     "title": "Emotional intimacy",
     "description": "Sharing vulnerable feelings, mutual emotional support.",
+    "category": "Intimacy",
     "prompts": [
       "What kinds of support do you need? What kinds of support can you offer?",
       "What does \"vulnerability\" mean to you?",
@@ -90,6 +99,7 @@
     "id": "social",
     "title": "Social partners",
     "description": "Attending social events together, meeting family and friends.",
+    "category": "Partnership",
     "prompts": [
       "Do you expect to meet friends? When?",
       "Do you expect to meet family? When?",
@@ -101,12 +111,14 @@
     "id": "life-partner",
     "title": "Life partners",
     "description": "Sharing long-term goals.",
+    "category": "Commitment",
     "prompts": ["What kinds of decisions do you expect be made jointly vs independently?"]
   },
   {
     "id": "labels",
     "title": "Using partner labels",
     "description": "Referring to each other as partners, boyfriend/girlfriend, etc.",
+    "category": "Partnership",
     "prompts": [
       "What labels do you want to use to describe your relationship? Why?",
       "What do those labels mean to you? Do they represent a certain level of commitment or certain expectation?",
@@ -117,6 +129,7 @@
     "id": "verbal-love",
     "title": "Expressing love verbally",
     "description": "Saying \"I love you.\"",
+    "category": "Intimacy",
     "prompts": [
       "How important are verbal affirmation to you compared to other displays of affection?"
     ]
@@ -125,12 +138,14 @@
     "id": "kissing",
     "title": "Kissing",
     "description": "Kissing on the lips, face, neck, etc.",
+    "category": "Intimacy",
     "prompts": ["How do you feel about public displays of affection?"]
   },
   {
     "id": "financial",
     "title": "Financial",
     "description": "Sharing money, accounts, payment responsibilities, property.",
+    "category": "Domestic",
     "prompts": [
       "What assets do you expect to share? What stays separate?",
       "How do you manage mismatches in income, existing assets, or debt?",
@@ -141,6 +156,7 @@
     "id": "power-dynamic",
     "title": "Power dynamic",
     "description": "Power exchange, dominance/submission.",
+    "category": "Intimacy",
     "prompts": [
       "What roles do you take in power dynamics? Dominant, submissive, switch, etc.",
       "How do you negotiate consent in these dynamics? How do you revoke consent?",
@@ -151,18 +167,21 @@
     "id": "sadomasochism",
     "title": "Sadism and masochism",
     "description": "Playing with physical pain.",
+    "category": "Intimacy",
     "prompts": ["What kinds of pain do you enjoy? Do you have any hard limits?"]
   },
   {
     "id": "collaboration",
     "title": "Collaborative partners",
     "description": "Working together on projects, art, organizing, etc.",
+    "category": "Companionship",
     "prompts": ["What kinds of projects do you want to work on together?"]
   },
   {
     "id": "contact",
     "title": "Regular contact",
     "description": "Texting, calling, or otherwise checking in daily or regularly.",
+    "category": "Companionship",
     "prompts": [
       "How frequently do you expect to hear from each other?",
       "How often do you expect to see each other in-person vs virtually?"
@@ -172,6 +191,7 @@
     "id": "gifts",
     "title": "Gift giving",
     "description": "Giving each other small gifts or tokens of affection.",
+    "category": "Intimacy",
     "prompts": [
       "What kind or size of gifts are appropriate?",
       "Do you like to be surprised, or do you prefer to know about gifts ahead of time?"

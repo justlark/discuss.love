@@ -6,7 +6,13 @@ export interface QuestionDefinition {
   id: string;
   title: string;
   description: string;
+  category: string;
   prompts: Array<string>;
+}
+
+export interface QuestionCategory {
+  category: string;
+  questions: Array<QuestionDefinition>;
 }
 
 export type AnswerType = "yes" | "no" | "later";
