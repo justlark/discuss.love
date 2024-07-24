@@ -196,5 +196,22 @@
       "What kind or size of gifts are appropriate?",
       "Do you like to be surprised, or do you prefer to know about gifts ahead of time?"
     ]
+  },
+  {
+    "id": "spiritual",
+    "title": "Spiritual",
+    "description": "Sharing a faith, observance of holidays, attending ceremonies.",
+    "category": "Domestic",
+    "prompts": ["What spiritual beliefs or practices are important to you?"]
+  },
+  {
+    "id": "legal",
+    "title": "Legal",
+    "description": "Named in a will, power of attorney, end-of-life plans, etc.",
+    "category": "Commitment",
+    "prompts": [
+      "What are your end-of-life plans? Think about assets, wills, burial rites, etc.",
+      "What should happen if one of you is unable to make healthcare decisions for themself?"
+    ]
   }
 ]
