@@ -109,6 +109,12 @@ const startSession = async () => {
           </li>
           <li>
             <p>
+              Are you polyamorous? Do this exercise separately with each of your partners. Every
+              relationship is unique, so your answers may differ depending on the person.
+            </p>
+          </li>
+          <li>
+            <p>
               You can delete your data from this website at any time. It will auto-delete after 7
               days.
             </p>
