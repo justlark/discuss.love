@@ -11,7 +11,7 @@ export interface QuestionDefinition {
 }
 
 export interface QuestionCategory {
-  category: string;
+  name: string;
   questions: Array<QuestionDefinition>;
 }
 

@@ -21,7 +21,7 @@ export const randomizedQuestionCategories = (sharingCode: string) => {
   }
 
   const categories = Array.from(byCategory.entries(), ([category, questions]) => ({
-    category,
+    name: category,
     questions,
   }));
 

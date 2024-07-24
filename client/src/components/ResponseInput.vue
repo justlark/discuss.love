@@ -2,7 +2,6 @@
 import { humanReadableAnswer, type AnswerType, type Player } from "@/types";
 import RadioButton from "@/components/RadioButton.vue";
 import RadioGroup from "@/components/RadioGroup.vue";
-import Panel from "primevue/panel";
 import TextArea from "@/components/TextArea.vue";
 import { computed, ref } from "vue";
 import seedrandom from "seedrandom";
@@ -74,7 +73,7 @@ const emit = defineEmits(["update"]);
 
 <template>
   <form :id="`response-form-${props.id}`" :aria-labelledby="`response-input-heading-${props.id}`">
-    <h2 :id="`response-input-heading-${props.id}`">{{ props.title }}</h2>
+    <h3 :id="`response-input-heading-${props.id}`">{{ props.title }}</h3>
     <RadioGroup :form-id="`response-form-${props.id}`" :label="props.description">
       <!--
         TODO: You should be using something like `aria-expanded` and
@@ -105,12 +104,12 @@ const emit = defineEmits(["update"]);
       />
     </RadioGroup>
     <div :class="{ collapsible: true, expanded: !answerIsNo }">
-      <Panel :id="promptListId" class="my-6">
-        <template #header><span class="font-bold">Prompts</span></template>
+      <div class="my-4 ml-2">
+        <span class="font-bold">Prompts</span>
         <ul>
           <li v-for="prompt in props.prompts" :key="prompt">{{ prompt }}</li>
         </ul>
-      </Panel>
+      </div>
       <TextArea
         :id="`notes-input-${props.id}`"
         label="Give some more detail"

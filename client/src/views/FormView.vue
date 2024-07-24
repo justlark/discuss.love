@@ -13,6 +13,7 @@ import { RouterLink, useRoute, useRouter } from "vue-router";
 import { randomizedQuestionCategories } from "@/questions";
 import { sessionsEndpoint, submissionsEndpoint } from "@/api";
 import Button from "primevue/button";
+import Panel from "primevue/panel";
 import CopyButton from "@/components/CopyButton.vue";
 import ActionHeader from "@/components/ActionHeader.vue";
 import { useToast } from "primevue/usetoast";
@@ -231,23 +232,37 @@ onBeforeMount(async () => {
           well. Your previous answers will be pre-filled in.
         </p>
       </div>
-      <div class="max-w-2xl" v-else-if="status?.status === 'success'">
-        <ResponseInput
-          :id="question.id"
-          :title="question.title"
-          :description="question.description"
-          :prompts="question.prompts"
-          :initial-answer="getStoredResponse(question.id)?.answer"
-          :initial-notes="getStoredResponse(question.id)?.notes"
-          :sharing-code="sharingCode"
-          :player="player"
-          v-for="question in randomizedQuestionCategories(sharingCode)"
-          :key="question.id"
-          ref="responseInputs"
-          @update="storeResponses"
-          class="mb-8"
-        />
-        <Button @click="submitForm" label="Submit" />
+      <div class="max-w-2xl w-full" v-else-if="status?.status === 'success'">
+        <div class="flex flex-col gap-4">
+          <section
+            v-for="(category, categoryIndex) in randomizedQuestionCategories(sharingCode)"
+            :key="category.name"
+            aria-labelledby="`category-title-${categoryIndex}`"
+          >
+            <Panel toggleable collapsed>
+              <template #header>
+                <h2 :id="`category-title-${categoryIndex}`">{{ category.name }}</h2>
+              </template>
+              <div class="flex flex-col gap-8">
+                <ResponseInput
+                  :id="question.id"
+                  :title="question.title"
+                  :description="question.description"
+                  :prompts="question.prompts"
+                  :initial-answer="getStoredResponse(question.id)?.answer"
+                  :initial-notes="getStoredResponse(question.id)?.notes"
+                  :sharing-code="sharingCode"
+                  :player="player"
+                  v-for="question in category.questions"
+                  :key="question.id"
+                  ref="responseInputs"
+                  @update="storeResponses"
+                />
+              </div>
+            </Panel>
+          </section>
+        </div>
+        <Button class="mt-4" @click="submitForm" label="Submit" />
       </div>
     </template>
   </ActionHeader>
