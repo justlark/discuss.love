@@ -3,7 +3,6 @@ import { ref, computed } from "vue";
 import type { AttributedAnswer } from "@/types";
 import QuestionAnswer from "@/components/QuestionAnswer.vue";
 import { questionMap } from "@/questions";
-import Divider from "primevue/divider";
 
 const props = defineProps<{
   id: string;
@@ -52,9 +51,6 @@ const description = ref(questionDef.value.description);
         :question-answer="props.recipientAnswer.answer"
         :notes="props.recipientAnswer.notes"
       />
-    </div>
-    <div class="my-8">
-      <Divider />
     </div>
   </section>
 </template>

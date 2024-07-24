@@ -214,7 +214,11 @@ onBeforeMount(async () => {
       <div v-else-if="status?.status === 'expired'">
         <p>This session has expired; you can no longer see each others' answers.</p>
       </div>
-      <div v-else-if="status?.status === 'success'" ref="answersRef">
+      <div
+        class="flex flex-col gap-8 mt-4"
+        v-else-if="status?.status === 'success'"
+        ref="answersRef"
+      >
         <AnswerComparison
           :id="pair.id"
           :sender-answer="pair.sender"
