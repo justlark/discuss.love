@@ -4,7 +4,6 @@ import RadioButton from "primevue/radiobutton";
 const model = defineModel<string>();
 const props = defineProps<{
   id: string;
-  label: string;
   value: string;
   inputProps?: Record<string, string | boolean>;
 }>();
@@ -20,7 +19,7 @@ const emit = defineEmits(["update"]);
       @update:model-value="emit('update')"
       :pt:input="props.inputProps"
     />
-    <label :for="props.id">{{ props.label }}</label>
+    <label :for="props.id"><slot /></label>
   </div>
 </template>
 

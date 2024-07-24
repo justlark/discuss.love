@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { humanReadableAnswer, type AnswerType, type Player } from "@/types";
+import { type AnswerType, type Player } from "@/types";
 import RadioButton from "@/components/RadioButton.vue";
 import RadioGroup from "@/components/RadioGroup.vue";
 import TextArea from "@/components/TextArea.vue";
@@ -45,23 +45,27 @@ const emit = defineEmits(["update"]);
         :id="`answer-input-yes-${props.id}`"
         v-model="response.answer"
         value="yes"
-        :label="humanReadableAnswer('yes')"
         @update="emit('update')"
-      />
+      >
+        Yes <small class="text-muted-color">(I want some or all of this)</small>
+      </RadioButton>
       <RadioButton
         :id="`answer-input-no-${props.id}`"
         v-model="response.answer"
         value="no"
-        :label="humanReadableAnswer('no')"
         @update="emit('update')"
-      />
+      >
+        No
+        <small class="text-muted-color">(I don't want this and don't expect that to change)</small>
+      </RadioButton>
       <RadioButton
         :id="`answer-input-later-${props.id}`"
         v-model="response.answer"
         value="later"
-        :label="humanReadableAnswer('later')"
         @update="emit('update')"
-      />
+      >
+        Maybe later <small class="text-muted-color">(I don't want this now, but might later)</small>
+      </RadioButton>
     </RadioGroup>
     <div :class="{ collapsible: true, expanded: !answerIsNo }">
       <TextArea

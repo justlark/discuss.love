@@ -1,11 +1,25 @@
 <script setup lang="ts">
-import { type AnswerType, humanReadableAnswer } from "@/types";
+import { type AnswerType } from "@/types";
+import { computed } from "vue";
 
 const props = defineProps<{
   playerName: string;
   questionAnswer: AnswerType;
   notes: string;
 }>();
+
+const humanReadableAnswer = computed(() => {
+  switch (props.questionAnswer) {
+    case "yes":
+      return "Yes";
+    case "no":
+      return "No";
+    case "later":
+      return "Maybe later";
+    default:
+      throw new Error(`Invalid answer: ${props.questionAnswer}`);
+  }
+});
 </script>
 
 <template>
@@ -13,7 +27,7 @@ const props = defineProps<{
     <p>
       <span>
         <strong>{{ props.playerName }}</strong
-        >: {{ humanReadableAnswer(props.questionAnswer) }}
+        >: {{ humanReadableAnswer }}
       </span>
     </p>
     <blockquote v-if="props.notes" class="text-justify">{{ props.notes }}</blockquote>
