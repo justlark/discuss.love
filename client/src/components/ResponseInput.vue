@@ -107,15 +107,18 @@ const emit = defineEmits(["update"]);
       <TextArea
         class="my-4"
         :id="`notes-input-${props.id}`"
+        :textarea-props="{ 'aria-details': `prompt-list-${props.id}` }"
         label="Give some more detail"
         :placeholder="getRandomPrompt(response.answer, props.player)"
         v-model="response.notes"
         @update="emit('update')"
       />
-      <span>Some prompts to get you started</span>
-      <ul class="ml-4 mt-2">
-        <li v-for="prompt in props.prompts" :key="prompt">{{ prompt }}</li>
-      </ul>
+      <div :id="`prompt-list-${props.id}`">
+        <span>Some prompts to get you started</span>
+        <ul class="ml-4 mt-2">
+          <li v-for="prompt in props.prompts" :key="prompt">{{ prompt }}</li>
+        </ul>
+      </div>
     </div>
   </form>
 </template>

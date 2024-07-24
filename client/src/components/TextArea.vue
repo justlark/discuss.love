@@ -8,6 +8,7 @@ const props = defineProps<{
   label: string;
   placeholder?: string;
   disabled?: boolean;
+  textareaProps?: Record<string, string>;
 }>();
 
 const emit = defineEmits(["update"]);
@@ -21,6 +22,7 @@ const emit = defineEmits(["update"]);
       v-model="model"
       :placeholder="props.placeholder"
       :disabled="props.disabled"
+      v-bind="props.textareaProps"
       @update:model-value="emit('update')"
     />
   </div>
