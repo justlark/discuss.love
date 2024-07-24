@@ -104,19 +104,18 @@ const emit = defineEmits(["update"]);
       />
     </RadioGroup>
     <div :class="{ collapsible: true, expanded: !answerIsNo }">
-      <div class="my-4 ml-2">
-        <span class="font-bold">Prompts</span>
-        <ul>
-          <li v-for="prompt in props.prompts" :key="prompt">{{ prompt }}</li>
-        </ul>
-      </div>
       <TextArea
+        class="my-4"
         :id="`notes-input-${props.id}`"
         label="Give some more detail"
         :placeholder="getRandomPrompt(response.answer, props.player)"
         v-model="response.notes"
         @update="emit('update')"
       />
+      <span>Some prompts to get you started</span>
+      <ul class="ml-4 mt-2">
+        <li v-for="prompt in props.prompts" :key="prompt">{{ prompt }}</li>
+      </ul>
     </div>
   </form>
 </template>
