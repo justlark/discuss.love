@@ -30,7 +30,9 @@ const humanReadableAnswer = computed(() => {
         >: {{ humanReadableAnswer }}
       </span>
     </p>
-    <blockquote v-if="props.notes" class="text-justify">{{ props.notes }}</blockquote>
+    <blockquote v-if="props.notes" class="text-justify whitespace-pre-line">
+      {{ props.notes }}
+    </blockquote>
   </div>
 </template>
 
