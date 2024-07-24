@@ -53,7 +53,9 @@ const description = ref(questionDef.value.description);
         :notes="props.recipientAnswer.notes"
       />
     </div>
-    <Divider />
+    <div class="my-8">
+      <Divider />
+    </div>
   </section>
 </template>
 
