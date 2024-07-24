@@ -232,7 +232,7 @@ onBeforeMount(async () => {
           well. Your previous answers will be pre-filled in.
         </p>
       </div>
-      <div class="max-w-2xl w-full" v-else-if="status?.status === 'success'">
+      <div class="max-w-2xl w-full mt-2" v-else-if="status?.status === 'success'">
         <div class="flex flex-col gap-4">
           <Panel
             toggleable
