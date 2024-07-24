@@ -4,7 +4,12 @@
     "title": "Friendship",
     "description": "Companionship, playfulness, shared activities and interests.",
     "category": "Companionship",
-    "prompts": ["How important is having shared interests to you?"]
+    "prompts": [
+      "What is important to you in your friendships?",
+      "How important is having shared interests to you?",
+      "What interests would you like to be able to share? How would you share these with another person? Attending events together, describing interests, shared activities, etc.",
+      "Do you prefer direct interaction or parallel play when sharing interests?"
+    ]
   },
   {
     "id": "sex",
@@ -15,7 +20,7 @@
       "What's important to you in a sexual relationship?",
       "What kinds of sexual contact are you comfortable with? Do you have any hard limits?",
       "What are your expectations surrounding barrier and contraceptive use?",
-      "Are there any challenges that may come up in sexual play that you would like your partner to be aware of or prepared for? How would you like them to support you?",
+      "Are there any challenges that may come up in sexual play (health or mobility challenges, dysphoria, trauma, STIs, etc.) that you would like your partner to be aware of or prepared for? How would you like them to support you if these come up?",
       "How do you negotiate consent during sexual encounters?",
       "What does the other person have blanket consent for? What requires explicit consent each time?"
     ]
@@ -37,6 +42,8 @@
     "category": "Domestic",
     "prompts": [
       "What kind of living situation are you looking for?",
+      "What is important for you in your living space? Tidiness, decor, layout, sensory environment, etc.",
+      "Do you have any specific needs regarding living situation? Pet allergies, sensory sensitivities, disability accommodations, commuting requirements, etc.",
       "What spaces do you want to share vs keep separate? For example, separate bedrooms vs shared bedrooms.",
       "How do you plan to split domestic duties?"
     ]
@@ -47,9 +54,9 @@
     "description": "Casual touch, cuddling, hugs, pets, hand holding, massage, etc.",
     "category": "Intimacy",
     "prompts": [
-      "What kinds of touch are you comfortable with?",
-      "What kinds of touch do you enjoy most/least?",
-      "What kinds of touch have blanket consent? What kinds of touch require explicit consent each time?"
+      "What kinds of touch are you comfortable with? What kinds of touch do you enjoy most/least?",
+      "What kinds of touch have blanket consent? What kinds of touch require explicit consent each time?",
+      "How do you feel about public displays of affection? Are there any settings or social groups in which you do not want to be touched?"
     ]
   },
   {
@@ -59,7 +66,8 @@
     "category": "Commitment",
     "prompts": [
       "What does \"commitment\" mean to you?",
-      "What does \"long-term\" mean to you?",
+      "What do you need from another person to feel secure in a relationship?",
+      "How do your relationships typically change over time?",
       "How do you plan to resolve conflicts or disagreements?"
     ]
   },
@@ -69,8 +77,10 @@
     "description": "Raising children together, sharing parenting responsibilities.",
     "category": "Domestic",
     "prompts": [
-      "Do you want biological children, adoptive children, foster children, etc.?",
-      "How many children do you expect to have?",
+      "If you are or plan to be a parent, what is your approach to parenting?",
+      "Do you have or want biological children, adoptive children, foster children, etc.?",
+      "How many children do you have or expect to have?",
+      "What values do you want to teach your children?",
       "How do you plan to split parenting responsibilities?"
     ]
   },
@@ -81,7 +91,10 @@
     "category": "Commitment",
     "prompts": [
       "What happens when someone becomes disabled or falls chronically ill?",
-      "How much and what kinds of support are you willing or able to offer? What kinds of support do you expect to receive?"
+      "Would you be able to commit to long-term or permanent caretaking, or can you only offer short-term care?",
+      "What are the limits of care you are able to provide?",
+      "Do you have any illness or disability-related needs that would benefit from another person's support?",
+      "What makes you feel better and cared for when you're sick or injured? How have others cared for you that have been most meaningful?"
     ]
   },
   {
@@ -90,9 +103,11 @@
     "description": "Sharing vulnerable feelings, mutual emotional support.",
     "category": "Intimacy",
     "prompts": [
-      "What kinds of support do you need? What kinds of support can you offer?",
+      "What types of support do you feel fulfilled by giving?",
+      "What types of support are most meaningful for you to receive?",
       "What does \"vulnerability\" mean to you?",
-      "How do you want to be comforted when you're upset?"
+      "Are there any emotional topics you would like to avoid talking about or would like trigger warnings for?",
+      "Are there any types of support are you not able to provide?"
     ]
   },
   {
@@ -101,9 +116,11 @@
     "description": "Attending social events together, meeting family and friends.",
     "category": "Partnership",
     "prompts": [
-      "Do you expect to meet friends? When?",
-      "Do you expect to meet family? When?",
+      "Do you expect to meet each other's friends? When?",
+      "Do you expect to meet each other's families? When?",
       "Do you expect to attend social events together? What kinds?",
+      "Do you like to be surprised, or do you prefer to know about gifts ahead of time?",
+      "Are there any friendships or other relationships that you would like to keep separate?",
       "How do you want to present your relationship to others?"
     ]
   },
@@ -112,7 +129,11 @@
     "title": "Life partners",
     "description": "Sharing long-term goals.",
     "category": "Commitment",
-    "prompts": ["What kinds of decisions do you expect be made jointly vs independently?"]
+    "prompts": [
+      "Describe some long-term goals that you expect another person could be a part of.",
+      "What kinds of decisions do you expect be made jointly vs independently?",
+      "What do conversations about mutual goals look like and how do you resolve disagreements?"
+    ]
   },
   {
     "id": "labels",
@@ -122,16 +143,19 @@
     "prompts": [
       "What labels do you want to use to describe your relationship? Why?",
       "What do those labels mean to you? Do they represent a certain level of commitment or certain expectation?",
-      "How do you want to describe your relationship to others?"
+      "Who would you like to know details about your relationship? How do you want to describe your relationship to others?"
     ]
   },
   {
     "id": "verbal-love",
     "title": "Expressing love verbally",
-    "description": "Saying \"I love you.\"",
+    "description": "Verbal affection, words of affirmation, saying \"I love you.\"",
     "category": "Intimacy",
     "prompts": [
-      "How important are verbal affirmation to you compared to other displays of affection?"
+      "What words of affirmation feel good to you? What types of compliments do you prefer?",
+      "Are there any compliments or affirmations you dislike or find uncomfortable?",
+      "How important are verbal affirmation to you compared to other displays of affection?",
+      "What does saying \"I love you\" mean to you? Is it limited to certain types of relationships?"
     ]
   },
   {
@@ -139,7 +163,10 @@
     "title": "Kissing",
     "description": "Kissing on the lips, face, neck, etc.",
     "category": "Intimacy",
-    "prompts": ["How do you feel about public displays of affection?"]
+    "prompts": [
+      "How do you like to be kissed? Light and affectionate, heavy and passionate, etc.",
+      "Are there any contexts in which you do not want to be kissed?"
+    ]
   },
   {
     "id": "financial",
@@ -149,7 +176,8 @@
     "prompts": [
       "What assets do you expect to share? What stays separate?",
       "How do you manage mismatches in income, existing assets, or debt?",
-      "How do you make decisions about purchases?"
+      "How do you make decisions about purchases?",
+      "Do you have significant debt or financial obligations that someone sharing finances should be aware of?"
     ]
   },
   {
@@ -159,7 +187,9 @@
     "category": "Intimacy",
     "prompts": [
       "What roles do you take in power dynamics? Dominant, submissive, switch, etc.",
+      "What types of power exchange would you like to engage in? Physical, sexual, financial, behavior control, etc.",
       "How do you negotiate consent in these dynamics? How do you revoke consent?",
+      "Do you have past experience in these roles, or are you learning as your relationship develops? What does that past experience look like—good or bad?",
       "How private vs public do you want this aspect of your relationship to be?"
     ]
   },
@@ -168,14 +198,22 @@
     "title": "Sadism and masochism",
     "description": "Playing with physical pain.",
     "category": "Intimacy",
-    "prompts": ["What kinds of pain do you enjoy? Do you have any hard limits?"]
+    "prompts": [
+      "How do you negotiate consent and manage safety concerns when playing with pain?",
+      "Do you have any physical limitations or conditions that another person should be aware of when playing with pain?",
+      "Do you enjoy giving or receiving pain, or both?",
+      "What kinds of pain do you enjoy? Do you have any hard limits?"
+    ]
   },
   {
     "id": "collaboration",
     "title": "Collaborative partners",
     "description": "Working together on projects, art, organizing, etc.",
     "category": "Companionship",
-    "prompts": ["What kinds of projects do you want to work on together?"]
+    "prompts": [
+      "What kinds of projects do you want to work on together?",
+      "How do you best collaborate with another person?"
+    ]
   },
   {
     "id": "contact",
@@ -184,7 +222,9 @@
     "category": "Companionship",
     "prompts": [
       "How frequently do you expect to hear from each other?",
-      "How often do you expect to see each other in-person vs virtually?"
+      "What communication methods work best for you? What communication methods do you dislike?",
+      "Do you prefer synchronous or asynchronous communication (real-time vs. delayed response)? Do you like to schedule communication in advance?",
+      "How often do you expect to see each other in-person?"
     ]
   },
   {
@@ -193,8 +233,11 @@
     "description": "Giving each other small gifts or tokens of affection.",
     "category": "Intimacy",
     "prompts": [
+      "What kinds of gifts are most meaningful to you?",
       "What kind or size of gifts are appropriate?",
-      "Do you like to be surprised, or do you prefer to know about gifts ahead of time?"
+      "How do you like someone to respond when you give them a gift?",
+      "Do you like to be surprised, or do you prefer to know about gifts ahead of time?",
+      "Do you prefer gifts to be limited to certain occasions, or do you like to exchange tokens of affection in the normal course of life?"
     ]
   },
   {
