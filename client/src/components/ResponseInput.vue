@@ -36,10 +36,17 @@ const emit = defineEmits(["update"]);
     <h3 :id="`response-input-heading-${props.id}`">{{ props.title }}</h3>
     <RadioGroup :form-id="`response-form-${props.id}`" :label="props.description">
       <!--
-        TODO: You should be using something like `aria-expanded` and
-        `aria-controls` to indicate that the prompt and notes field are hidden
-        until a radio button is selected, but those ARIA attributes aren't valid
-        on the radio button role.
+        TODO: We should be using `aria-expanded` and `aria-controls` to indicate
+        that the notes field and prompt list are collapsed unless the "Yes" or
+        "Maybe later" radio buttons are selected, but those ARIA attributes
+        aren't valid on the radio role.
+
+        I tried adding those attributes anyways, but Orca didn't announce them.
+
+        There seems to be an issue open to extend support for these attributes
+        to the radio role:
+
+        https://github.com/w3c/aria/issues/1404
       -->
       <RadioButton
         :id="`answer-input-yes-${props.id}`"
