@@ -234,33 +234,33 @@ onBeforeMount(async () => {
       </div>
       <div class="max-w-2xl w-full" v-else-if="status?.status === 'success'">
         <div class="flex flex-col gap-4">
-          <section
-            v-for="(category, categoryIndex) in randomizedQuestionCategories(sharingCode)"
+          <Panel
+            toggleable
+            collapsed
+            :header="category.name"
+            v-for="category in randomizedQuestionCategories(sharingCode)"
             :key="category.name"
-            aria-labelledby="`category-title-${categoryIndex}`"
           >
-            <Panel toggleable collapsed>
-              <template #header>
-                <h2 :id="`category-title-${categoryIndex}`">{{ category.name }}</h2>
-              </template>
-              <div class="flex flex-col gap-8">
-                <ResponseInput
-                  :id="question.id"
-                  :title="question.title"
-                  :description="question.description"
-                  :prompts="question.prompts"
-                  :initial-answer="getStoredResponse(question.id)?.answer"
-                  :initial-notes="getStoredResponse(question.id)?.notes"
-                  :sharing-code="sharingCode"
-                  :player="player"
-                  v-for="question in category.questions"
-                  :key="question.id"
-                  ref="responseInputs"
-                  @update="storeResponses"
-                />
-              </div>
-            </Panel>
-          </section>
+            <template #header>
+              <h2>{{ category.name }}</h2>
+            </template>
+            <div class="flex flex-col gap-8">
+              <ResponseInput
+                :id="question.id"
+                :title="question.title"
+                :description="question.description"
+                :prompts="question.prompts"
+                :initial-answer="getStoredResponse(question.id)?.answer"
+                :initial-notes="getStoredResponse(question.id)?.notes"
+                :sharing-code="sharingCode"
+                :player="player"
+                v-for="question in category.questions"
+                :key="question.id"
+                ref="responseInputs"
+                @update="storeResponses"
+              />
+            </div>
+          </Panel>
         </div>
         <Button class="mt-4" @click="submitForm" label="Submit" />
       </div>
