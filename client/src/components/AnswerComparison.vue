@@ -22,7 +22,20 @@ const description = ref(questionDef.value.description);
 
 <template>
   <section :aria-labelledby="`answer-section-heading-${props.id}`">
-    <h2 :id="`answer-section-heading-${props.id}`">{{ title }}</h2>
+    <div class="flex items-baseline gap-2">
+      <i
+        v-if="!props.senderAnswer || !props.recipientAnswer"
+        class="pi pi-question-circle response-icon text-muted-color"
+        aria-hidden
+      ></i>
+      <i
+        v-else-if="props.senderAnswer?.answer === 'no' || props.recipientAnswer?.answer === 'no'"
+        class="pi pi-minus-circle response-icon color-bad"
+        aria-hidden
+      ></i>
+      <i v-else class="pi pi-check-circle response-icon color-good" aria-hidden></i>
+      <h2 :id="`answer-section-heading-${props.id}`">{{ title }}</h2>
+    </div>
     <p>{{ description }}</p>
     <div class="sm:ml-8" v-if="!props.senderAnswer || !props.recipientAnswer">
       <i>Someone didn't answer this question.</i>
@@ -55,4 +68,8 @@ const description = ref(questionDef.value.description);
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.response-icon {
+  @apply text-xl;
+}
+</style>

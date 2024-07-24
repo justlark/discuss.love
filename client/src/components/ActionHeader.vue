@@ -28,7 +28,7 @@ const props = defineProps<{
     >
       <template #header>
         <div class="flex justify-center">
-          <i class="pi pi-exclamation-circle color-error mt-8 error-icon"></i>
+          <i class="pi pi-exclamation-circle color-bad mt-8 error-icon"></i>
         </div>
       </template>
       <template #title>Error</template>
