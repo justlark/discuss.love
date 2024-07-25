@@ -22,10 +22,7 @@ const props = defineProps<{
       </div>
     </div>
     <Divider />
-    <Card
-      v-if="props.errorText"
-      class="self-stretch sm:self-center max-w-[40rem] sm:min-w-[24rem] sm:mx-8 mt-8"
-    >
+    <Card v-if="props.errorText" class="self-center w-[90vw] sm:w-[28rem] mt-8">
       <template #header>
         <div class="flex justify-center">
           <i class="pi pi-exclamation-circle color-bad mt-8 error-icon"></i>
