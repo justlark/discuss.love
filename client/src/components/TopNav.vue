@@ -7,7 +7,7 @@ import ConfirmDialog from "primevue/confirmdialog";
 <template>
   <header class="flex flex-wrap gap-x-4 gap-y-2 mb-10 items-baseline">
     <router-link to="/" class="text-lg font-medium">Discuss.love</router-link>
-    <span class="text-muted-color">A tool for negotiating relationships</span>
+    <span class="text-muted">A tool for negotiating relationships</span>
   </header>
   <div class="flex justify-center">
     <ConfirmDialog />

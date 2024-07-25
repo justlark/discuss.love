@@ -251,7 +251,7 @@ onBeforeMount(async () => {
             <template #header>
               <div class="flex gap-4 items-center">
                 <h2 class="my-auto">{{ category.name }}</h2>
-                <small class="text-muted-color">({{ category.questions.length }} questions)</small>
+                <small class="text-muted">({{ category.questions.length }} questions)</small>
               </div>
             </template>
             <div class="flex flex-col gap-8">

@@ -33,11 +33,11 @@ const props = defineProps<{
         <div class="flex justify-center">
           <i
             v-if="props.error.icon === 'error'"
-            class="pi pi-exclamation-circle color-bad error-icon"
+            class="pi pi-exclamation-circle icon-bad error-icon"
           ></i>
           <i
             v-else-if="props.error.icon === 'question'"
-            class="pi pi-question-circle color-info error-icon"
+            class="pi pi-question-circle icon-info error-icon"
           ></i>
         </div>
       </template>

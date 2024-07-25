@@ -25,15 +25,15 @@ const description = ref(questionDef.value.description);
     <div class="flex items-baseline gap-2">
       <i
         v-if="!props.senderAnswer || !props.recipientAnswer"
-        class="pi pi-question-circle response-icon text-muted-color"
+        class="pi pi-question-circle response-icon icon-muted"
         aria-hidden
       ></i>
       <i
         v-else-if="props.senderAnswer?.answer === 'no' || props.recipientAnswer?.answer === 'no'"
-        class="pi pi-minus-circle response-icon color-bad"
+        class="pi pi-minus-circle response-icon icon-bad"
         aria-hidden
       ></i>
-      <i v-else class="pi pi-check-circle response-icon color-good" aria-hidden></i>
+      <i v-else class="pi pi-check-circle response-icon icon-good" aria-hidden></i>
       <h2 :id="`answer-section-heading-${props.id}`">{{ title }}</h2>
     </div>
     <p>{{ description }}</p>

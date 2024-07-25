@@ -54,7 +54,7 @@ const emit = defineEmits(["update"]);
         value="yes"
         @update="emit('update')"
       >
-        Yes <small class="text-muted-color">(I want some or all of this)</small>
+        Yes <small class="text-muted">(I want some or all of this)</small>
       </RadioButton>
       <RadioButton
         :id="`answer-input-no-${props.id}`"
@@ -63,7 +63,7 @@ const emit = defineEmits(["update"]);
         @update="emit('update')"
       >
         No
-        <small class="text-muted-color">(I don't want this and don't expect that to change)</small>
+        <small class="text-muted">(I don't want this and don't expect that to change)</small>
       </RadioButton>
       <RadioButton
         :id="`answer-input-later-${props.id}`"
@@ -72,7 +72,7 @@ const emit = defineEmits(["update"]);
         @update="emit('update')"
       >
         Maybe later
-        <small class="text-muted-color">(I don't want this now, but might someday)</small>
+        <small class="text-muted">(I don't want this now, but might someday)</small>
       </RadioButton>
     </RadioGroup>
     <div :class="{ collapsible: true, expanded: !answerIsNo }">

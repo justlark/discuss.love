@@ -64,16 +64,41 @@
   }
 }
 
-.color-bad {
+/*
+ * Text must have a minimum contrast ratio of 4.5:1, which requires darker
+ * colors in light mode. With large icons, that's less important.
+ */
+
+.text-bad {
   @apply text-red-600 dark:text-red-300;
 }
 
-.color-good {
+.icon-bad {
+  @apply text-red-400 dark:text-red-300;
+}
+
+.text-good {
+  @apply text-green-700 dark:text-green-300;
+}
+
+.icon-good {
   @apply text-green-400 dark:text-green-300;
 }
 
-.color-info {
+.text-info {
+  @apply text-blue-600 dark:text-blue-300;
+}
+
+.icon-info {
   @apply text-blue-400 dark:text-blue-300;
+}
+
+.text-muted {
+  @apply text-muted-color;
+}
+
+.icon-muted {
+  @apply text-muted-color;
 }
 
 .p-dialog {
