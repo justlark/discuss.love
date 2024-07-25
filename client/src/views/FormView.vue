@@ -129,6 +129,16 @@ const resetForm = async () => {
 
 const pageLink = ref(window.location.href);
 
+const errorProps = computed(() =>
+  status.value.status === "error"
+    ? ({
+        title: "Error",
+        icon: "error",
+        message: status.value.error,
+      } as const)
+    : undefined,
+);
+
 onBeforeMount(async () => {
   const storedSharingCode = localStorage.getItem("code");
 
@@ -176,10 +186,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <ActionHeader
-    title="What are you looking for?"
-    :error-text="status?.status === 'error' ? status.error : undefined"
-  >
+  <ActionHeader title="What are you looking for?" :error="errorProps">
     <template #subtitle v-if="status?.status === 'success'">
       <div v-if="player === 'sender'">
         Send <strong>{{ otherPlayerName }}</strong> a link to this page so they can join the

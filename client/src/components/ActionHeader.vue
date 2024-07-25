@@ -2,16 +2,22 @@
 import Divider from "primevue/divider";
 import Card from "primevue/card";
 
+export interface ErrorProps {
+  title: string;
+  icon: "error" | "question";
+  message: string;
+}
+
 const props = defineProps<{
   title: string;
-  errorText?: string;
+  error?: ErrorProps;
 }>();
 </script>
 
 <template>
   <main aria-labelledby="main-heading">
     <h1 id="main-heading">{{ props.title }}</h1>
-    <div v-if="!props.errorText && ($slots.subtitle || $slots.actions)">
+    <div v-if="!props.error && ($slots.subtitle || $slots.actions)">
       <p v-if="$slots.subtitle">
         <i>
           <slot name="subtitle" />
@@ -22,21 +28,28 @@ const props = defineProps<{
       </div>
     </div>
     <Divider />
-    <Card v-if="props.errorText" class="self-center w-[90vw] sm:w-[28rem] mt-8">
+    <Card v-if="props.error !== undefined" class="self-center w-[90vw] sm:w-[28rem] mt-8">
       <template #header>
         <div class="flex justify-center">
-          <i class="pi pi-exclamation-circle color-bad mt-8 error-icon"></i>
+          <i
+            v-if="props.error.icon === 'error'"
+            class="pi pi-exclamation-circle color-bad error-icon"
+          ></i>
+          <i
+            v-else-if="props.error.icon === 'question'"
+            class="pi pi-question-circle color-info error-icon"
+          ></i>
         </div>
       </template>
-      <template #title>Error</template>
-      <template #content>{{ props.errorText }}</template>
+      <template #title>{{ props.error.title }}</template>
+      <template #content>{{ props.error.message }}</template>
     </Card>
-    <slot name="body" v-if="!props.errorText" />
+    <slot name="body" v-if="!props.error" />
   </main>
 </template>
 
 <style scoped>
 .error-icon {
-  @apply text-8xl;
+  @apply mt-8 text-8xl;
 }
 </style>

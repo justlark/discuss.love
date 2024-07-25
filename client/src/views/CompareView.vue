@@ -121,6 +121,16 @@ const { handlePrint } = useVueToPrint({
   pageStyle: printStyles,
 });
 
+const errorProps = computed(() =>
+  status.value.status === "error"
+    ? ({
+        title: "Error",
+        icon: "error",
+        message: status.value.error,
+      } as const)
+    : undefined,
+);
+
 onBeforeMount(async () => {
   const [sessionResponse, submissionResponse] = await Promise.all([
     fetch(sessionsEndpoint(sharingCode.value)),
@@ -181,10 +191,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <ActionHeader
-    title="Compare answers"
-    :error-text="status?.status === 'error' ? status.error : undefined"
-  >
+  <ActionHeader title="Compare answers" :error="errorProps">
     <template #actions v-if="status?.status !== 'expired'">
       <Button severity="secondary" @click="navigateEditPage" label="Edit Answers" />
       <Button

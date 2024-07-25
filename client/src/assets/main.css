@@ -72,6 +72,10 @@
   @apply text-green-400 dark:text-green-300;
 }
 
+.color-info {
+  @apply text-blue-400 dark:text-blue-300;
+}
+
 .p-dialog {
   @apply m-6 max-w-2xl;
 }
