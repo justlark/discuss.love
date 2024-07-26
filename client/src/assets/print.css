@@ -11,3 +11,7 @@ html {
 h2 {
   font-size: 1.3em;
 }
+
+blockquote {
+  white-space: pre-line;
+}
