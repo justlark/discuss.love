@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
-import type {
-  Optional,
-  Player,
-  QuestionAnswer,
-  ResponseStatus,
-  SessionInfo,
-  WithQuestionId,
+import {
+  humanizeAnswer,
+  type Optional,
+  type Player,
+  type QuestionAnswer,
+  type ResponseStatus,
+  type SessionInfo,
+  type WithQuestionId,
 } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { randomizedQuestionCategories } from "@/questions";
@@ -40,18 +41,35 @@ const responseInputs = ref<Array<InstanceType<typeof ResponseInput>>>([]);
 type Response = WithQuestionId<Optional<QuestionAnswer, "answer">>;
 type StoredResponses = { code: string; responses: Array<Response> };
 
-const collectResponses = (): Array<Response> => {
-  return responseInputs.value.map((element) => ({
-    id: element.id,
-    answer: element.response.answer,
-    notes: element.response.notes,
-  }));
+const collectResponses = (validate: boolean): Array<Response> | undefined => {
+  const responses = [];
+
+  for (const element of responseInputs.value) {
+    if (validate && element.response.answer && element.required && !element.response.notes.trim()) {
+      toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: `Because you answered "${humanizeAnswer(element.response.answer)}", you need provide details for "${element.title}".`,
+        life: ERROR_TOAST_TTL,
+      });
+
+      return undefined;
+    }
+
+    responses.push({
+      id: element.id,
+      answer: element.response.answer,
+      notes: element.response.notes,
+    });
+  }
+
+  return responses;
 };
 
 const storeResponses = () => {
   localStorage.setItem(
     "responses",
-    JSON.stringify({ code: sharingCode.value, responses: collectResponses() }),
+    JSON.stringify({ code: sharingCode.value, responses: collectResponses(false) }),
   );
 };
 
@@ -84,7 +102,11 @@ const viewSubmissions = () => {
 };
 
 const submitForm = async () => {
-  const responses = collectResponses();
+  const responses = collectResponses(true);
+
+  if (responses === undefined) {
+    return;
+  }
 
   const response = await fetch(submissionsEndpoint(sharingCode.value, player.value), {
     method: "PUT",

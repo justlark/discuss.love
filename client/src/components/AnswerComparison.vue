@@ -18,22 +18,61 @@ if (questionDef.value === undefined) {
 
 const title = ref(questionDef.value.title);
 const description = ref(questionDef.value.description);
+
+const answerStatus = computed(() => {
+  if (
+    !props.senderAnswer ||
+    !props.recipientAnswer ||
+    (props.senderAnswer.answer === "unsure" && props.recipientAnswer.answer === "unsure")
+  ) {
+    return "unsure";
+  }
+
+  if (props.senderAnswer.answer === "no" || props.recipientAnswer.answer === "no") {
+    return "no";
+  }
+
+  if (
+    (props.senderAnswer.answer === "yes" || props.senderAnswer.answer === "open") &&
+    (props.recipientAnswer.answer === "yes" || props.recipientAnswer.answer === "open")
+  ) {
+    return "agreement";
+  }
+
+  if (
+    (props.senderAnswer.answer === "open" || props.senderAnswer.answer === "later") &&
+    (props.recipientAnswer.answer === "open" || props.recipientAnswer.answer === "later")
+  ) {
+    return "agreement";
+  }
+
+  return "disagreement";
+});
 </script>
 
 <template>
   <section :aria-labelledby="`answer-section-heading-${props.id}`">
     <div class="flex items-baseline gap-2">
       <i
-        v-if="!props.senderAnswer || !props.recipientAnswer"
+        v-if="answerStatus === 'unsure'"
         class="pi pi-question-circle response-icon icon-muted"
         aria-hidden
       ></i>
       <i
-        v-else-if="props.senderAnswer?.answer === 'no' || props.recipientAnswer?.answer === 'no'"
+        v-else-if="answerStatus === 'no'"
         class="pi pi-minus-circle response-icon icon-bad"
         aria-hidden
       ></i>
-      <i v-else class="pi pi-check-circle response-icon icon-good" aria-hidden></i>
+      <i
+        v-else-if="answerStatus === 'agreement'"
+        class="pi pi-check-circle response-icon icon-good"
+        aria-hidden
+      ></i>
+      <i
+        v-else-if="answerStatus === 'disagreement'"
+        class="pi pi-circle response-icon icon-warn"
+        aria-hidden
+      ></i>
       <h2 :id="`answer-section-heading-${props.id}`">{{ title }}</h2>
     </div>
     <p>{{ description }}</p>

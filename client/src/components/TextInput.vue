@@ -9,6 +9,8 @@ const props = defineProps<{
   required?: boolean;
   errorMessage?: string;
 }>();
+
+defineExpose({ required: props.required });
 </script>
 
 <template>

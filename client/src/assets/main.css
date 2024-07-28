@@ -77,6 +77,10 @@
   @apply text-red-400 dark:text-red-300;
 }
 
+.icon-warn {
+  @apply text-yellow-500 dark:text-yellow-200;
+}
+
 .text-good {
   @apply text-green-700 dark:text-green-300;
 }

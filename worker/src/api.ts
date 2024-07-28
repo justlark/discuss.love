@@ -7,7 +7,7 @@ export type ByPlayer<T> = Readonly<{
 
 export type Player = keyof ByPlayer<unknown>;
 
-export type AnswerType = "yes" | "no" | "later";
+export type AnswerType = "yes" | "no" | "open" | "later" | "unsure";
 
 export type WithQuestionId<T> = Readonly<{ id: string }> & T;
 

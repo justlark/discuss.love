@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { type AnswerType, type Player } from "@/types";
+import { type AnswerType, type Player, humanizeAnswer } from "@/types";
 import RadioButton from "@/components/RadioButton.vue";
 import RadioGroup from "@/components/RadioGroup.vue";
 import TextArea from "@/components/TextArea.vue";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps<{
   id: string;
@@ -21,9 +21,16 @@ const response = ref<{ answer?: AnswerType; notes: string }>({
   notes: props.initialNotes ?? "",
 });
 
+const required = computed(
+  () =>
+    response.value.answer && response.value.answer !== "no" && response.value.answer !== "unsure",
+);
+
 defineExpose({
   id: props.id,
+  title: props.title,
   response,
+  required,
 });
 
 const emit = defineEmits(["update"]);
@@ -48,11 +55,15 @@ const emit = defineEmits(["update"]);
       -->
       <RadioButton
         :id="`answer-input-yes-${props.id}`"
+        class="flex gap-2"
         v-model="response.answer"
         value="yes"
         @update="emit('update')"
       >
-        Yes <small class="text-muted">(I want some or all of this)</small>
+        <span class="flex gap-2 items-baseline">
+          <span>{{ humanizeAnswer("yes") }}</span>
+          <small class="text-muted">(I want some or all of this)</small>
+        </span>
       </RadioButton>
       <RadioButton
         :id="`answer-input-no-${props.id}`"
@@ -60,8 +71,10 @@ const emit = defineEmits(["update"]);
         value="no"
         @update="emit('update')"
       >
-        No
-        <small class="text-muted">(I don't want this and don't expect that to change)</small>
+        <span class="flex gap-2 items-baseline">
+          <span>{{ humanizeAnswer("no") }}</span>
+          <small class="text-muted">(I don't want this and don't expect that to change)</small>
+        </span>
       </RadioButton>
       <RadioButton
         :id="`answer-input-open-${props.id}`"
@@ -69,8 +82,10 @@ const emit = defineEmits(["update"]);
         value="open"
         @update="emit('update')"
       >
-        Open to it
-        <small class="text-muted">(I'm open to this, but indifferent)</small>
+        <span class="flex gap-2 items-baseline">
+          <span>{{ humanizeAnswer("open") }}</span>
+          <small class="text-muted">(I'm open to this, but indifferent)</small>
+        </span>
       </RadioButton>
       <RadioButton
         :id="`answer-input-later-${props.id}`"
@@ -78,10 +93,12 @@ const emit = defineEmits(["update"]);
         value="later"
         @update="emit('update')"
       >
-        Not right now
-        <small class="text-muted"
-          >(I don't want this right now, but I'm open to revisiting it)</small
-        >
+        <span class="flex gap-2 items-baseline">
+          <span>{{ humanizeAnswer("later") }}</span>
+          <small class="text-muted"
+            >(I don't want this right now, but I'm open to revisiting it)</small
+          >
+        </span>
       </RadioButton>
       <RadioButton
         :id="`answer-input-unsure-${props.id}`"
@@ -89,15 +106,17 @@ const emit = defineEmits(["update"]);
         value="unsure"
         @update="emit('update')"
       >
-        Undecided
-        <small class="text-muted">(I need more time to think about this)</small>
+        <span class="flex gap-2 items-baseline">
+          <span>{{ humanizeAnswer("unsure") }}</span>
+          <small class="text-muted">(I need more time to think about this)</small>
+        </span>
       </RadioButton>
     </RadioGroup>
     <div :class="{ collapsible: true, expanded: response.answer && response.answer !== 'no' }">
       <TextArea
         class="my-4"
         :id="`notes-input-${props.id}`"
-        :required="response.answer && response.answer !== 'no' && response.answer !== 'unsure'"
+        :required="required"
         :textarea-props="{ 'aria-details': `prompt-list-${props.id}` }"
         label="Give some more detail"
         v-model="response.notes"
