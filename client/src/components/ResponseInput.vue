@@ -60,10 +60,8 @@ const emit = defineEmits(["update"]);
         value="yes"
         @update="emit('update')"
       >
-        <span class="flex gap-2 items-baseline">
-          <span>{{ humanizeAnswer("yes") }}</span>
-          <small class="text-muted">(I want some or all of this)</small>
-        </span>
+        {{ humanizeAnswer("yes") }}
+        <small class="text-muted">(I want some or all of this)</small>
       </RadioButton>
       <RadioButton
         :id="`answer-input-no-${props.id}`"
@@ -71,10 +69,8 @@ const emit = defineEmits(["update"]);
         value="no"
         @update="emit('update')"
       >
-        <span class="flex gap-2 items-baseline">
-          <span>{{ humanizeAnswer("no") }}</span>
-          <small class="text-muted">(I don't want this and don't expect that to change)</small>
-        </span>
+        {{ humanizeAnswer("no") }}
+        <small class="text-muted">(I don't want this and don't expect that to change)</small>
       </RadioButton>
       <RadioButton
         :id="`answer-input-open-${props.id}`"
@@ -82,10 +78,8 @@ const emit = defineEmits(["update"]);
         value="open"
         @update="emit('update')"
       >
-        <span class="flex gap-2 items-baseline">
-          <span>{{ humanizeAnswer("open") }}</span>
-          <small class="text-muted">(I'm open to this, but indifferent)</small>
-        </span>
+        {{ humanizeAnswer("open") }}
+        <small class="text-muted">(I'm open to this, but indifferent)</small>
       </RadioButton>
       <RadioButton
         :id="`answer-input-later-${props.id}`"
@@ -93,12 +87,10 @@ const emit = defineEmits(["update"]);
         value="later"
         @update="emit('update')"
       >
-        <span class="flex gap-2 items-baseline">
-          <span>{{ humanizeAnswer("later") }}</span>
-          <small class="text-muted"
-            >(I don't want this right now, but I'm open to revisiting it)</small
-          >
-        </span>
+        {{ humanizeAnswer("later") }}
+        <small class="text-muted"
+          >(I don't want this right now, but I'm open to revisiting it)</small
+        >
       </RadioButton>
       <RadioButton
         :id="`answer-input-unsure-${props.id}`"
@@ -106,10 +98,8 @@ const emit = defineEmits(["update"]);
         value="unsure"
         @update="emit('update')"
       >
-        <span class="flex gap-2 items-baseline">
-          <span>{{ humanizeAnswer("unsure") }}</span>
-          <small class="text-muted">(I need more time to think about this)</small>
-        </span>
+        {{ humanizeAnswer("unsure") }}
+        <small class="text-muted">(I need more time to think about this)</small>
       </RadioButton>
     </RadioGroup>
     <div :class="{ collapsible: true, expanded: response.answer && response.answer !== 'no' }">
