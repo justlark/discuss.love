@@ -15,7 +15,7 @@ export interface QuestionCategory {
   questions: Array<QuestionDefinition>;
 }
 
-export type AnswerType = "yes" | "no" | "later";
+export type AnswerType = "yes" | "no" | "open" | "later" | "unsure";
 
 export interface QuestionAnswer {
   answer: AnswerType;

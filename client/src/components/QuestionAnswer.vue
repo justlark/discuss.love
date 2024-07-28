@@ -14,8 +14,12 @@ const humanReadableAnswer = computed(() => {
       return "Yes";
     case "no":
       return "No";
+    case "open":
+      return "Open to it";
     case "later":
-      return "Maybe later";
+      return "Not right now";
+    case "unsure":
+      return "Undecided";
     default:
       throw new Error(`Invalid answer: ${props.questionAnswer}`);
   }

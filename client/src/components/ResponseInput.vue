@@ -3,7 +3,7 @@ import { type AnswerType, type Player } from "@/types";
 import RadioButton from "@/components/RadioButton.vue";
 import RadioGroup from "@/components/RadioGroup.vue";
 import TextArea from "@/components/TextArea.vue";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 const props = defineProps<{
   id: string;
@@ -20,8 +20,6 @@ const response = ref<{ answer?: AnswerType; notes: string }>({
   answer: props.initialAnswer,
   notes: props.initialNotes ?? "",
 });
-
-const answerIsNo = computed(() => !response.value.answer || response.value.answer === "no");
 
 defineExpose({
   id: props.id,
@@ -66,19 +64,40 @@ const emit = defineEmits(["update"]);
         <small class="text-muted">(I don't want this and don't expect that to change)</small>
       </RadioButton>
       <RadioButton
+        :id="`answer-input-open-${props.id}`"
+        v-model="response.answer"
+        value="open"
+        @update="emit('update')"
+      >
+        Open to it
+        <small class="text-muted">(I'm open to this, but indifferent)</small>
+      </RadioButton>
+      <RadioButton
         :id="`answer-input-later-${props.id}`"
         v-model="response.answer"
         value="later"
         @update="emit('update')"
       >
-        Maybe later
-        <small class="text-muted">(I don't want this now, but might someday)</small>
+        Not right now
+        <small class="text-muted"
+          >(I don't want this right now, but I'm open to revisiting it)</small
+        >
+      </RadioButton>
+      <RadioButton
+        :id="`answer-input-unsure-${props.id}`"
+        v-model="response.answer"
+        value="unsure"
+        @update="emit('update')"
+      >
+        Undecided
+        <small class="text-muted">(I need more time to think about this)</small>
       </RadioButton>
     </RadioGroup>
-    <div :class="{ collapsible: true, expanded: !answerIsNo }">
+    <div :class="{ collapsible: true, expanded: response.answer && response.answer !== 'no' }">
       <TextArea
         class="my-4"
         :id="`notes-input-${props.id}`"
+        :required="response.answer && response.answer !== 'no' && response.answer !== 'unsure'"
         :textarea-props="{ 'aria-details': `prompt-list-${props.id}` }"
         label="Give some more detail"
         v-model="response.notes"
