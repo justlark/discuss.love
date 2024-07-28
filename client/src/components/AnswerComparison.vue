@@ -33,20 +33,17 @@ const answerStatus = computed(() => {
   }
 
   if (
-    (props.senderAnswer.answer === "yes" || props.senderAnswer.answer === "open") &&
-    (props.recipientAnswer.answer === "yes" || props.recipientAnswer.answer === "open")
+    (props.senderAnswer.answer === "yes" &&
+      props.recipientAnswer.answer !== "yes" &&
+      props.recipientAnswer.answer !== "open") ||
+    (props.recipientAnswer.answer === "yes" &&
+      props.senderAnswer.answer !== "yes" &&
+      props.senderAnswer.answer !== "open")
   ) {
-    return "agreement";
+    return "disagreement";
   }
 
-  if (
-    (props.senderAnswer.answer === "open" || props.senderAnswer.answer === "later") &&
-    (props.recipientAnswer.answer === "open" || props.recipientAnswer.answer === "later")
-  ) {
-    return "agreement";
-  }
-
-  return "disagreement";
+  return "agreement";
 });
 </script>
 
