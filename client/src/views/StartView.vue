@@ -90,9 +90,9 @@ const startSession = async () => {
           </li>
           <li>
             <p>
-              You'll only see the answers that you agree on. If one of you selects "No" to a
-              particular question, you won't see how the other person responded. Don't be afraid to
-              say yes to something just because you're worried the other person will say no!
+              If one of you selects "No" to a particular question, you won't see how the other
+              person responded. Don't be afraid to say yes to something just because you're worried
+              the other person will say no!
             </p>
           </li>
           <li>
