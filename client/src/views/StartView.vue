@@ -15,6 +15,7 @@ const validationErrors = ref({ sender: "", recipient: "" });
 const isAdvancedOptionsExpanded = ref(false);
 const fileUpload = ref();
 const isCustomQuestionsUploaded = ref(false);
+const questionsChecksum = ref<string>();
 
 const router = useRouter();
 const toast = useToast();
@@ -42,6 +43,7 @@ const startSession = async () => {
         sender: names.value.sender,
         recipient: names.value.recipient,
       },
+      questions: questionsChecksum.value,
     }),
   });
 
@@ -79,6 +81,9 @@ const onQuestionsUpload = async (event: FileUploadUploadEvent) => {
 
     return;
   }
+
+  const { checksum } = await response.json();
+  questionsChecksum.value = checksum;
 
   isCustomQuestionsUploaded.value = true;
 
