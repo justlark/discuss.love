@@ -23,9 +23,9 @@ export const getRandomizedQuestionCategories = (
     byCategory.set(q.category, category);
   }
 
-  const categories = Array.from(byCategory.entries(), ([category, questions]) => ({
+  const categories = Array.from(byCategory.entries(), ([category, list]) => ({
     name: category,
-    questions,
+    questions: list,
   }));
 
   categories.sort(() => rng() - 0.5);

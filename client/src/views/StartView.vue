@@ -64,11 +64,7 @@ const startSession = async () => {
   await router.push({ path: "/join", query: { code } });
 };
 
-const uploadQuestions = () => {
-  fileUpload.value.upload();
-};
-
-const onQuestionsUpload = async (event: FileUploadUploadEvent) => {
+const uploadQuestions = async (event: FileUploadUploadEvent) => {
   const response = await fetch(questionsEndpoint(), {
     method: "POST",
     body: Array.isArray(event.files) ? event.files[0] : event.files,
@@ -146,16 +142,14 @@ const onQuestionsUpload = async (event: FileUploadUploadEvent) => {
               >
               for more information about how to create custom questions.
             </p>
-            <div class="flex flex-col gap-4 items-start">
-              <FileUpload
-                ref="fileUpload"
-                mode="basic"
-                accept="application/json"
-                custom-upload
-                @uploader="onQuestionsUpload"
-              />
-              <Button label="Upload" @click="uploadQuestions" severity="secondary" />
-            </div>
+            <FileUpload
+              ref="fileUpload"
+              mode="basic"
+              accept="application/json"
+              custom-upload
+              auto
+              @uploader="uploadQuestions"
+            />
           </div>
         </div>
         <span class="flex gap-4 items-baseline">
