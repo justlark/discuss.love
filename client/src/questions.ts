@@ -2,9 +2,12 @@ import rawQuestions from "@/assets/questions.json";
 import type { QuestionDefinition } from "@/types";
 import seedrandom from "seedrandom";
 
-export const questions: Array<QuestionDefinition> = rawQuestions;
+export const defaultQuestions: Array<QuestionDefinition> = rawQuestions;
 
-export const randomizedQuestionCategories = (sharingCode: string) => {
+export const getRandomizedQuestionCategories = (
+  questions: Array<QuestionDefinition>,
+  sharingCode: string,
+) => {
   // Shuffle the questions and categories in a way that's deterministic by the
   // sharing code. This way both players see the same order of questions and the
   // order won't shuffle between page reloads.
@@ -34,14 +37,15 @@ export const randomizedQuestionCategories = (sharingCode: string) => {
   return categories;
 };
 
-export const questionMap = new Map(
-  questions.map((q) => [
-    q.id,
-    {
-      title: q.title,
-      description: q.description,
-      category: q.category,
-      prompts: q.prompts,
-    },
-  ]),
-);
+export const getQuestionMap = (questions: Array<QuestionDefinition>) =>
+  new Map(
+    questions.map((q) => [
+      q.id,
+      {
+        title: q.title,
+        description: q.description,
+        category: q.category,
+        prompts: q.prompts,
+      },
+    ]),
+  );

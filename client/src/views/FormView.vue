@@ -6,13 +6,14 @@ import {
   type Optional,
   type Player,
   type QuestionAnswer,
+  type QuestionDefinition,
   type ResponseStatus,
   type SessionInfo,
   type WithQuestionId,
 } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
-import { randomizedQuestionCategories } from "@/questions";
-import { sessionsEndpoint, submissionsEndpoint } from "@/api";
+import { defaultQuestions, getRandomizedQuestionCategories } from "@/questions";
+import { questionsEndpoint, sessionsEndpoint, submissionsEndpoint } from "@/api";
 import Button from "primevue/button";
 import Panel from "primevue/panel";
 import CopyButton from "@/components/CopyButton.vue";
@@ -27,6 +28,10 @@ const toast = useToast();
 
 const sharingCode = ref<string>(route.query.code as string);
 const player = ref<Player>();
+const questions = ref<Array<QuestionDefinition>>(defaultQuestions);
+const randomizedQuestionCategories = computed(() =>
+  getRandomizedQuestionCategories(questions.value, sharingCode.value),
+);
 
 const status = ref<
   ResponseStatus<["loading" | "session-nonexistent" | "already-submitted" | "success"]>
@@ -196,14 +201,26 @@ onBeforeMount(async () => {
     status.value = { status: "error", error };
 
     return;
-  } else {
-    status.value = { status: "success" };
   }
 
   const sessionInfo: SessionInfo = await sessionResponse.json();
 
+  const questionsResponse = await fetch(questionsEndpoint(sessionInfo.questions));
+
+  if (questionsResponse.status === 200) {
+    questions.value = await questionsResponse.json();
+  } else if (questionsResponse.status !== 404) {
+    const { error } = await questionsResponse.json();
+
+    status.value = { status: "error", error };
+
+    return;
+  }
+
   otherPlayerName.value =
     player.value === "sender" ? sessionInfo.players.recipient : sessionInfo.players.sender;
+
+  status.value = { status: "success" };
 });
 </script>
 
@@ -267,7 +284,7 @@ onBeforeMount(async () => {
             toggleable
             collapsed
             :header="category.name"
-            v-for="category in randomizedQuestionCategories(sharingCode)"
+            v-for="category in randomizedQuestionCategories"
             :key="category.name"
           >
             <template #header>

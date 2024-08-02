@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import type { AttributedAnswer } from "@/types";
+import type { AttributedAnswer, QuestionDefinition } from "@/types";
 import QuestionAnswer from "@/components/QuestionAnswer.vue";
-import { questionMap } from "@/questions";
+import { getQuestionMap } from "@/questions";
 
 const props = defineProps<{
   id: string;
+  questions: Array<QuestionDefinition>;
   senderAnswer?: AttributedAnswer;
   recipientAnswer?: AttributedAnswer;
 }>();
 
-const questionDef = computed(() => questionMap.get(props.id));
+const questionDef = computed(() => getQuestionMap(props.questions).get(props.id));
 
 if (questionDef.value === undefined) {
   throw new Error(`Question with id '${props.id}' not found.`);

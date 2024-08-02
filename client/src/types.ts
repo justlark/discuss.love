@@ -58,6 +58,7 @@ export type FormAnswers = Array<FormAnswer>;
 
 export type SessionInfo = {
   players: ByPlayer<string>;
+  questions: string;
 };
 
 export type ResponseStatus<T extends Array<string>> =

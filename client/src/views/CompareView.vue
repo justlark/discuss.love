@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from "vue";
-import type { FormAnswers, SessionInfo, ResponseStatus } from "@/types";
+import type { FormAnswers, SessionInfo, ResponseStatus, QuestionDefinition } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
-import { sessionsEndpoint, submissionsEndpoint } from "@/api";
+import { questionsEndpoint, sessionsEndpoint, submissionsEndpoint } from "@/api";
 import { useRoute, useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
 import { useConfirm } from "primevue/useconfirm";
@@ -10,6 +10,7 @@ import { useVueToPrint } from "vue-to-print";
 import Button from "primevue/button";
 import printStyles from "@/assets/print.css?raw";
 import ActionHeader from "@/components/ActionHeader.vue";
+import { defaultQuestions } from "@/questions";
 
 const ERROR_TOAST_TTL = 3000;
 
@@ -18,6 +19,7 @@ const toast = useToast();
 const confirm = useConfirm();
 
 const sharingCode = ref<string>(route.query.code as string);
+const questions = ref<Array<QuestionDefinition>>(defaultQuestions);
 
 const status = ref<ResponseStatus<["loading" | "waiting" | "expired" | "success"]>>({
   status: "loading",
@@ -172,10 +174,6 @@ onBeforeMount(async () => {
     return;
   }
 
-  status.value = {
-    status: "success",
-  };
-
   // Everyone has completed and submitted the form. We need to track this
   // information persistently so that we can inform the current player that the
   // other player has reset the form and the current player needs to edit and
@@ -187,6 +185,22 @@ onBeforeMount(async () => {
 
   sessionInfo.value = sessionResponseBody;
   formAnswers.value = submissionResponseBody;
+
+  const questionsResponse = await fetch(questionsEndpoint(sessionInfo.value?.questions));
+
+  if (questionsResponse.status === 200) {
+    questions.value = await questionsResponse.json();
+  } else if (questionsResponse.status !== 404) {
+    const { error } = await questionsResponse.json();
+
+    status.value = { status: "error", error };
+
+    return;
+  }
+
+  status.value = {
+    status: "success",
+  };
 });
 </script>
 
@@ -228,6 +242,7 @@ onBeforeMount(async () => {
       >
         <AnswerComparison
           :id="pair.id"
+          :questions="questions"
           :sender-answer="pair.sender"
           :recipient-answer="pair.recipient"
           v-for="pair in answerPairs"
