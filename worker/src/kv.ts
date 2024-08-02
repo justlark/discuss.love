@@ -26,8 +26,12 @@ const newSharingCode = (): string => {
 // Auto-delete sessions and submissions after 7 days.
 const sessionTtl = 60 * 60 * 24 * 7;
 const submissionTtl = 60 * 60 * 24 * 7;
+const questionsTtl = 60 * 60 * 24 * 7;
 
 const sessionKey = (code: SharingCode): string => `sessions:${code}`;
+const submissionKey = (code: SharingCode, player: Player): string =>
+  `submissions:${code}:${player}`;
+const questionsKey = (checksum: string): string => `questions:${checksum}`;
 
 export const startSession = async (kv: KVNamespace, info: SessionInfo): Promise<SharingCode> => {
   const sharingCode = newSharingCode();
@@ -52,9 +56,6 @@ export const getSessionInfo = async (kv: KVNamespace, code: SharingCode): Promis
 
   return JSON.parse(info);
 };
-
-const submissionKey = (code: SharingCode, player: Player): string =>
-  `submissions:${code}:${player}`;
 
 export const submitForm = async (
   kv: KVNamespace,
@@ -131,3 +132,16 @@ export const getAnswers = async (
 
   return coalesceAnswers(JSON.parse(senderSubmission), JSON.parse(recipientSubmission));
 };
+
+export const uploadQuestions = async (
+  kv: KVNamespace,
+  checksum: string,
+  questions: string,
+): Promise<void> => {
+  await kv.put(questionsKey(checksum), questions, { expirationTtl: questionsTtl });
+};
+
+export const getQuestions = async (
+  kv: KVNamespace,
+  checksum: string,
+): Promise<string | undefined> => (await kv.get(questionsKey(checksum))) ?? undefined;

@@ -6,13 +6,16 @@ import {
   submitForm,
   deleteSubmission,
   deleteSession,
+  uploadQuestions,
+  getQuestions,
 } from "./kv";
 import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
 
-// This should be plenty large enough for any reasonable-length form submission.
-// The intent is to prevent users from pasting the complete works of Shakespeare
-// into the text field.
+// These should be plenty large enough for any reasonable-length submission. The
+// intent is to prevent abuse (i.e. users from uploading the complete works of
+// Shakespeare).
 const FORM_SIZE_LIMIT = 1000 * 100; // 100 KB
+const QUESTIONS_SIZE_LIMIT = 1000 * 100; // 100 KB
 
 // We don't want to be overly restrictive with what people call themselves; we
 // just need to prevent abuse and discourage names that will break the UI.
@@ -97,7 +100,7 @@ router.put("/submissions/:code/:player", async (request: SubmissionPutRequest, e
 
   // We limit the size of the form submission to prevent abuse.
   if (JSON.stringify(form).length > FORM_SIZE_LIMIT) {
-    return error(413, "Form submission is too large.");
+    return error(413, "Your submission is too large.");
   }
 
   await submitForm(env.KV, request.code, request.player, form);
@@ -127,6 +130,46 @@ router.get("/submissions/:code", async (request: SubmissionGetRequest, env: Env)
   }
 
   return answers;
+});
+
+type QuestionsPostRequest = IRequestStrict;
+
+router.post("/questions", async (request: QuestionsPostRequest, env: Env) => {
+  const body = await request.text();
+
+  // We limit the size of the form submission to prevent abuse.
+  if (body.length > QUESTIONS_SIZE_LIMIT) {
+    return error(413, "The list of questions provided is too large.");
+  }
+
+  try {
+    JSON.parse(body);
+  } catch {
+    return error(415, "The list of questions provided is not in a valid format.");
+  }
+
+  const rawChecksum = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(body));
+  const encodedChecksum = [...new Uint8Array(rawChecksum)]
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  uploadQuestions(env.KV, encodedChecksum, body);
+
+  return json({ checksum: encodedChecksum }, { status: 201 });
+});
+
+type QuestionsGetRequest = {
+  checksum: string;
+} & IRequestStrict;
+
+router.get("/questions/:checksum", async (request: QuestionsGetRequest, env: Env) => {
+  const questionsJson = await getQuestions(env.KV, request.checksum);
+
+  if (questionsJson === undefined) {
+    return error(404, "The list of questions could not be found.");
+  }
+
+  return json(questionsJson);
 });
 
 export default router satisfies ExportedHandler<Env>;
