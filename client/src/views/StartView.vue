@@ -83,7 +83,7 @@ const uploadQuestions = async (event: FileUploadUploadEvent) => {
 
   isCustomQuestionsUploaded.value = true;
 
-  toast.add({ severity: "success", summary: "Custom questions uploaded", life: 2000 });
+  toast.add({ severity: "success", summary: "Custom questions uploaded!", life: 2000 });
 };
 </script>
 
