@@ -153,7 +153,7 @@ router.post("/questions", async (request: QuestionsPostRequest, env: Env) => {
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
 
-  uploadQuestions(env.KV, encodedChecksum, body);
+  await uploadQuestions(env.KV, encodedChecksum, body);
 
   return json({ checksum: encodedChecksum }, { status: 201 });
 });
