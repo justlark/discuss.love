@@ -8,7 +8,6 @@ import {
   deleteSession,
   uploadQuestions,
   getQuestions,
-  deleteQuestions,
 } from "./kv";
 import { FormSubmission, Player, SharingCode, SessionInfo } from "./api";
 
@@ -157,16 +156,6 @@ router.post("/questions", async (request: QuestionsPostRequest, env: Env) => {
   await uploadQuestions(env.KV, encodedChecksum, body);
 
   return json({ checksum: encodedChecksum }, { status: 201 });
-});
-
-type QuestionsDeleteRequest = {
-  checksum: string;
-} & IRequestStrict;
-
-router.delete("/questions/:checksum", async (request: QuestionsDeleteRequest, env: Env) => {
-  await deleteQuestions(env.KV, request.checksum);
-
-  return status(204);
 });
 
 type QuestionsGetRequest = {

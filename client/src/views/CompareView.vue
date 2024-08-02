@@ -79,18 +79,6 @@ const deleteSubmissions = async () => {
     return;
   }
 
-  const questionsDeleteResponse = await fetch(questionsEndpoint(sessionInfo.value?.questions), {
-    method: "DELETE",
-  });
-
-  if (questionsDeleteResponse.status !== 204) {
-    const { error } = await questionsDeleteResponse.json();
-
-    toast.add({ severity: "error", summary: "Error", detail: error, life: ERROR_TOAST_TTL });
-
-    return;
-  }
-
   const sessionDeleteResponse = await fetch(sessionsEndpoint(sharingCode.value), {
     method: "DELETE",
   });
