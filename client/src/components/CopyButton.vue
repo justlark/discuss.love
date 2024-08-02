@@ -11,7 +11,7 @@ const props = defineProps<{
 
 const copyLink = () => {
   navigator.clipboard.writeText(props.link);
-  toast.add({ severity: "info", summary: "Link copied!", life: 1500 });
+  toast.add({ severity: "info", summary: "Link copied!", life: 2000 });
 };
 </script>
 

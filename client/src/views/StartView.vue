@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { sessionsEndpoint } from "@/api";
+import { sessionsEndpoint, questionsEndpoint } from "@/api";
 import TextInput from "@/components/TextInput.vue";
 import Button from "primevue/button";
 import { useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
+import FileUpload, { type FileUploadUploadEvent } from "primevue/fileupload";
 
 const ERROR_TOAST_TTL = 3000;
 
 const names = ref({ sender: "", recipient: "" });
 const validationErrors = ref({ sender: "", recipient: "" });
+
+const isAdvancedOptionsExpanded = ref(false);
+const fileUpload = ref();
+const isCustomQuestionsUploaded = ref(false);
 
 const router = useRouter();
 const toast = useToast();
@@ -56,6 +61,21 @@ const startSession = async () => {
 
   await router.push({ path: "/join", query: { code } });
 };
+
+const uploadQuestions = () => {
+  fileUpload.value.upload();
+};
+
+const onQuestionsUpload = async (event: FileUploadUploadEvent) => {
+  await fetch(questionsEndpoint(), {
+    method: "POST",
+    body: Array.isArray(event.files) ? event.files[0] : event.files,
+  });
+
+  isCustomQuestionsUploaded.value = true;
+
+  toast.add({ severity: "success", summary: "Custom questions uploaded", life: 2000 });
+};
 </script>
 
 <template>
@@ -81,7 +101,53 @@ const startSession = async () => {
           :error-message="validationErrors.recipient"
           required
         />
-        <Button @click="startSession" label="Start" />
+        <div>
+          <button
+            type="button"
+            class="appearance-none flex gap-2 items-baseline"
+            @click="isAdvancedOptionsExpanded = !isAdvancedOptionsExpanded"
+            aria-controls="advanced-options"
+          >
+            <i class="pi pi-caret-down" v-if="!isAdvancedOptionsExpanded"></i>
+            <i class="pi pi-caret-up" v-if="isAdvancedOptionsExpanded"></i>
+            <span>Advanced options</span>
+          </button>
+          <div
+            id="advanced-options"
+            :class="{
+              collapsible: true,
+              expanded: isAdvancedOptionsExpanded,
+              flex: true,
+              ['flex-col']: true,
+              ['items-start']: true,
+              ['mb-4']: isAdvancedOptionsExpanded,
+            }"
+            :aria-expanded="isAdvancedOptionsExpanded"
+          >
+            <p class="text-muted">
+              You can upload a list of custom questions to use instead of the default ones.
+              <a href="https://github.com/justlark/discuss.love/blob/main/docs/custom-questions.md"
+                >Read the docs</a
+              >
+              for more information about how to create custom questions.
+            </p>
+            <div class="flex flex-col gap-4 items-start">
+              <FileUpload
+                ref="fileUpload"
+                mode="basic"
+                accept="application/json"
+                :max-file-size="1000 * 100"
+                custom-upload
+                @uploader="onQuestionsUpload"
+              />
+              <Button label="Upload" @click="uploadQuestions" severity="secondary" />
+            </div>
+          </div>
+        </div>
+        <span class="flex gap-4 items-baseline">
+          <Button @click="startSession" label="Start" />
+          <span v-if="isCustomQuestionsUploaded" class="text-muted">With custom questions</span>
+        </span>
       </form>
       <aside class="text-justify sm:basis-1/2">
         <ul>

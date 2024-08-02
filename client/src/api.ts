@@ -12,3 +12,6 @@ export const submissionsEndpoint = (code?: string, player?: string) => {
     return `${API_URL}/submissions`;
   }
 };
+
+export const questionsEndpoint = (checksum?: string) =>
+  checksum ? `${API_URL}/questions/${checksum}` : `${API_URL}/questions`;

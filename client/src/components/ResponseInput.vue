@@ -122,18 +122,4 @@ const emit = defineEmits(["update"]);
   </form>
 </template>
 
-<style scoped>
-.collapsible {
-  visibility: hidden;
-  transition:
-    max-height 0.3s ease-in-out,
-    visibility 0.3s ease-in-out;
-  max-height: 0;
-  overflow: hidden;
-}
-
-.collapsible.expanded {
-  visibility: visible;
-  max-height: 100vh;
-}
-</style>
+<style scoped></style>

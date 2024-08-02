@@ -21,7 +21,7 @@ defineExpose({ required: props.required });
     </label>
     <InputText
       :id="props.id"
-      class="w-72"
+      class="w-80"
       type="text"
       v-model="model"
       :required="props.required"
