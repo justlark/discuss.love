@@ -112,7 +112,7 @@ const emit = defineEmits(["update"]);
         v-model="response.notes"
         @update="emit('update')"
       />
-      <div :id="`prompt-list-${props.id}`">
+      <div v-if="props.prompts.length > 0" :id="`prompt-list-${props.id}`">
         <span>Some prompts to get you started</span>
         <ul class="ml-4 mt-2">
           <li v-for="prompt in props.prompts" :key="prompt">{{ prompt }}</li>

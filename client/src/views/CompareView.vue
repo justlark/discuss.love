@@ -236,7 +236,7 @@ onBeforeMount(async () => {
         <p>This session has expired; you can no longer see each others' answers.</p>
       </div>
       <div
-        class="flex flex-col gap-8 mt-4"
+        class="flex flex-col gap-8 mt-4 w-full"
         v-else-if="status?.status === 'success'"
         ref="answersRef"
       >
