@@ -19,7 +19,7 @@ const toast = useToast();
 const confirm = useConfirm();
 
 const sharingCode = ref<string>(route.query.code as string);
-const questions = ref<Array<QuestionDefinition>>(defaultQuestions);
+const questions = ref<Array<QuestionDefinition>>();
 
 const status = ref<ResponseStatus<["loading" | "waiting" | "expired" | "success"]>>({
   status: "loading",
@@ -190,7 +190,9 @@ onBeforeMount(async () => {
 
   if (questionsResponse.status === 200) {
     questions.value = await questionsResponse.json();
-  } else if (questionsResponse.status !== 404) {
+  } else if (questionsResponse.status === 404) {
+    questions.value = defaultQuestions;
+  } else {
     const { error } = await questionsResponse.json();
 
     status.value = { status: "error", error };
@@ -237,7 +239,7 @@ onBeforeMount(async () => {
       </div>
       <div
         class="flex flex-col gap-8 mt-4 w-full"
-        v-else-if="status?.status === 'success'"
+        v-else-if="status?.status === 'success' && questions"
         ref="answersRef"
       >
         <AnswerComparison

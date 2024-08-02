@@ -28,9 +28,11 @@ const toast = useToast();
 
 const sharingCode = ref<string>(route.query.code as string);
 const player = ref<Player>();
-const questions = ref<Array<QuestionDefinition>>(defaultQuestions);
+const questions = ref<Array<QuestionDefinition>>();
 const randomizedQuestionCategories = computed(() =>
-  getRandomizedQuestionCategories(questions.value, sharingCode.value),
+  questions.value === undefined
+    ? undefined
+    : getRandomizedQuestionCategories(questions.value, sharingCode.value),
 );
 
 const status = ref<
@@ -201,6 +203,8 @@ onBeforeMount(async () => {
     status.value = { status: "error", error };
 
     return;
+  } else {
+    status.value = { status: "success" };
   }
 
   const sessionInfo: SessionInfo = await sessionResponse.json();
@@ -209,7 +213,9 @@ onBeforeMount(async () => {
 
   if (questionsResponse.status === 200) {
     questions.value = await questionsResponse.json();
-  } else if (questionsResponse.status !== 404) {
+  } else if (questionsResponse.status === 404) {
+    questions.value = defaultQuestions;
+  } else {
     const { error } = await questionsResponse.json();
 
     status.value = { status: "error", error };
@@ -219,8 +225,6 @@ onBeforeMount(async () => {
 
   otherPlayerName.value =
     player.value === "sender" ? sessionInfo.players.recipient : sessionInfo.players.sender;
-
-  status.value = { status: "success" };
 });
 </script>
 
