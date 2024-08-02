@@ -116,6 +116,7 @@ const uploadQuestions = async (event: FileUploadUploadEvent) => {
             class="appearance-none flex gap-2 items-baseline"
             @click="isAdvancedOptionsExpanded = !isAdvancedOptionsExpanded"
             aria-controls="advanced-options"
+            :aria-expanded="isAdvancedOptionsExpanded"
           >
             <i class="pi pi-caret-down" v-if="!isAdvancedOptionsExpanded"></i>
             <i class="pi pi-caret-up" v-if="isAdvancedOptionsExpanded"></i>
@@ -131,7 +132,6 @@ const uploadQuestions = async (event: FileUploadUploadEvent) => {
               ['items-start']: true,
               ['mb-4']: isAdvancedOptionsExpanded,
             }"
-            :aria-expanded="isAdvancedOptionsExpanded"
           >
             <p class="text-muted">
               You can upload a list of custom questions to use instead of the default ones.
