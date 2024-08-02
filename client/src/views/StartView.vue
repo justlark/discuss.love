@@ -139,7 +139,9 @@ const onQuestionsUpload = async (event: FileUploadUploadEvent) => {
           >
             <p class="text-muted">
               You can upload a list of custom questions to use instead of the default ones.
-              <a href="https://github.com/justlark/discuss.love/blob/main/docs/custom-questions.md"
+              <a
+                href="https://github.com/justlark/discuss.love/blob/main/docs/custom-questions.md"
+                target="_blank"
                 >Read the docs</a
               >
               for more information about how to create custom questions.
