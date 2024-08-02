@@ -169,7 +169,7 @@ router.get("/questions/:checksum", async (request: QuestionsGetRequest, env: Env
     return error(404, "The list of questions could not be found.");
   }
 
-  return json(questionsJson);
+  return json(JSON.parse(questionsJson));
 });
 
 export default router satisfies ExportedHandler<Env>;
