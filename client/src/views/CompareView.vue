@@ -66,6 +66,8 @@ const hasPreviouslyCompleted = computed(
   () => localStorage.getItem("completed") === sharingCode.value,
 );
 
+// We can't let users delete custom questions manually because other users could
+// be using them.
 const deleteSubmissions = async () => {
   const submissionDeleteResponse = await fetch(submissionsEndpoint(sharingCode.value), {
     method: "DELETE",
