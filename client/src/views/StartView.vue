@@ -67,10 +67,18 @@ const uploadQuestions = () => {
 };
 
 const onQuestionsUpload = async (event: FileUploadUploadEvent) => {
-  await fetch(questionsEndpoint(), {
+  const response = await fetch(questionsEndpoint(), {
     method: "POST",
     body: Array.isArray(event.files) ? event.files[0] : event.files,
   });
+
+  if (response.status !== 201) {
+    const { error } = await response.json();
+
+    toast.add({ severity: "error", summary: "Error", detail: error, life: ERROR_TOAST_TTL });
+
+    return;
+  }
 
   isCustomQuestionsUploaded.value = true;
 
@@ -136,7 +144,6 @@ const onQuestionsUpload = async (event: FileUploadUploadEvent) => {
                 ref="fileUpload"
                 mode="basic"
                 accept="application/json"
-                :max-file-size="1000 * 100"
                 custom-upload
                 @uploader="onQuestionsUpload"
               />
