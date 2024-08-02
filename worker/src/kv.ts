@@ -141,6 +141,10 @@ export const uploadQuestions = async (
   await kv.put(questionsKey(checksum), questions, { expirationTtl: questionsTtl });
 };
 
+export const deleteQuestions = async (kv: KVNamespace, checksum: string): Promise<void> => {
+  await kv.delete(questionsKey(checksum));
+};
+
 export const getQuestions = async (
   kv: KVNamespace,
   checksum: string,
