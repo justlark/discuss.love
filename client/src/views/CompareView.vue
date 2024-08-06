@@ -10,8 +10,7 @@ import { useVueToPrint } from "vue-to-print";
 import Button from "primevue/button";
 import printStyles from "@/assets/print.css?raw";
 import ActionHeader from "@/components/ActionHeader.vue";
-
-const ERROR_TOAST_TTL = 3000;
+import { ERROR_TOAST_TTL } from "@/toast";
 
 const route = useRoute();
 const toast = useToast();

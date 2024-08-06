@@ -7,8 +7,7 @@ import { useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
 import FileUpload, { type FileUploadUploadEvent } from "primevue/fileupload";
 import { defaultQuestions } from "@/questions";
-
-const ERROR_TOAST_TTL = 3000;
+import { ERROR_TOAST_TTL } from "@/toast";
 
 const names = ref({ sender: "", recipient: "" });
 const validationErrors = ref({ sender: "", recipient: "" });

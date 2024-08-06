@@ -19,8 +19,7 @@ import Panel from "primevue/panel";
 import CopyButton from "@/components/CopyButton.vue";
 import ActionHeader from "@/components/ActionHeader.vue";
 import { useToast } from "primevue/usetoast";
-
-const ERROR_TOAST_TTL = 3000;
+import { ERROR_TOAST_TTL } from "@/toast";
 
 const route = useRoute();
 const router = useRouter();
