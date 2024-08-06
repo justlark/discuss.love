@@ -68,7 +68,7 @@ const answerStatus = computed(() => {
       ></i>
       <i
         v-else-if="answerStatus === 'disagreement'"
-        class="pi pi-circle response-icon icon-warn"
+        class="pi pi-exclamation-circle response-icon icon-warn"
         aria-hidden
       ></i>
       <h2 :id="`answer-section-heading-${props.id}`">{{ title }}</h2>
