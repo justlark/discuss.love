@@ -10,7 +10,6 @@ import { useVueToPrint } from "vue-to-print";
 import Button from "primevue/button";
 import printStyles from "@/assets/print.css?raw";
 import ActionHeader from "@/components/ActionHeader.vue";
-import { defaultQuestions } from "@/questions";
 
 const ERROR_TOAST_TTL = 3000;
 
@@ -192,8 +191,6 @@ onBeforeMount(async () => {
 
   if (questionsResponse.status === 200) {
     questions.value = await questionsResponse.json();
-  } else if (questionsResponse.status === 404) {
-    questions.value = defaultQuestions;
   } else {
     const { error } = await questionsResponse.json();
 

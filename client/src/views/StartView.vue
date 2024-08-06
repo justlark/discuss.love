@@ -6,6 +6,7 @@ import Button from "primevue/button";
 import { useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
 import FileUpload, { type FileUploadUploadEvent } from "primevue/fileupload";
+import { defaultQuestions } from "@/questions";
 
 const ERROR_TOAST_TTL = 3000;
 
@@ -31,6 +32,28 @@ const startSession = async () => {
 
   if (!names.value.sender || !names.value.recipient) {
     return;
+  }
+
+  // If the user hasn't uploaded custom questions, we'll upload the default
+  // ones. We could get away with *not* uploading the default questions, since
+  // the client always has access to them. However, uploading them ensures
+  // existing sessions don't break if the default questions are updated.
+  if (!isCustomQuestionsUploaded.value) {
+    const response = await fetch(questionsEndpoint(), {
+      method: "POST",
+      body: JSON.stringify(defaultQuestions),
+    });
+
+    if (response.status !== 201) {
+      const { error } = await response.json();
+
+      toast.add({ severity: "error", summary: "Error", detail: error, life: ERROR_TOAST_TTL });
+
+      return;
+    }
+
+    const { checksum } = await response.json();
+    questionsChecksum.value = checksum;
   }
 
   const response = await fetch(sessionsEndpoint(), {
@@ -64,7 +87,7 @@ const startSession = async () => {
   await router.push({ path: "/join", query: { code } });
 };
 
-const uploadQuestions = async (event: FileUploadUploadEvent) => {
+const uploadCustomQuestions = async (event: FileUploadUploadEvent) => {
   const response = await fetch(questionsEndpoint(), {
     method: "POST",
     body: Array.isArray(event.files) ? event.files[0] : event.files,
@@ -148,7 +171,7 @@ const uploadQuestions = async (event: FileUploadUploadEvent) => {
               accept="application/json"
               custom-upload
               auto
-              @uploader="uploadQuestions"
+              @uploader="uploadCustomQuestions"
             />
           </div>
         </div>

@@ -12,7 +12,7 @@ import {
   type WithQuestionId,
 } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
-import { defaultQuestions, getRandomizedQuestionCategories } from "@/questions";
+import { getRandomizedQuestionCategories } from "@/questions";
 import { questionsEndpoint, sessionsEndpoint, submissionsEndpoint } from "@/api";
 import Button from "primevue/button";
 import Panel from "primevue/panel";
@@ -213,8 +213,6 @@ onBeforeMount(async () => {
 
   if (questionsResponse.status === 200) {
     questions.value = await questionsResponse.json();
-  } else if (questionsResponse.status === 404) {
-    questions.value = defaultQuestions;
   } else {
     const { error } = await questionsResponse.json();
 
