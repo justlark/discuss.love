@@ -6,7 +6,8 @@ own. This page explains how.
 You'll need to write your questions—and any discussion prompts you want to
 include—in a JSON file. If you're not familiar with the JSON format, the best
 place to start would be to look at the [default
-questions](../client/src/assets/questions.json) and make changes from there.
+questions](../client/src/assets/questions/relationship.json) and make changes
+from there.
 
 You can upload a `.json` file containing your questions when you start a new
 discussion.

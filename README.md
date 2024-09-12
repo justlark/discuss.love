@@ -14,8 +14,8 @@ KV](https://developers.cloudflare.com/kv/). The worker is in this repo under
 [`./worker/`](./worker).
 
 The list of questions is defined [in a JSON
-document](./client/src/assets/questions.json) which is used to dynamically build
-the input form
+document](./client/src/assets/questions/relationship.json) which is used to
+dynamically build the input form
 
 ## Development
 

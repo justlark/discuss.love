@@ -1,4 +1,4 @@
-import rawQuestions from "@/assets/questions.json";
+import rawQuestions from "@/assets/questions/relationship.json";
 import type { QuestionDefinition } from "@/types";
 import seedrandom from "seedrandom";
 
