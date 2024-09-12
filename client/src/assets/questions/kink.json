@@ -4,76 +4,105 @@
     "title": "Pain",
     "description": "Impact, scratching, biting, needles, etc.",
     "category": "Physical",
-    "prompts": []
+    "prompts": [
+      "Do you like to give pain, receive pain, or both?",
+      "Is pain more of a sensory experience or an erotic experience for you?"
+    ]
   },
   {
     "id": "restraint",
     "title": "Restraint",
     "description": "Rope, cuffs, leashes, cages, etc.",
     "category": "Physical",
-    "prompts": []
+    "prompts": [
+      "Do you like to be restrained, restrain others, or both?",
+      "Is the goal for you restriction of movement, vulnerability, helplessness, enforcing obedience, or something else?"
+    ]
   },
   {
     "id": "wrestling",
     "title": "Physical altercation",
     "description": "Wrestling, grappling, pinning, trampling, etc.",
     "category": "Physical",
-    "prompts": []
+    "prompts": [
+      "Do you want this to play out as one partner submitting to the other, or as a fight for dominance?"
+    ]
   },
   {
     "id": "caregiving",
     "title": "Caregiving",
     "description": "Praise, goals, rewards, age regression, etc.",
     "category": "Psychological",
-    "prompts": []
+    "prompts": [
+      "What role do you want to play in this dynamic? Caregiver, little, owner, pet, daddy, or something else?",
+      "What is your goal? Encouraging self-care, healing trauma, feeling emotional security, or something else?"
+    ]
   },
   {
     "id": "ownership",
     "title": "Ownership",
     "description": "Control, loyalty, possession, chastity, etc.",
     "category": "Psychological",
-    "prompts": []
+    "prompts": [
+      "Do you want to have ownership over someone, or be owned yourself?",
+      "How do you want control or possession to be expressed or enforced?"
+    ]
   },
   {
     "id": "degradation",
     "title": "Degradation or humiliation",
     "description": "Shame, embarrassment, dehumanization, exhibitionism, etc.",
     "category": "Psychological",
-    "prompts": []
+    "prompts": [
+      "Do you want to be degraded or humiliated, or degrade/humiliate someone else?",
+      "Do you want the degradation or humiliation to target appearance, worth, ability, vulnerability, exposure, or something else?"
+    ]
   },
   {
     "id": "protocol",
     "title": "Rules or protocol",
     "description": "Titles, orders, petplay, obedience training, etiquette, etc.",
     "category": "Psychological",
-    "prompts": []
+    "prompts": [
+      "What role do you want to play in this dynamic? Dominant, submissive, pet, handler, authority figure, etc."
+    ]
   },
   {
     "id": "vulnerability",
     "title": "Vulnerability",
     "description": "Helplessness, losing agency, etc.",
     "category": "Experiential",
-    "prompts": []
+    "prompts": [
+      "Do you want to feel vulnerable, or make someone else feel vulnerable?",
+      "What makes you feel most vulnerable? How do you enjoy making others feel vulnerable?"
+    ]
   },
   {
     "id": "fear",
     "title": "Fear",
     "description": "Threats, danger, suspense, interrogation, etc.",
     "category": "Experiential",
-    "prompts": []
+    "prompts": [
+      "What role do you want to play in this dynamic? Dominant, submissive, interrogator, victim, hunter, prey, etc.",
+      "Do you want the fear to be more psychological and existential, or more intimidating and imminently threatening?"
+    ]
   },
   {
     "id": "sensory",
     "title": "Novel sensations",
     "description": "Temperature, electricity, specific textures, etc.",
     "category": "Experiential",
-    "prompts": []
+    "prompts": ["What kinds of sensations do you want to experience or provide?"]
   },
   {
     "id": "aesthetics",
     "title": "Aesthetics",
     "description": "Shibari, dollification, latex, exhibitionism, etc.",
     "category": "Experiential",
-    "prompts": []
+    "prompts": [
+      "Do you want to be the object or the observer of the aesthetic experience?",
+      "What kind of aesthetic do you want to create?",
+      "Do you want the decision-making to be collaborative or one-sided?"
+    ]
   }
 ]
