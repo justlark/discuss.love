@@ -1,0 +1,79 @@
+[
+  {
+    "id": "pain",
+    "title": "Pain",
+    "description": "Impact, scratching, biting, needles, etc.",
+    "category": "Physical",
+    "prompts": []
+  },
+  {
+    "id": "restraint",
+    "title": "Restraint",
+    "description": "Rope, cuffs, leashes, cages, etc.",
+    "category": "Physical",
+    "prompts": []
+  },
+  {
+    "id": "wrestling",
+    "title": "Physical altercation",
+    "description": "Wrestling, grappling, pinning, trampling, etc.",
+    "category": "Physical",
+    "prompts": []
+  },
+  {
+    "id": "caregiving",
+    "title": "Caregiving",
+    "description": "Praise, goals, rewards, age regression, etc.",
+    "category": "Psychological",
+    "prompts": []
+  },
+  {
+    "id": "ownership",
+    "title": "Ownership",
+    "description": "Control, loyalty, possession, chastity, etc.",
+    "category": "Psychological",
+    "prompts": []
+  },
+  {
+    "id": "degradation",
+    "title": "Degradation or humiliation",
+    "description": "Shame, embarrassment, dehumanization, exhibitionism, etc.",
+    "category": "Psychological",
+    "prompts": []
+  },
+  {
+    "id": "protocol",
+    "title": "Rules or protocol",
+    "description": "Titles, orders, petplay, obedience training, etiquette, etc.",
+    "category": "Psychological",
+    "prompts": []
+  },
+  {
+    "id": "vulnerability",
+    "title": "Vulnerability",
+    "description": "Helplessness, losing agency, etc.",
+    "category": "Experiential",
+    "prompts": []
+  },
+  {
+    "id": "fear",
+    "title": "Fear",
+    "description": "Threats, danger, suspense, interrogation, etc.",
+    "category": "Experiential",
+    "prompts": []
+  },
+  {
+    "id": "sensory",
+    "title": "Novel sensations",
+    "description": "Temperature, electricity, specific textures, etc.",
+    "category": "Experiential",
+    "prompts": []
+  },
+  {
+    "id": "aesthetics",
+    "title": "Aesthetics",
+    "description": "Shibari, dollification, latex, exhibitionism, etc.",
+    "category": "Experiential",
+    "prompts": []
+  }
+]
