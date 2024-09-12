@@ -24,6 +24,7 @@ It must be running on port `8787`.
 
 ```shell
 cd ./worker/
+npm install
 npx wrangler dev
 ```
 
@@ -42,6 +43,7 @@ The client app is automatically deployed to Cloudflare Pages on pushes to
 
 ```shell
 cd ./worker/
+npm install
 npx wrangler deploy
 ```
 
