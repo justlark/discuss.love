@@ -3,8 +3,12 @@ import rawKinkQuestions from "@/assets/questions/kink.json";
 import type { QuestionDefinition } from "@/types";
 import seedrandom from "seedrandom";
 
-export type QuestionList = "relationship" | "kink";
+export type QuestionList = "relationship" | "scene";
 export const DEFAULT_QUESTION_LIST: QuestionList = "relationship";
+
+export const isBuiltinQuestionList = (list: string): list is QuestionList => {
+  return list === "relationship" || list === "scene";
+};
 
 const relationshipQuestions: Array<QuestionDefinition> = rawRelationshipQuestions;
 const kinkQuestions: Array<QuestionDefinition> = rawKinkQuestions;
@@ -13,7 +17,7 @@ export const getQuestions = (list: QuestionList) => {
   switch (list) {
     case "relationship":
       return relationshipQuestions;
-    case "kink":
+    case "scene":
       return kinkQuestions;
   }
 };

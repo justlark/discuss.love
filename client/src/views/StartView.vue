@@ -5,21 +5,17 @@ import TextInput from "@/components/TextInput.vue";
 import Button from "primevue/button";
 import { useRoute, useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
-import FileUpload, { type FileUploadUploadEvent } from "primevue/fileupload";
-import { DEFAULT_QUESTION_LIST, getQuestions, type QuestionList } from "@/questions";
+import { DEFAULT_QUESTION_LIST, getQuestions, isBuiltinQuestionList } from "@/questions";
 import { ERROR_TOAST_TTL } from "@/toast";
 
 const router = useRouter();
 const route = useRoute();
 const toast = useToast();
 
-const questionList = ref<QuestionList>((route.query.q as QuestionList) ?? DEFAULT_QUESTION_LIST);
+const questionList = ref<string>((route.query.q as string) ?? DEFAULT_QUESTION_LIST);
 const names = ref({ sender: "", recipient: "" });
 const validationErrors = ref({ sender: "", recipient: "" });
 
-const isAdvancedOptionsExpanded = ref(false);
-const fileUpload = ref();
-const isCustomQuestionsUploaded = ref(false);
 const questionsChecksum = ref<string>();
 
 const startSession = async () => {
@@ -35,11 +31,12 @@ const startSession = async () => {
     return;
   }
 
-  // If the user hasn't uploaded custom questions, we'll upload the default
-  // ones. We could get away with *not* uploading the default questions, since
-  // the client always has access to them. However, uploading them ensures
-  // existing sessions don't break if the default questions are updated.
-  if (!isCustomQuestionsUploaded.value) {
+  if (isBuiltinQuestionList(questionList.value)) {
+    // If the user hasn't uploaded custom questions, we'll upload whichever
+    // default question list they chose. We could get away with *not* uploading
+    // the default questions, since the client always has access to them.
+    // However, uploading them ensures existing sessions don't break if the
+    // default questions are updated.
     const response = await fetch(questionsEndpoint(), {
       method: "POST",
       body: JSON.stringify(getQuestions(questionList.value)),
@@ -55,6 +52,8 @@ const startSession = async () => {
 
     const { checksum } = await response.json();
     questionsChecksum.value = checksum;
+  } else {
+    questionsChecksum.value = questionList.value;
   }
 
   const response = await fetch(sessionsEndpoint(), {
@@ -87,28 +86,6 @@ const startSession = async () => {
 
   await router.push({ path: "/join", query: { code } });
 };
-
-const uploadCustomQuestions = async (event: FileUploadUploadEvent) => {
-  const response = await fetch(questionsEndpoint(), {
-    method: "POST",
-    body: Array.isArray(event.files) ? event.files[0] : event.files,
-  });
-
-  if (response.status !== 201) {
-    const { error } = await response.json();
-
-    toast.add({ severity: "error", summary: "Error", detail: error, life: ERROR_TOAST_TTL });
-
-    return;
-  }
-
-  const { checksum } = await response.json();
-  questionsChecksum.value = checksum;
-
-  isCustomQuestionsUploaded.value = true;
-
-  toast.add({ severity: "success", summary: "Custom questions uploaded!", life: 2000 });
-};
 </script>
 
 <template>
@@ -135,50 +112,16 @@ const uploadCustomQuestions = async (event: FileUploadUploadEvent) => {
           required
         />
         <div>
-          <button
-            type="button"
-            class="appearance-none flex gap-2 items-baseline"
-            @click="isAdvancedOptionsExpanded = !isAdvancedOptionsExpanded"
-            aria-controls="advanced-options"
-            :aria-expanded="isAdvancedOptionsExpanded"
-          >
-            <i class="pi pi-caret-down" v-if="!isAdvancedOptionsExpanded"></i>
-            <i class="pi pi-caret-up" v-if="isAdvancedOptionsExpanded"></i>
-            <span>Advanced options</span>
-          </button>
-          <div
-            id="advanced-options"
-            :class="{
-              collapsible: true,
-              expanded: isAdvancedOptionsExpanded,
-              flex: true,
-              ['flex-col']: true,
-              ['items-start']: true,
-              ['mb-4']: isAdvancedOptionsExpanded,
-            }"
-          >
-            <p class="text-muted">
-              You can upload a list of custom questions to use instead of the default ones.
-              <a
-                href="https://github.com/justlark/discuss.love/blob/main/docs/custom-questions.md"
-                target="_blank"
-                >Read the docs</a
-              >
-              for more information about how to create custom questions.
-            </p>
-            <FileUpload
-              ref="fileUpload"
-              mode="basic"
-              accept="application/json"
-              custom-upload
-              auto
-              @uploader="uploadCustomQuestions"
-            />
-          </div>
+          <p v-if="questionList === 'relationship'" class="text-muted mb-0">
+            You're negotiating a relationship.
+          </p>
+          <p v-else-if="questionList === 'scene'" class="text-muted mb-0">
+            You're negotiating a scene.
+          </p>
+          <p v-else class="text-muted mb-0">You're using custom questions.</p>
         </div>
         <span class="flex gap-4 items-baseline">
           <Button @click="startSession" label="Start" />
-          <span v-if="isCustomQuestionsUploaded" class="text-muted">With custom questions</span>
         </span>
       </form>
       <aside class="text-justify sm:basis-1/2">
