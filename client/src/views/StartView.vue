@@ -3,12 +3,17 @@ import { ref } from "vue";
 import { sessionsEndpoint, questionsEndpoint } from "@/api";
 import TextInput from "@/components/TextInput.vue";
 import Button from "primevue/button";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
 import FileUpload, { type FileUploadUploadEvent } from "primevue/fileupload";
-import { relationshipQuestions } from "@/questions";
+import { DEFAULT_QUESTION_LIST, getQuestions, type QuestionList } from "@/questions";
 import { ERROR_TOAST_TTL } from "@/toast";
 
+const router = useRouter();
+const route = useRoute();
+const toast = useToast();
+
+const questionList = ref<QuestionList>((route.query.q as QuestionList) ?? DEFAULT_QUESTION_LIST);
 const names = ref({ sender: "", recipient: "" });
 const validationErrors = ref({ sender: "", recipient: "" });
 
@@ -16,9 +21,6 @@ const isAdvancedOptionsExpanded = ref(false);
 const fileUpload = ref();
 const isCustomQuestionsUploaded = ref(false);
 const questionsChecksum = ref<string>();
-
-const router = useRouter();
-const toast = useToast();
 
 const startSession = async () => {
   if (!names.value.sender) {
@@ -40,7 +42,7 @@ const startSession = async () => {
   if (!isCustomQuestionsUploaded.value) {
     const response = await fetch(questionsEndpoint(), {
       method: "POST",
-      body: JSON.stringify(relationshipQuestions),
+      body: JSON.stringify(getQuestions(questionList.value)),
     });
 
     if (response.status !== 201) {

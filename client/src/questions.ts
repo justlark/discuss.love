@@ -1,8 +1,22 @@
 import rawRelationshipQuestions from "@/assets/questions/relationship.json";
+import rawKinkQuestions from "@/assets/questions/kink.json";
 import type { QuestionDefinition } from "@/types";
 import seedrandom from "seedrandom";
 
-export const relationshipQuestions: Array<QuestionDefinition> = rawRelationshipQuestions;
+export type QuestionList = "relationship" | "kink";
+export const DEFAULT_QUESTION_LIST: QuestionList = "relationship";
+
+const relationshipQuestions: Array<QuestionDefinition> = rawRelationshipQuestions;
+const kinkQuestions: Array<QuestionDefinition> = rawKinkQuestions;
+
+export const getQuestions = (list: QuestionList) => {
+  switch (list) {
+    case "relationship":
+      return relationshipQuestions;
+    case "kink":
+      return kinkQuestions;
+  }
+};
 
 export const getRandomizedQuestionCategories = (
   questions: Array<QuestionDefinition>,
