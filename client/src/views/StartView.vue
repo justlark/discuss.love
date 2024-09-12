@@ -6,7 +6,7 @@ import Button from "primevue/button";
 import { useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
 import FileUpload, { type FileUploadUploadEvent } from "primevue/fileupload";
-import { defaultQuestions } from "@/questions";
+import { relationshipQuestions } from "@/questions";
 import { ERROR_TOAST_TTL } from "@/toast";
 
 const names = ref({ sender: "", recipient: "" });
@@ -40,7 +40,7 @@ const startSession = async () => {
   if (!isCustomQuestionsUploaded.value) {
     const response = await fetch(questionsEndpoint(), {
       method: "POST",
-      body: JSON.stringify(defaultQuestions),
+      body: JSON.stringify(relationshipQuestions),
     });
 
     if (response.status !== 201) {

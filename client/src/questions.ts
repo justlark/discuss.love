@@ -1,8 +1,8 @@
-import rawQuestions from "@/assets/questions/relationship.json";
+import rawRelationshipQuestions from "@/assets/questions/relationship.json";
 import type { QuestionDefinition } from "@/types";
 import seedrandom from "seedrandom";
 
-export const defaultQuestions: Array<QuestionDefinition> = rawQuestions;
+export const relationshipQuestions: Array<QuestionDefinition> = rawRelationshipQuestions;
 
 export const getRandomizedQuestionCategories = (
   questions: Array<QuestionDefinition>,
