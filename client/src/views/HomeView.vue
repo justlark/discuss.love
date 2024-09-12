@@ -6,7 +6,7 @@ import Button from "primevue/button";
   <main aria-labelledby="main-heading">
     <h1 id="main-heading" class="text-center">Negotiate your relationships</h1>
     <div class="flex justify-center">
-      <Button as="router-link" to="/start" class="my-8" label="Start a Discussion" />
+      <Button as="router-link" to="/choose" class="my-8" label="Start a Discussion" />
     </div>
     <div class="text-justify max-w-3xl">
       <p>

@@ -15,6 +15,11 @@ const router = createRouter({
       component: () => import("../views/StartView.vue"),
     },
     {
+      path: "/choose",
+      name: "choose",
+      component: () => import("../views/PickView.vue"),
+    },
+    {
       path: "/join",
       name: "join",
       component: () => import("../views/FormView.vue"),
