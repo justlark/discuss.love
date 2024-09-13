@@ -231,11 +231,11 @@ onBeforeMount(async () => {
       <div v-if="player === 'sender'">
         Send <strong>{{ otherPlayerName }}</strong> a link to this page so they can join the
         discussion. Want to start over with a new person?
-        <RouterLink to="/start">Click here</RouterLink>.
+        <RouterLink to="/choose">Click here</RouterLink>.
       </div>
       <div v-else>
         You're answering these questions for <strong>{{ otherPlayerName }}</strong
-        >. Want to start over with a new person? <RouterLink to="/start">Click here</RouterLink>.
+        >. Want to start over with a new person? <RouterLink to="/choose">Click here</RouterLink>.
       </div>
     </template>
 
@@ -269,7 +269,7 @@ onBeforeMount(async () => {
       <div v-if="status?.status === 'session-nonexistent'">
         <p>
           The link you followed to get here is invalid or has expired. To start a new discussion,
-          <RouterLink to="/start">click here</RouterLink>.
+          <RouterLink to="/choose">click here</RouterLink>.
         </p>
       </div>
       <div v-else-if="status?.status === 'already-submitted'">
