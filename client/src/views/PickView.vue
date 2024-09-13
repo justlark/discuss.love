@@ -82,8 +82,8 @@ const startWithCustomQuestions = () => {
           <template #content>
             <p>
               These questions are for negotiating a BDSM encounter. They focus on an individual
-              scene rather than an ongoing dynamic, and the goal is to assess compatibility rather
-              than be the final word in negotiation.
+              scene rather than an ongoing dynamic, and the goal is to assess compatibility at a
+              high level rather than be the final word in negotiation.
             </p>
           </template>
           <template #footer>
