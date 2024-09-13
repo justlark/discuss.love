@@ -135,4 +135,9 @@ const startWithCustomQuestions = () => {
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.p-card:hover {
+  @apply shadow-lg;
+  transition: box-shadow 0.25s ease-in-out;
+}
+</style>
