@@ -55,7 +55,10 @@ const startWithCustomQuestions = () => {
           <template #title
             ><span id="relationship-question-choice">Negotiate a relationship</span></template
           >
-          <template #subtitle>Recommended</template>
+          <template #subtitle>
+            <i class="pi pi-star" aria-hidden></i>
+            Recommended
+          </template>
           <template #content>
             <p>
               These questions are for negotiating a relationship of any sort: romantic partners,
@@ -132,8 +135,4 @@ const startWithCustomQuestions = () => {
   </main>
 </template>
 
-<style scoped>
-.p-card.recommended-choice {
-  border: 2px solid var(--p-primary-color);
-}
-</style>
+<style scoped></style>
