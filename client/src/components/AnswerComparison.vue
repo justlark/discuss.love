@@ -49,7 +49,7 @@ const answerStatus = computed(() => {
 </script>
 
 <template>
-  <section :aria-labelledby="`answer-section-heading-${props.id}`" class="ml-20">
+  <section :aria-labelledby="`answer-section-heading-${props.id}`" class="md:ml-20">
     <div class="flex items-baseline gap-2">
       <i
         v-if="answerStatus === 'unsure'"
