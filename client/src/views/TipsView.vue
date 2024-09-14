@@ -13,7 +13,7 @@ import { RouterLink } from "vue-router";
       <p>
         That being said, if you found this tool useful and would like to show your appreciation, you
         can <RouterLink to="/contact">shoot me an email</RouterLink> and let me know, or you can
-        <a href="https://example.com" target="_blank">send me a tip</a>.
+        <a href="https://ko-fi.com/tipthebird" target="_blank">send me a tip</a>.
       </p>
       <p>
         Tips are absolutely not necessary to use this site, and I do not depend on them to pay for
