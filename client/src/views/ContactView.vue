@@ -9,7 +9,7 @@
         to shoot me an email!
       </p>
       <p>I love hearing from folks, even just to say you found this site useful.</p>
-      <p class="text-center">
+      <p class="text-center my-8">
         <a href="mailto:lark@discuss.love">lark@discuss.love</a>
       </p>
     </div>
