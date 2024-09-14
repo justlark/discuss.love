@@ -28,6 +28,8 @@ import { RouterLink } from "vue-router";
     <p class="flex gap-2 text-center mt-4">
       <RouterLink to="/contact">Contact</RouterLink>
       <span>•</span>
+      <RouterLink to="/tips">Tip Jar</RouterLink>
+      <span>•</span>
       <a href="https://github.com/justlark/discuss.love" target="_blank">GitHub</a>
     </p>
   </main>
