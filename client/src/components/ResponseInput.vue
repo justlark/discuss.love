@@ -21,10 +21,7 @@ const response = ref<{ answer?: AnswerType; notes: string }>({
   notes: props.initialNotes ?? "",
 });
 
-const required = computed(
-  () =>
-    response.value.answer && response.value.answer !== "no" && response.value.answer !== "unsure",
-);
+const required = computed(() => response.value.answer === "yes");
 
 defineExpose({
   id: props.id,
