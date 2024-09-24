@@ -76,7 +76,7 @@ const startWithCustomQuestions = () => {
           <template #subtitle>
             <span class="flex gap-2 items-baseline">
               <i class="pi pi-exclamation-triangle" aria-hidden></i>
-              <span>Not safe for work</span>
+              <span>NSFW</span>
             </span>
           </template>
           <template #content>
