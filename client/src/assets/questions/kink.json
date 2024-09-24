@@ -5,8 +5,9 @@
     "description": "Impact, scratching, biting, needles, etc.",
     "category": "Physical",
     "prompts": [
-      "Do you like to give pain, receive pain, or both?",
-      "Is pain more of a sensory experience or an erotic experience for you?"
+      "Interests: What kinds of pain interest you? Thuddy, stingy, slappy, sharp, dull, etc.",
+      "Role: Do you like to give pain, receive pain, or both?",
+      "Goal: What kind of experience are you looking to create? Sensory, erotic, cathartic, etc."
     ]
   },
   {
@@ -15,8 +16,9 @@
     "description": "Rope, cuffs, leashes, cages, etc.",
     "category": "Physical",
     "prompts": [
-      "Do you like to be restrained, restrain others, or both?",
-      "Is the goal for you restriction of movement, vulnerability, helplessness, enforcing obedience, or something else?"
+      "Interests: What forms of restraint interest you?",
+      "Role: Do you like to be restrained, restrain others, or both?",
+      "Goal: Is your goal restriction of movement, vulnerability, helplessness, enforcing obedience, or something else?"
     ]
   },
   {
@@ -25,7 +27,9 @@
     "description": "Wrestling, grappling, pinning, trampling, etc.",
     "category": "Physical",
     "prompts": [
-      "Do you want this to play out as one partner submitting to the other, or as a fight for dominance?"
+      "Interests: What forms of rough body play interest you?",
+      "Role: Do you want to submit, dominate, or fight for dominance?",
+      "Goal: What kind of experience are you looking to create? Playful, competitive, erotic, stimmy, etc."
     ]
   },
   {
@@ -34,8 +38,9 @@
     "description": "Praise, goals, rewards, age regression, etc.",
     "category": "Psychological",
     "prompts": [
-      "What role do you want to play in this dynamic? Caregiver, little, owner, pet, daddy, or something else?",
-      "What is your goal? Encouraging self-care, healing trauma, feeling emotional security, or something else?"
+      "Interests: What forms of caregiving interest you?",
+      "Role: What role do you want to play in this dynamic? Caregiver, little, owner, pet, daddy, or something else?",
+      "Goal: What is your goal? Encouraging self-care, healing trauma, feeling emotional security, or something else?"
     ]
   },
   {
@@ -44,8 +49,9 @@
     "description": "Control, loyalty, possession, chastity, etc.",
     "category": "Psychological",
     "prompts": [
-      "Do you want to have ownership over someone, or be owned yourself?",
-      "How do you want control or possession to be expressed or enforced?"
+      "Interests: What forms of ownership interest you?",
+      "Role: Do you want to have ownership over someone, or be owned yourself?",
+      "Goal: What feelings do you want to evoke? Vulnerability, powerlessness, safety, possession, desire, etc."
     ]
   },
   {
@@ -54,9 +60,9 @@
     "description": "Shame, embarrassment, dehumanization, exhibitionism, etc.",
     "category": "Psychological",
     "prompts": [
-      "Do you want to be degraded or humiliated, or degrade/humiliate someone else?",
-      "Do you want the degradation/humiliation to target appearance, worth, ability, vulnerability, exposure, or something else?",
-      "Do you want the degradation/humiliation to be more serious or more playful?"
+      "Interests: What forms of degradation or humiliation interest you?",
+      "Role: Do you want to be degraded or humiliated, or degrade/humiliate someone else?",
+      "Goal: Do you want the degradation/humiliation to target appearance, worth, ability, vulnerability, exposure, or something else? Do you want it to be more serious, or more playful?"
     ]
   },
   {
@@ -65,17 +71,20 @@
     "description": "Titles, orders, petplay, obedience training, etiquette, etc.",
     "category": "Psychological",
     "prompts": [
-      "What role do you want to play in this dynamic? Dominant, submissive, pet, handler, authority figure, etc."
+      "Interests: What forms of protocol interest you?",
+      "Role: What role do you want to play in this dynamic? Dominant, submissive, pet, handler, authority figure, etc.",
+      "Goal: What is your goal? Clarity of expectations, a sense of mastery or success, a failure/punishment dynamic, or something else?"
     ]
   },
   {
     "id": "vulnerability",
     "title": "Vulnerability",
-    "description": "Helplessness, losing agency, etc.",
+    "description": "Helplessness, psychological control, loss of agency, etc.",
     "category": "Experiential",
     "prompts": [
-      "Do you want to feel vulnerable, or make someone else feel vulnerable?",
-      "What makes you feel most vulnerable? How do you enjoy making others feel vulnerable?"
+      "Interests: What forms of vulnerability interest you?",
+      "Role: Do you want to feel vulnerable, or make someone else feel vulnerable?",
+      "Goal: What feelings do you want to evoke? Desire, objectification, embarrassment, shame, discomfort, or something else?"
     ]
   },
   {
@@ -84,16 +93,21 @@
     "description": "Threats, danger, suspense, interrogation, etc.",
     "category": "Experiential",
     "prompts": [
-      "What role do you want to play in this dynamic? Dominant, submissive, interrogator, victim, hunter, prey, etc.",
-      "Do you want the fear to be more psychological and existential, or more intimidating and imminently threatening?"
+      "Interests: What forms of fear interest you?",
+      "Role: What role do you want to play in this dynamic? Dominant, submissive, interrogator, victim, hunter, prey, etc.",
+      "Goal: Do you want the fear to be psychological, existential, intimidating, imminently threatening, or something else?"
     ]
   },
   {
     "id": "sensory",
     "title": "Novel sensations",
-    "description": "Temperature, electricity, specific textures, etc.",
+    "description": "Temperature, electricity, specific textures, messy play, smells, tastes, substances, sensory deprivation, etc.",
     "category": "Experiential",
-    "prompts": ["What kinds of sensations do you want to experience or provide?"]
+    "prompts": [
+      "Interests: What kinds of sensations interest you?",
+      "Role: Do you want to experience novel sensations, or create them for someone else?",
+      "Goal: Are you looking primarily to experience a specific sensation? For novelty? For surprise?"
+    ]
   },
   {
     "id": "aesthetics",
@@ -101,9 +115,9 @@
     "description": "Shibari, dollification, latex, exhibitionism, etc.",
     "category": "Experiential",
     "prompts": [
-      "Do you want to be the object or the observer of the aesthetic experience?",
-      "What kind of aesthetic do you want to create?",
-      "Do you want the decision-making to be collaborative or one-sided?"
+      "Interests: What kinds of aesthetics interest you?",
+      "Role: Do you want to be the object or the observer of the aesthetic experience?",
+      "Goal: Is your goal primarily artistic fulfillment, exhibitionism, humiliation, connection with a specific headspace, or something else? Do you want the decision-making to be collaborative or one-sided?"
     ]
   }
 ]
