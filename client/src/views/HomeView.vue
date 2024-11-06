@@ -1,13 +1,52 @@
 <script setup lang="ts">
 import Button from "primevue/button";
-import { ref, watch } from "vue";
+import { onBeforeMount, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
 import ToggleSwitch from "primevue/toggleswitch";
+import { useConfirm } from "primevue/useconfirm";
+
+const confirm = useConfirm();
 
 const nsfw = ref(false);
+const isAdult = ref(false);
 
 watch(nsfw, (value) => {
-  localStorage.setItem("nsfw", value.toString());
+  if (value && !isAdult.value) {
+    confirm.require({
+      header: "Confirm your age",
+      message: "I am over 18 years old.",
+      icon: "pi pi-user",
+      rejectProps: {
+        label: "No",
+        severity: "secondary",
+        outlined: true,
+      },
+      acceptProps: {
+        label: "Yes",
+        severity: "primary",
+      },
+      reject: () => {
+        nsfw.value = false;
+      },
+      onHide: () => {
+        nsfw.value = false;
+      },
+      accept: () => {
+        isAdult.value = true;
+        localStorage.setItem("adult", isAdult.value.toString());
+        localStorage.setItem("nsfw", value.toString());
+      },
+    });
+  } else if (value) {
+    localStorage.setItem("nsfw", value.toString());
+  } else {
+    localStorage.removeItem("nsfw");
+  }
+});
+
+onBeforeMount(async () => {
+  nsfw.value = localStorage.getItem("nsfw") === "true";
+  isAdult.value = localStorage.getItem("adult") === "true";
 });
 </script>
 
