@@ -1,13 +1,29 @@
 <script setup lang="ts">
 import Button from "primevue/button";
+import { ref, watch } from "vue";
 import { RouterLink } from "vue-router";
+import ToggleSwitch from "primevue/toggleswitch";
+
+const nsfw = ref(false);
+
+watch(nsfw, (value) => {
+  localStorage.setItem("nsfw", value.toString());
+});
 </script>
 
 <template>
   <main aria-labelledby="main-heading">
     <h1 id="main-heading" class="text-center">Negotiate your relationships</h1>
-    <div class="flex justify-center">
-      <Button as="router-link" to="/choose" class="my-8" label="Start a Discussion" />
+    <div class="flex flex-col gap-6 my-6 justify-center">
+      <Button as="router-link" to="/choose" label="Start a Discussion" />
+      <div class="flex flex-col gap-2">
+        <span class="text-center">Show NSFW content</span>
+        <span class="flex justify-center gap-2">
+          <span :class="{ 'text-muted': nsfw }">Safe</span>
+          <ToggleSwitch v-model="nsfw" />
+          <span :class="{ 'text-muted': !nsfw }">NSFW</span>
+        </span>
+      </div>
     </div>
     <div class="text-justify max-w-3xl">
       <p>
