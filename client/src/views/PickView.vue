@@ -5,7 +5,7 @@ import { questionsEndpoint } from "@/api";
 import FileUpload, { type FileUploadUploadEvent } from "primevue/fileupload";
 import { ERROR_TOAST_TTL } from "@/toast";
 import { useToast } from "primevue/usetoast";
-import { ref } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import { useRouter } from "vue-router";
 
 const toast = useToast();
@@ -13,6 +13,10 @@ const router = useRouter();
 
 const questionsChecksum = ref<string>();
 const isCustomQuestionsUploaded = ref(false);
+
+const nsfw = computed(() => {
+  return localStorage.getItem("nsfw") === "true";
+});
 
 const uploadCustomQuestions = async (event: FileUploadUploadEvent) => {
   const response = await fetch(questionsEndpoint(), {
@@ -70,7 +74,7 @@ const startWithCustomQuestions = () => {
           </template>
         </Card>
       </section>
-      <section aria-labelledby="scene-question-choice">
+      <section v-if="nsfw" aria-labelledby="scene-question-choice">
         <Card>
           <template #title><span id="scene-question-choice">Negotiate a scene</span></template>
           <template #subtitle>
