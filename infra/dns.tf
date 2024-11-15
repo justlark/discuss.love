@@ -74,3 +74,11 @@ resource "cloudflare_record" "apex_txt_dmarc" {
   value   = "v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=s"
   proxied = false
 }
+
+resource "cloudflare_record" "umami_cname" {
+  zone_id = data.cloudflare_zone.smorgasbord.id
+  type    = "CNAME"
+  name    = "umami"
+  value   = "strict-elk.pikapod.net"
+  proxied = false
+}
