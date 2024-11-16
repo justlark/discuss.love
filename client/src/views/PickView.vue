@@ -74,7 +74,8 @@ const startWithCustomQuestions = () => {
               as="router-link"
               to="/start?q=relationship"
               label="Start"
-              data-umami-event="Pick 'relationship' questionnaire"
+              data-umami-event="Choose questionnaire"
+              data-umami-event-questionnaire="relationship"
             />
           </template>
         </Card>
@@ -100,7 +101,8 @@ const startWithCustomQuestions = () => {
               as="router-link"
               to="/start?q=scene"
               label="Start"
-              data-umami-event="Pick 'scene' questionnaire"
+              data-umami-event="Choose questionnaire"
+              data-umami-event-questionnaire="scene"
             />
           </template>
         </Card>
@@ -140,7 +142,8 @@ const startWithCustomQuestions = () => {
                 @click="startWithCustomQuestions"
                 :disabled="!isCustomQuestionsUploaded"
                 label="Start"
-                data-umami-event="Pick 'custom' questionnaire"
+                data-umami-event="Choose questionnaire"
+                data-umami-event-questionnaire="custom"
               />
             </div>
           </template>
