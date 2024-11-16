@@ -59,6 +59,7 @@ onBeforeMount(async () => {
         to="/choose"
         label="Start a Discussion"
         data-umami-event="View questionnaire list"
+        :data-umami-event-nsfw="nsfw"
       />
       <div class="flex flex-col gap-2">
         <span class="text-center">Show NSFW content</span>
