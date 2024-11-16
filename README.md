@@ -17,6 +17,9 @@ The list of questions is defined [in a JSON
 document](./client/src/assets/questions/relationship.json) which is used to
 dynamically build the input form
 
+A self-hosted instance of [Umami](https://umami.is/) is used to provide
+privacy-preserving analytics.
+
 ## Development
 
 To run the app locally, you'll need to spin up a local instance of the worker.
