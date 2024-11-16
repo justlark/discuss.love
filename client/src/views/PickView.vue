@@ -5,7 +5,7 @@ import { questionsEndpoint } from "@/api";
 import FileUpload, { type FileUploadUploadEvent } from "primevue/fileupload";
 import { ERROR_TOAST_TTL } from "@/toast";
 import { useToast } from "primevue/usetoast";
-import { computed, onBeforeMount, ref } from "vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 
 const toast = useToast();
@@ -70,7 +70,12 @@ const startWithCustomQuestions = () => {
             </p>
           </template>
           <template #footer>
-            <Button as="router-link" to="/start?q=relationship" label="Start" />
+            <Button
+              as="router-link"
+              to="/start?q=relationship"
+              label="Start"
+              data-umami-event="Pick 'relationship' questionnaire"
+            />
           </template>
         </Card>
       </section>
@@ -91,7 +96,12 @@ const startWithCustomQuestions = () => {
             </p>
           </template>
           <template #footer>
-            <Button as="router-link" to="/start?q=scene" label="Start" />
+            <Button
+              as="router-link"
+              to="/start?q=scene"
+              label="Start"
+              data-umami-event="Pick 'scene' questionnaire"
+            />
           </template>
         </Card>
       </section>
@@ -130,6 +140,7 @@ const startWithCustomQuestions = () => {
                 @click="startWithCustomQuestions"
                 :disabled="!isCustomQuestionsUploaded"
                 label="Start"
+                data-umami-event="Pick 'custom' questionnaire"
               />
             </div>
           </template>

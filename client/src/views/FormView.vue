@@ -312,7 +312,7 @@ onBeforeMount(async () => {
             </div>
           </Panel>
         </div>
-        <Button class="mt-4" @click="submitForm" label="Submit" />
+        <Button class="mt-4" @click="submitForm" label="Submit" data-umami-event="Submit form" />
       </div>
     </template>
   </ActionHeader>

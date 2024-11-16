@@ -54,7 +54,13 @@ onBeforeMount(async () => {
   <main aria-labelledby="main-heading">
     <h1 id="main-heading" class="text-center">Negotiate your relationships</h1>
     <div class="flex flex-col gap-6 my-6 justify-center">
-      <Button as="router-link" to="/choose" label="Start a Discussion" />
+      <Button
+        as="router-link"
+        to="/choose"
+        label="Start a Discussion"
+        data-umami-event="View questionnaire list"
+        :data-umami-event-nsfw="nsfw"
+      />
       <div class="flex flex-col gap-2">
         <span class="text-center">Show NSFW content</span>
         <span class="flex justify-center gap-2">
