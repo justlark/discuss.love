@@ -4,6 +4,7 @@
     "title": "Pain",
     "description": "Impact, scratching, biting, needles, etc.",
     "category": "Physical",
+    "nsfw": true,
     "prompts": [
       "Interests: What kinds of pain interest you? Thuddy, stingy, slappy, sharp, dull, etc.",
       "Role: Do you like to give pain, receive pain, or both?",
@@ -16,6 +17,7 @@
     "title": "Restraint",
     "description": "Rope, cuffs, leashes, cages, etc.",
     "category": "Physical",
+    "nsfw": true,
     "prompts": [
       "Interests: What forms of restraint interest you?",
       "Role: Do you like to be restrained, restrain others, or both?",
@@ -28,6 +30,7 @@
     "title": "Rough body play",
     "description": "Wrestling, grappling, pinning, trampling, etc.",
     "category": "Physical",
+    "nsfw": true,
     "prompts": [
       "Interests: What forms of rough body play interest you?",
       "Role: Do you want to submit, dominate, or fight for dominance?",
@@ -40,6 +43,7 @@
     "title": "Caregiving",
     "description": "Praise, goals, rewards, age regression, etc.",
     "category": "Psychological",
+    "nsfw": true,
     "prompts": [
       "Interests: What forms of caregiving interest you?",
       "Role: What role do you want to play in this dynamic? Caregiver, little, owner, pet, daddy, or something else?",
@@ -52,6 +56,7 @@
     "title": "Ownership",
     "description": "Control, loyalty, possession, chastity, etc.",
     "category": "Psychological",
+    "nsfw": true,
     "prompts": [
       "Interests: What forms of ownership interest you?",
       "Role: Do you want to have ownership over someone, or be owned yourself?",
@@ -64,6 +69,7 @@
     "title": "Degradation or humiliation",
     "description": "Shame, embarrassment, dehumanization, exhibitionism, etc.",
     "category": "Psychological",
+    "nsfw": true,
     "prompts": [
       "Interests: What forms of degradation or humiliation interest you?",
       "Role: Do you want to be degraded or humiliated, or degrade/humiliate someone else?",
@@ -76,6 +82,7 @@
     "title": "Rules or protocol",
     "description": "Titles, orders, petplay, obedience training, etiquette, etc.",
     "category": "Psychological",
+    "nsfw": true,
     "prompts": [
       "Interests: What forms of protocol interest you?",
       "Role: What role do you want to play in this dynamic? Dominant, submissive, pet, handler, authority figure, etc.",
@@ -88,6 +95,7 @@
     "title": "Vulnerability",
     "description": "Helplessness, psychological control, loss of agency, etc.",
     "category": "Experiential",
+    "nsfw": true,
     "prompts": [
       "Interests: What forms of vulnerability interest you?",
       "Role: Do you want to feel vulnerable, or make someone else feel vulnerable?",
@@ -100,6 +108,7 @@
     "title": "Fear",
     "description": "Threats, danger, suspense, interrogation, etc.",
     "category": "Experiential",
+    "nsfw": true,
     "prompts": [
       "Interests: What forms of fear interest you?",
       "Role: What role do you want to play in this dynamic? Dominant, submissive, interrogator, victim, hunter, prey, etc.",
@@ -112,6 +121,7 @@
     "title": "Novel sensations",
     "description": "Temperature, electricity, specific textures, messy play, smells, tastes, substances, sensory deprivation, etc.",
     "category": "Experiential",
+    "nsfw": true,
     "prompts": [
       "Interests: What kinds of sensations interest you?",
       "Role: Do you want to experience novel sensations, or create them for someone else?",
@@ -124,6 +134,7 @@
     "title": "Aesthetics",
     "description": "Shibari, dollification, latex, exhibitionism, etc.",
     "category": "Experiential",
+    "nsfw": true,
     "prompts": [
       "Interests: What kinds of aesthetics interest you?",
       "Role: Do you want to be the object or the observer of the aesthetic experience?",

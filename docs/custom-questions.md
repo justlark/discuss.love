@@ -22,6 +22,9 @@ question:
 - `description`: A longer description of the question.
 - `category`: Which category the question belongs to. This determines how
   questions are grouped together.
+- `nsfw`: Whether the question is "not safe for work". If this is `true`, the
+  question will only be included in the discussion if the user starting the
+  discussion has consented to seeing NSFW content.
 - `prompts`: A list of more specific questions to prompt discussion if the user
   answers anything but "No".
 
