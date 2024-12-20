@@ -8,6 +8,7 @@ terraform {
 
   cloud {
     organization = "justlark"
+    hostname     = "app.terraform.io"
 
     workspaces {
       name = "smorgasbord"
