@@ -12,7 +12,7 @@ import {
   type WithQuestionId,
 } from "@/types";
 import { RouterLink, useRoute, useRouter } from "vue-router";
-import { getRandomizedQuestionCategories } from "@/questions";
+import { filterNsfwQuestions, getRandomizedQuestionCategories } from "@/questions";
 import { questionsEndpoint, sessionsEndpoint, submissionsEndpoint } from "@/api";
 import Button from "primevue/button";
 import Panel from "primevue/panel";
@@ -211,7 +211,9 @@ onBeforeMount(async () => {
   const questionsResponse = await fetch(questionsEndpoint(sessionInfo.questions));
 
   if (questionsResponse.status === 200) {
-    questions.value = await questionsResponse.json();
+    // Some sessions may not have the NSFW flag set, as this feature was added later. If the flag is
+    // not set, we default to showing NSFW questions to avoid breaking existing sessions.
+    questions.value = filterNsfwQuestions(await questionsResponse.json(), sessionInfo.nsfw ?? true);
   } else {
     const { error } = await questionsResponse.json();
 

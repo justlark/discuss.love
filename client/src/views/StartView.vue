@@ -66,6 +66,7 @@ const startSession = async () => {
         sender: names.value.sender,
         recipient: names.value.recipient,
       },
+      nsfw: localStorage.getItem("nsfw") === "true",
       questions: questionsChecksum.value,
     }),
   });

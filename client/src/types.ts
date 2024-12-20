@@ -7,6 +7,8 @@ export interface QuestionDefinition {
   title: string;
   description: string;
   category: string;
+  // Optional because this property was added later.
+  nsfw?: boolean;
   prompts: Array<string>;
 }
 
@@ -58,6 +60,7 @@ export type FormAnswers = Array<FormAnswer>;
 
 export type SessionInfo = {
   players: ByPlayer<string>;
+  nsfw?: boolean;
   questions: string;
 };
 

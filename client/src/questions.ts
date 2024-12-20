@@ -67,3 +67,13 @@ export const getQuestionMap = (questions: Array<QuestionDefinition>) =>
       },
     ]),
   );
+
+export const filterNsfwQuestions = (questions: Array<QuestionDefinition>, showNsfw: boolean) => {
+  if (showNsfw) {
+    return questions;
+  }
+
+  // If the NSFW flag is omitted, we should assume that the question is *not*
+  // NSFW, to avoid breaking existing question lists.
+  return questions.filter((q) => q.nsfw === undefined || !q.nsfw);
+};

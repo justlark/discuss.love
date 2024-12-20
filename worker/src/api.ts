@@ -26,5 +26,6 @@ export type PlayerNames = ByPlayer<string>;
 
 export type SessionInfo = Readonly<{
   players: PlayerNames;
+  nsfw?: boolean;
   questions?: string;
 }>;
