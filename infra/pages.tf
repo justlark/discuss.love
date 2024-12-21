@@ -1,7 +1,7 @@
 resource "cloudflare_pages_project" "smorgasbord" {
   account_id        = var.cloudflare_account_id
   name              = "smorgasbord"
-  production_branch = "main"
+  production_branch = "prod"
 
   build_config {
     build_command   = "npm install && npm run build"
@@ -13,14 +13,11 @@ resource "cloudflare_pages_project" "smorgasbord" {
     type = "github"
 
     config {
-      owner                         = "justlark"
-      repo_name                     = "discuss.love"
-      production_branch             = "main"
-      pr_comments_enabled           = true
-      deployments_enabled           = true
-      production_deployment_enabled = true
-      preview_deployment_setting    = "custom"
-      preview_branch_includes       = ["dev"]
+      owner                      = "justlark"
+      repo_name                  = "discuss.love"
+      production_branch          = "prod"
+      preview_deployment_setting = "custom"
+      preview_branch_includes    = ["main"]
     }
   }
 
@@ -29,14 +26,12 @@ resource "cloudflare_pages_project" "smorgasbord" {
       environment_variables = {
         VITE_API_URL = "https://api.${data.cloudflare_zone.smorgasbord.name}"
       }
-      usage_model = "standard"
     }
 
     preview {
       environment_variables = {
         VITE_API_URL = "https://api-dev.${data.cloudflare_zone.smorgasbord.name}"
       }
-      usage_model = "standard"
     }
   }
 }
@@ -45,4 +40,10 @@ resource "cloudflare_pages_domain" "smorgasbord" {
   account_id   = var.cloudflare_account_id
   project_name = cloudflare_pages_project.smorgasbord.name
   domain       = data.cloudflare_zone.smorgasbord.name
+}
+
+resource "cloudflare_pages_domain" "smorgasbord_dev" {
+  account_id   = var.cloudflare_account_id
+  project_name = cloudflare_pages_project.smorgasbord.name
+  domain       = "dev.${data.cloudflare_zone.smorgasbord.name}"
 }
