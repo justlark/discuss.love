@@ -1,0 +1,40 @@
+name: "Worker"
+
+on:
+  push:
+    branches:
+      - main
+      - prod
+
+jobs:
+  dev:
+    name: "Deploy (dev)"
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout sources"
+        uses: actions/checkout@v4
+
+      - name: "Deploy worker"
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          environment: dev
+          workingDirectory: ./worker/
+
+  prod:
+    name: "Deploy (prod)"
+    if: github.ref == 'refs/heads/prod'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout sources"
+        uses: actions/checkout@v4
+
+      - name: "Deploy worker"
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          environment: prod
+          workingDirectory: ./worker/
