@@ -27,12 +27,6 @@ resource "cloudflare_zone_settings_override" "smorgasbord" {
     tls_1_3                  = "zrt"
     zero_rtt                 = "on"
 
-    minify {
-      html = "off"
-      css  = "off"
-      js   = "off"
-    }
-
     security_header {
       enabled            = true
       preload            = true

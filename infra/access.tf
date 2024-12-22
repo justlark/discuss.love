@@ -46,25 +46,39 @@ resource "cloudflare_list" "pages_dev_domains" {
   }
 }
 
-resource "cloudflare_ruleset" "redirect_pages_dev_domains" {
-  account_id  = var.cloudflare_account_id
-  name        = "redirect *.smorgasbord.pages.dev domains"
-  description = "redirect *.smorgasbord.pages.dev domains"
-  kind        = "root"
-  phase       = "http_request_redirect"
+data "cloudflare_lists" "this" {
+  account_id = var.cloudflare_account_id
+}
 
-  rules {
-    action = "redirect"
+locals {
+  redirect_lists = toset([for domains_list in data.cloudflare_lists.this.lists : domains_list.name if domains_list.kind == "redirect"])
+}
 
-    action_parameters {
-      from_list {
-        name = cloudflare_list.pages_dev_domains.name
-        key  = "http.request.full_uri"
+# Create a single ruleset for all redirect lists in the account, because
+# Cloudflare does not permit you to accomplish this using multiple rulesets.
+resource "cloudflare_ruleset" "redirect_bulk_domains" {
+  account_id = var.cloudflare_account_id
+  name       = "bulk redirect domains"
+  kind       = "root"
+  phase      = "http_request_redirect"
+
+  dynamic "rules" {
+    for_each = local.redirect_lists
+    iterator = list_name
+
+    content {
+      action = "redirect"
+
+      action_parameters {
+        from_list {
+          name = list_name.key
+          key  = "http.request.full_uri"
+        }
       }
-    }
 
-    expression  = "http.request.full_uri in ${format("$%s", cloudflare_list.pages_dev_domains.name)}"
-    description = "Apply redirects from ${cloudflare_list.pages_dev_domains.name}"
-    enabled     = true
+      expression  = "http.request.full_uri in ${format("$%s", list_name.key)}"
+      description = "Apply redirects from ${list_name.key}"
+      enabled     = true
+    }
   }
 }
