@@ -4,13 +4,15 @@ main = "src/index.ts"
 compatibility_date = "2024-07-01"
 compatibility_flags = ["nodejs_compat"]
 
-[route]
-pattern = "api.discuss.love"
-custom_domain = true
+[env.prod]
 
-[[kv_namespaces]]
-binding = "KV"
-id = "584052a94e464845865eaab4fd96191b"
+  [env.prod.route]
+  pattern = "api.discuss.love"
+  custom_domain = true
+
+  [[env.prod.kv_namespaces]]
+  binding = "KV"
+  id = "584052a94e464845865eaab4fd96191b"
 
 [env.dev]
 

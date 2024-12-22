@@ -21,13 +21,7 @@ const QUESTIONS_SIZE_LIMIT = 1000 * 100; // 100 KB
 // just need to prevent abuse and discourage names that will break the UI.
 const NAME_SIZE_LIMIT = 50;
 
-const corsAllowedOrigins = [
-  // Prod environment.
-  "https://discuss.love",
-
-  // Dev environment.
-  "https://dev.smorgasbord.pages.dev",
-];
+const corsAllowedOrigins = ["https://discuss.love", "https://dev.discuss.love"];
 
 const corsMiddleware = (response: Response, request: Request) => {
   const reqOrigin = request.headers.get("Origin");
