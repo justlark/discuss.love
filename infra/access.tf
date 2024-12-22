@@ -5,6 +5,7 @@ resource "cloudflare_zero_trust_access_application" "smorgasbord_preview" {
   type                      = "self_hosted"
   session_duration          = "720h"
   auto_redirect_to_identity = true
+  app_launcher_visible      = false
 
   policies = []
 }
