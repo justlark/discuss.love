@@ -41,16 +41,18 @@ npm run dev
 
 ## Deployment
 
-The client app is automatically deployed to Cloudflare Pages on pushes to
-`main`. To deploy the worker, run:
+The client app and backend worker are automatically deployed to the dev
+environment on pushes to `main` and to the prod environment on pushes to `prod`.
+To deploy the worker manually, run:
 
 ```shell
 cd ./worker/
 npm install
-npx wrangler deploy
+npx wrangler deploy --env dev
+npx wrangler deploy --env prod
 ```
 
-You can also build the client app locally like this:
+You can build the client app locally like this:
 
 ```shell
 cd ./client/
