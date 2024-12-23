@@ -10,7 +10,7 @@ import { useVueToPrint } from "vue-to-print";
 import Button from "primevue/button";
 import printStyles from "@/assets/print.css?raw";
 import ActionHeader from "@/components/ActionHeader.vue";
-import { ERROR_TOAST_TTL } from "@/toast";
+import { storeKey, ERROR_TOAST_TTL } from "@/vars";
 
 const route = useRoute();
 const toast = useToast();
@@ -61,7 +61,7 @@ const navigateEditPage = () => {
 };
 
 const hasPreviouslyCompleted = computed(
-  () => localStorage.getItem("completed") === sharingCode.value,
+  () => localStorage.getItem(storeKey.completed) === sharingCode.value,
 );
 
 // We can't let users delete custom questions manually because other users could
@@ -181,7 +181,7 @@ onBeforeMount(async () => {
   //
   // We include the sharing code so the app doesn't get confused when a user is
   // attempting to join multiple sessions.
-  localStorage.setItem("completed", sharingCode.value);
+  localStorage.setItem(storeKey.completed, sharingCode.value);
 
   sessionInfo.value = sessionResponseBody;
   formAnswers.value = submissionResponseBody;

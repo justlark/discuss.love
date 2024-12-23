@@ -19,7 +19,8 @@ import Panel from "primevue/panel";
 import CopyButton from "@/components/CopyButton.vue";
 import ActionHeader from "@/components/ActionHeader.vue";
 import { useToast } from "primevue/usetoast";
-import { ERROR_TOAST_TTL } from "@/toast";
+import { ERROR_TOAST_TTL } from "@/vars";
+import { storeKey } from "@/vars";
 
 const route = useRoute();
 const router = useRouter();
@@ -74,7 +75,7 @@ const collectResponses = (validate: boolean): Array<Response> | undefined => {
 
 const storeResponses = () => {
   localStorage.setItem(
-    "responses",
+    storeKey.responses,
     JSON.stringify({ code: sharingCode.value, responses: collectResponses(false) }),
   );
 };
@@ -134,7 +135,7 @@ const submitForm = async () => {
   // submitted) and unset here, on form submission. It's used when a player
   // restarts the session to track which player has resubmitted the form and
   // which hasn't, to control what message they see.
-  localStorage.removeItem("completed");
+  localStorage.removeItem(storeKey.completed);
 
   viewSubmissions();
 };
@@ -168,7 +169,7 @@ const errorProps = computed(() =>
 );
 
 onBeforeMount(async () => {
-  const storedSharingCode = localStorage.getItem("code");
+  const storedSharingCode = localStorage.getItem(storeKey.code);
 
   // When a user starts a session, the sharing code is stored in their local
   // storage so we can differentiate the sender from the recipient.
@@ -176,7 +177,7 @@ onBeforeMount(async () => {
 
   // Load the initial responses from the browser local storage so the user can
   // pick up where they left off.
-  const initialStoredResponsesString = localStorage.getItem("responses");
+  const initialStoredResponsesString = localStorage.getItem(storeKey.responses);
   initialStoredResponses.value = initialStoredResponsesString
     ? JSON.parse(initialStoredResponsesString)
     : undefined;

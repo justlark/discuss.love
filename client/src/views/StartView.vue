@@ -6,7 +6,7 @@ import Button from "primevue/button";
 import { useRoute, useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
 import { DEFAULT_QUESTION_LIST, getQuestions, isBuiltinQuestionList } from "@/questions";
-import { ERROR_TOAST_TTL } from "@/toast";
+import { ERROR_TOAST_TTL, storeKey } from "@/vars";
 
 const router = useRouter();
 const route = useRoute();
@@ -66,7 +66,7 @@ const startSession = async () => {
         sender: names.value.sender,
         recipient: names.value.recipient,
       },
-      nsfw: localStorage.getItem("nsfw") === "true",
+      nsfw: localStorage.getItem(storeKey.nsfw) === "true",
       questions: questionsChecksum.value,
     }),
   });
@@ -83,7 +83,7 @@ const startSession = async () => {
 
   // When a user starts a session, the sharing code is stored in their local
   // storage so we can differentiate the sender from the recipient.
-  localStorage.setItem("code", code);
+  localStorage.setItem(storeKey.code, code);
 
   await router.push({ path: "/join", query: { code } });
 };

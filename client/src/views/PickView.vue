@@ -3,7 +3,7 @@ import Card from "primevue/card";
 import Button from "primevue/button";
 import { questionsEndpoint } from "@/api";
 import FileUpload, { type FileUploadUploadEvent } from "primevue/fileupload";
-import { ERROR_TOAST_TTL } from "@/toast";
+import { ERROR_TOAST_TTL, storeKey } from "@/vars";
 import { useToast } from "primevue/usetoast";
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
@@ -15,7 +15,7 @@ const questionsChecksum = ref<string>();
 const isCustomQuestionsUploaded = ref(false);
 
 const nsfw = computed(() => {
-  return localStorage.getItem("nsfw") === "true";
+  return localStorage.getItem(storeKey.nsfw) === "true";
 });
 
 const uploadCustomQuestions = async (event: FileUploadUploadEvent) => {

@@ -4,6 +4,7 @@ import { onBeforeMount, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
 import ToggleSwitch from "primevue/toggleswitch";
 import { useConfirm } from "primevue/useconfirm";
+import { storeKey } from "@/vars";
 
 const confirm = useConfirm();
 
@@ -33,20 +34,20 @@ watch(nsfw, (value) => {
       },
       accept: () => {
         isAdult.value = true;
-        localStorage.setItem("adult", isAdult.value.toString());
-        localStorage.setItem("nsfw", value.toString());
+        localStorage.setItem(storeKey.adult, isAdult.value.toString());
+        localStorage.setItem(storeKey.nsfw, value.toString());
       },
     });
   } else if (value) {
-    localStorage.setItem("nsfw", value.toString());
+    localStorage.setItem(storeKey.nsfw, value.toString());
   } else {
-    localStorage.removeItem("nsfw");
+    localStorage.removeItem(storeKey.nsfw);
   }
 });
 
 onBeforeMount(async () => {
-  nsfw.value = localStorage.getItem("nsfw") === "true";
-  isAdult.value = localStorage.getItem("adult") === "true";
+  nsfw.value = localStorage.getItem(storeKey.nsfw) === "true";
+  isAdult.value = localStorage.getItem(storeKey.adult) === "true";
 });
 </script>
 
