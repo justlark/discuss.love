@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import ResponseInput from "@/components/ResponseInput.vue";
 import {
   humanizeAnswer,
@@ -168,7 +168,7 @@ const errorProps = computed(() =>
     : undefined,
 );
 
-onBeforeMount(async () => {
+watchEffect(async () => {
   const storedSharingCode = localStorage.getItem(storeKey.code);
 
   // When a user starts a session, the sharing code is stored in their local

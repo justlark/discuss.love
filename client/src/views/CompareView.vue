@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import type { FormAnswers, SessionInfo, ResponseStatus, QuestionDefinition } from "@/types";
 import AnswerComparison from "@/components/AnswerComparison.vue";
 import { questionsEndpoint, sessionsEndpoint, submissionsEndpoint } from "@/api";
@@ -133,7 +133,7 @@ const errorProps = computed(() =>
     : undefined,
 );
 
-onBeforeMount(async () => {
+watchEffect(async () => {
   const [sessionResponse, submissionResponse] = await Promise.all([
     fetch(sessionsEndpoint(sharingCode.value)),
     fetch(submissionsEndpoint(sharingCode.value)),

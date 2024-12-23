@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Button from "primevue/button";
-import { onBeforeMount, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { RouterLink } from "vue-router";
 import ToggleSwitch from "primevue/toggleswitch";
 import { useConfirm } from "primevue/useconfirm";
@@ -45,10 +45,8 @@ watch(nsfw, (value) => {
   }
 });
 
-onBeforeMount(async () => {
-  nsfw.value = localStorage.getItem(storeKey.nsfw) === "true";
-  isAdult.value = localStorage.getItem(storeKey.adult) === "true";
-});
+nsfw.value = localStorage.getItem(storeKey.nsfw) === "true";
+isAdult.value = localStorage.getItem(storeKey.adult) === "true";
 </script>
 
 <template>
