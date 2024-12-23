@@ -121,8 +121,8 @@ const startSession = async () => {
           </p>
           <p v-else class="text-muted mb-0">You're using custom questions.</p>
         </div>
-        <span class="flex gap-4 items-baseline">
-          <Button @click="startSession" label="Start" data-umami-event="Start discussion" />
+        <span class="flex gap-4 items-baseline" data-umami-event="Start discussion">
+          <Button @click="startSession" label="Start" />
         </span>
       </form>
       <aside class="text-justify sm:basis-1/2">

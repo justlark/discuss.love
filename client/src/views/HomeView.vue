@@ -53,13 +53,9 @@ isAdult.value = localStorage.getItem(storeKey.adult) === "true";
   <main aria-labelledby="main-heading">
     <h1 id="main-heading" class="text-center">Negotiate your relationships</h1>
     <div class="flex flex-col gap-6 my-6 justify-center">
-      <Button
-        as="RouterLink"
-        to="/choose"
-        label="Start a Discussion"
-        data-umami-event="View questionnaire list"
-        :data-umami-event-nsfw="nsfw"
-      />
+      <div data-umami-event="View questionnaire list" :data-umami-event-nsfw="nsfw">
+        <Button as="RouterLink" to="/choose" label="Start a Discussion" />
+      </div>
       <div class="flex flex-col gap-2">
         <span class="text-center">Show NSFW content</span>
         <span class="flex justify-center gap-2">

@@ -70,13 +70,16 @@ const startWithCustomQuestions = () => {
             </p>
           </template>
           <template #footer>
-            <Button
-              as="RouterLink"
-              :to="{ path: '/start', query: { q: 'relationship' } }"
-              label="Start"
+            <div
               data-umami-event="Choose questionnaire"
               data-umami-event-questionnaire="relationship"
-            />
+            >
+              <Button
+                as="RouterLink"
+                :to="{ path: '/start', query: { q: 'relationship' } }"
+                label="Start"
+              />
+            </div>
           </template>
         </Card>
       </section>
@@ -97,13 +100,13 @@ const startWithCustomQuestions = () => {
             </p>
           </template>
           <template #footer>
-            <Button
-              as="RouterLink"
-              :to="{ path: '/start', query: { q: 'scene' } }"
-              label="Start"
-              data-umami-event="Choose questionnaire"
-              data-umami-event-questionnaire="scene"
-            />
+            <div data-umami-event="Choose questionnaire" data-umami-event-questionnaire="scene">
+              <Button
+                as="RouterLink"
+                :to="{ path: '/start', query: { q: 'scene' } }"
+                label="Start"
+              />
+            </div>
           </template>
         </Card>
       </section>
@@ -138,13 +141,13 @@ const startWithCustomQuestions = () => {
                 auto
                 @uploader="uploadCustomQuestions"
               />
-              <Button
-                @click="startWithCustomQuestions"
-                :disabled="!isCustomQuestionsUploaded"
-                label="Start"
-                data-umami-event="Choose questionnaire"
-                data-umami-event-questionnaire="custom"
-              />
+              <div data-umami-event="Choose questionnaire" data-umami-event-questionnaire="custom">
+                <Button
+                  @click="startWithCustomQuestions"
+                  :disabled="!isCustomQuestionsUploaded"
+                  label="Start"
+                />
+              </div>
             </div>
           </template>
         </Card>

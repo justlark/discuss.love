@@ -315,7 +315,9 @@ watchEffect(async () => {
             </div>
           </Panel>
         </div>
-        <Button class="mt-4" @click="submitForm" label="Submit" data-umami-event="Submit form" />
+        <div data-umami-event="Submit form">
+          <Button class="mt-4" @click="submitForm" label="Submit" />
+        </div>
       </div>
     </template>
   </ActionHeader>
