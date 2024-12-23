@@ -113,6 +113,9 @@ const startSession = async () => {
           required
         />
         <div>
+          <p class="text-muted">
+            You don't need to use your real names, but make sure you both know who's who!
+          </p>
           <p v-if="questionList === 'relationship'" class="text-muted mb-0">
             You're negotiating a relationship.
           </p>
