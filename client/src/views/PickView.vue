@@ -71,8 +71,8 @@ const startWithCustomQuestions = () => {
           </template>
           <template #footer>
             <Button
-              as="router-link"
-              to="/start?q=relationship"
+              as="RouterLink"
+              :to="{ path: '/start', query: { q: 'relationship' } }"
               label="Start"
               data-umami-event="Choose questionnaire"
               data-umami-event-questionnaire="relationship"
@@ -98,8 +98,8 @@ const startWithCustomQuestions = () => {
           </template>
           <template #footer>
             <Button
-              as="router-link"
-              to="/start?q=scene"
+              as="RouterLink"
+              :to="{ path: '/start', query: { q: 'scene' } }"
               label="Start"
               data-umami-event="Choose questionnaire"
               data-umami-event-questionnaire="scene"

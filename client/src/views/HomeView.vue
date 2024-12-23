@@ -56,7 +56,7 @@ onBeforeMount(async () => {
     <h1 id="main-heading" class="text-center">Negotiate your relationships</h1>
     <div class="flex flex-col gap-6 my-6 justify-center">
       <Button
-        as="router-link"
+        as="RouterLink"
         to="/choose"
         label="Start a Discussion"
         data-umami-event="View questionnaire list"

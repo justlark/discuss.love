@@ -57,7 +57,7 @@ const answerPairs = computed(() => {
 const router = useRouter();
 
 const navigateEditPage = () => {
-  router.push(`/join?code=${sharingCode.value}`);
+  router.push({ path: "/join", query: { code: sharingCode.value } });
 };
 
 const hasPreviouslyCompleted = computed(
