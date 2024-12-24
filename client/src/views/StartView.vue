@@ -117,12 +117,14 @@ const startSession = async () => {
             You don't need to use your real names, but make sure you both know who's who!
           </p>
           <p v-if="questionList === 'relationship'" class="text-muted mb-0">
-            You're negotiating a relationship.
+            You're using the <strong>Relationship</strong> question list.
           </p>
           <p v-else-if="questionList === 'scene'" class="text-muted mb-0">
-            You're negotiating a scene.
+            You're using the <strong>Scene</strong> question list.
           </p>
-          <p v-else class="text-muted mb-0">You're using custom questions.</p>
+          <p v-else class="text-muted mb-0">
+            You're using a <strong>Custom</strong> question list.
+          </p>
         </div>
         <span class="flex gap-4 items-baseline" data-umami-event="Start discussion">
           <Button @click="startSession" label="Start" />
