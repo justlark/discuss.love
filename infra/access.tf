@@ -29,57 +29,45 @@ resource "cloudflare_zero_trust_access_policy" "smorgasbord_preview" {
 resource "cloudflare_list" "pages_dev_domains" {
   account_id  = var.cloudflare_account_id
   kind        = "redirect"
-  name        = "smorgasbord_pages_dev_domains"
-  description = "List of *.smorgasbord.pages.dev domains"
-
-  item {
-    value {
-      redirect {
-        source_url            = "${cloudflare_pages_project.smorgasbord.subdomain}/"
-        target_url            = "https://${cloudflare_pages_domain.smorgasbord.domain}"
-        status_code           = 301
-        include_subdomains    = "enabled"
-        preserve_query_string = "enabled"
-        subpath_matching      = "enabled"
-        preserve_path_suffix  = "enabled"
-      }
-    }
-  }
+  name        = "pages_dev_domains"
+  description = "List of *.pages.dev domains"
 }
 
-data "cloudflare_lists" "this" {
-  account_id = var.cloudflare_account_id
-}
+# resource "cloudflare_list_item" "smorgasbord_pages_dev_domain" {
+#   account_id = var.cloudflare_account_id
+#   list_id    = cloudflare_list.pages_dev_domains.id
 
-locals {
-  redirect_lists = toset([for domains_list in data.cloudflare_lists.this.lists : domains_list.name if domains_list.kind == "redirect"])
-}
+#   redirect {
+#     source_url            = "${cloudflare_pages_project.smorgasbord.subdomain}/"
+#     target_url            = "https://${cloudflare_pages_domain.smorgasbord.domain}"
+#     status_code           = 301
+#     include_subdomains    = "enabled"
+#     preserve_query_string = "enabled"
+#     subpath_matching      = "enabled"
+#     preserve_path_suffix  = "enabled"
+#   }
+# }
 
 # Create a single ruleset for all redirect lists in the account, because
 # Cloudflare does not permit you to accomplish this using multiple rulesets.
-resource "cloudflare_ruleset" "redirect_bulk_domains" {
+resource "cloudflare_ruleset" "redirect_pages_dev_domains" {
   account_id = var.cloudflare_account_id
-  name       = "bulk redirect domains"
+  name       = "bulk redirect *.pages.dev domains"
   kind       = "root"
   phase      = "http_request_redirect"
 
-  dynamic "rules" {
-    for_each = local.redirect_lists
-    iterator = list_name
+  rules {
+    action = "redirect"
 
-    content {
-      action = "redirect"
-
-      action_parameters {
-        from_list {
-          name = list_name.key
-          key  = "http.request.full_uri"
-        }
+    action_parameters {
+      from_list {
+        name = cloudflare_list.pages_dev_domains.name
+        key  = "http.request.full_uri"
       }
-
-      expression  = "http.request.full_uri in ${format("$%s", list_name.key)}"
-      description = "Apply redirects from ${list_name.key}"
-      enabled     = true
     }
+
+    expression  = "http.request.full_uri in ${format("$%s", cloudflare_list.pages_dev_domains.name)}"
+    description = "Apply redirects from ${cloudflare_list.pages_dev_domains.name}"
+    enabled     = true
   }
 }
