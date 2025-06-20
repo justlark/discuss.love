@@ -33,20 +33,20 @@ resource "cloudflare_list" "pages_dev_domains" {
   description = "List of *.pages.dev domains"
 }
 
-# resource "cloudflare_list_item" "smorgasbord_pages_dev_domain" {
-#   account_id = var.cloudflare_account_id
-#   list_id    = cloudflare_list.pages_dev_domains.id
+resource "cloudflare_list_item" "smorgasbord_pages_dev_domain" {
+  account_id = var.cloudflare_account_id
+  list_id    = cloudflare_list.pages_dev_domains.id
 
-#   redirect {
-#     source_url            = "${cloudflare_pages_project.smorgasbord.subdomain}/"
-#     target_url            = "https://${cloudflare_pages_domain.smorgasbord.domain}"
-#     status_code           = 301
-#     include_subdomains    = "enabled"
-#     preserve_query_string = "enabled"
-#     subpath_matching      = "enabled"
-#     preserve_path_suffix  = "enabled"
-#   }
-# }
+  redirect {
+    source_url            = "${cloudflare_pages_project.smorgasbord.subdomain}/"
+    target_url            = "https://${cloudflare_pages_domain.smorgasbord.domain}"
+    status_code           = 301
+    include_subdomains    = true
+    preserve_query_string = true
+    subpath_matching      = true
+    preserve_path_suffix  = true
+  }
+}
 
 # Create a single ruleset for all redirect lists in the account, because
 # Cloudflare does not permit you to accomplish this using multiple rulesets.
