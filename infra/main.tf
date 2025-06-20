@@ -7,7 +7,7 @@ terraform {
   }
 
   cloud {
-    organization = "justlark"
+    organization = "lostatc"
     hostname     = "app.terraform.io"
 
     workspaces {
