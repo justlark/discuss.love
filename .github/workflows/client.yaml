@@ -45,8 +45,6 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          environment: dev
-          workingDirectory: ./client/
 
   deploy-prod:
     name: "Deploy (prod)"
@@ -71,5 +69,3 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          environment: prod
-          workingDirectory: ./client/
