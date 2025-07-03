@@ -20,7 +20,7 @@
   "dependencies": {
     "@primevue/themes": "^4.0.0",
     "primeicons": "^7.0.0",
-    "primevue": "^4.0.0",
+    "primevue": "^4.3.6",
     "seedrandom": "^3.0.5",
     "tailwindcss-primeui": "^0.3.4",
     "vue": "^3.4.29",

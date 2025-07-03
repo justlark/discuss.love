@@ -2,7 +2,7 @@
 import Card from "primevue/card";
 import Button from "primevue/button";
 import { questionsEndpoint } from "@/api";
-import FileUpload, { type FileUploadUploadEvent } from "primevue/fileupload";
+import FileUpload, { type FileUploadUploaderEvent } from "primevue/fileupload";
 import { ERROR_TOAST_TTL, storeKey } from "@/vars";
 import { useToast } from "primevue/usetoast";
 import { computed, ref } from "vue";
@@ -18,7 +18,7 @@ const nsfw = computed(() => {
   return localStorage.getItem(storeKey.nsfw) === "true";
 });
 
-const uploadCustomQuestions = async (event: FileUploadUploadEvent) => {
+const uploadCustomQuestions = async (event: FileUploadUploaderEvent) => {
   const response = await fetch(questionsEndpoint(), {
     method: "POST",
     body: Array.isArray(event.files) ? event.files[0] : event.files,
