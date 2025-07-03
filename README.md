@@ -52,12 +52,13 @@ npx wrangler deploy --env dev
 npx wrangler deploy --env prod
 ```
 
-You can build the client app locally like this:
+You can deploy the client manually like this:
 
 ```shell
 cd ./client/
 npm install
-npm run build
+npm run deploy:dev
+npm run deploy:prod
 ```
 
 ## Copyright

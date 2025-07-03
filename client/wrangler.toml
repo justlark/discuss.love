@@ -1,0 +1,22 @@
+name = "smorgasbord-client"
+account_id = "9d143afa60e911e9904e835bd1db8504"
+compatibility_date = "2025-05-07"
+
+[assets]
+directory = "./dist/client"
+not_found_handling = "single-page-application"
+
+[observability]
+enabled = true
+
+[env.dev]
+
+[env.dev.route]
+pattern = "dev.discuss.love"
+custom_domain = true
+
+[env.prod]
+
+[env.prod.route]
+pattern = "discuss.love"
+custom_domain = true

@@ -4,22 +4,25 @@ main = "src/index.ts"
 compatibility_date = "2024-07-01"
 compatibility_flags = ["nodejs_compat"]
 
+[observability]
+enabled = true
+
 [env.prod]
 
-  [env.prod.route]
-  pattern = "api.discuss.love"
-  custom_domain = true
+[env.prod.route]
+pattern = "api.discuss.love"
+custom_domain = true
 
-  [[env.prod.kv_namespaces]]
-  binding = "KV"
-  id = "584052a94e464845865eaab4fd96191b"
+[[env.prod.kv_namespaces]]
+binding = "KV"
+id = "584052a94e464845865eaab4fd96191b"
 
 [env.dev]
 
-  [env.dev.route]
-  pattern = "api-dev.discuss.love"
-  custom_domain = true
+[env.dev.route]
+pattern = "api-dev.discuss.love"
+custom_domain = true
 
-  [[env.dev.kv_namespaces]]
-  binding = "KV"
-  id = "f6bdaf4fc8854e37aa4946362d38fec5"
+[[env.dev.kv_namespaces]]
+binding = "KV"
+id = "f6bdaf4fc8854e37aa4946362d38fec5"

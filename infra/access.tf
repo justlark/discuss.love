@@ -1,7 +1,7 @@
 resource "cloudflare_zero_trust_access_application" "smorgasbord_preview" {
   zone_id                   = data.cloudflare_zone.smorgasbord.id
-  name                      = cloudflare_pages_project.smorgasbord.name
-  domain                    = cloudflare_pages_domain.smorgasbord_dev.domain
+  name                      = "smorgasbord"
+  domain                    = "dev.discuss.love"
   type                      = "self_hosted"
   session_duration          = "720h"
   auto_redirect_to_identity = true
@@ -13,7 +13,7 @@ resource "cloudflare_zero_trust_access_application" "smorgasbord_preview" {
 resource "cloudflare_zero_trust_access_policy" "smorgasbord_preview" {
   zone_id        = data.cloudflare_zone.smorgasbord.id
   application_id = cloudflare_zero_trust_access_application.smorgasbord_preview.id
-  name           = cloudflare_pages_project.smorgasbord.name
+  name           = "smorgasbord"
   decision       = "allow"
   precedence     = 1
 
@@ -38,8 +38,8 @@ resource "cloudflare_list_item" "smorgasbord_pages_dev_domain" {
   list_id    = cloudflare_list.pages_dev_domains.id
 
   redirect {
-    source_url            = "${cloudflare_pages_project.smorgasbord.subdomain}/"
-    target_url            = "https://${cloudflare_pages_domain.smorgasbord.domain}"
+    source_url            = "smorgasbord-client.workers.dev/"
+    target_url            = "https://discuss.love"
     status_code           = 301
     include_subdomains    = true
     preserve_query_string = true
